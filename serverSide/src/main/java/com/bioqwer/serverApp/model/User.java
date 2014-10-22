@@ -3,6 +3,7 @@ package com.bioqwer.serverApp.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
 /**
@@ -10,11 +11,14 @@ import java.util.Collection;
  */
 @Entity
 public class User {
+    public static final String PASSWORD_PATTERN = "^.*(?=.{8,})(?=.*\\d)(?=.*[a-zA-Z]).*$";
+    public static final String EMAIL_PATTERN = "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$";
     private long userId;
     private String email;
     private String login;
     private String password;
     private Collection<Note> notesByUserId;
+
 
     public User() {
     }
@@ -38,6 +42,7 @@ public class User {
     }
 
     @Basic
+    @Pattern(regexp = EMAIL_PATTERN, message = "email not valid")
     @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 40)
     public String getEmail() {
         return email;

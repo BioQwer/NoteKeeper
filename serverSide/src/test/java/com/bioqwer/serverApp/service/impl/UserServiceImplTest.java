@@ -28,11 +28,9 @@ public class UserServiceImplTest {
 
     @Test
     public void sampleTestCase() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 2; i++) {
             userService.addUser(new User("email", "login", "password"));
         }
-
-
     }
 
     @Test
