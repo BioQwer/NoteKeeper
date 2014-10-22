@@ -63,6 +63,7 @@ public class User {
     }
 
     @Basic
+    @Pattern(regexp = PASSWORD_PATTERN, message = "password not valid")
     @Column(name = "password", nullable = true, insertable = true, updatable = true, length = 40)
     public String getPassword() {
         return password;
@@ -98,7 +99,12 @@ public class User {
 
     @Override
     public String toString() {
-        return "User[" + userId + "," + email + "," + login + "]";
+        return "User{" +
+                "userId=" + userId +
+                ", email='" + email + '\'' +
+                ", login='" + login + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 
     @OneToMany(mappedBy = "userByUserId")

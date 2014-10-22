@@ -21,21 +21,22 @@ public class UserServiceImplTest {
     @Before
     public void setUp() {
         user = new User();
-        user.setEmail("foobar");
-        user.setLogin("firstname");
-        user.setPassword("lastname");
+        user.setEmail("email@ka.ru");
+        user.setLogin("bioqw");
+        user.setPassword("las12tn@ame");
     }
 
     @Test
     public void sampleTestCase() {
         for (int i = 0; i < 2; i++) {
-            userService.addUser(new User("email", "login", "password"));
+            userService.addUser(user);
         }
     }
 
     @Test
     public void findSavedUserById() {
-
+        User dbUser = userService.getById(1);
+        System.out.println("dbUser = " + dbUser);
     }
 
 
