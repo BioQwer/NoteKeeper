@@ -19,27 +19,29 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
+
         return userRepository.saveAndFlush(user);
     }
 
     @Override
     public void delete(long id) {
+
         userRepository.delete(id);
     }
 
     @Override
-    public User getById(long id) {
-        return userRepository.findOne(id);
+    public User getById(long userId) {
+        return userRepository.findOne(userId);
     }
 
     @Override
     public User getByLogin(String login) {
-        return null;
+        return userRepository.findByLogin(login);
     }
 
     @Override
     public User getByEmail(String email) {
-        return null;
+        return userRepository.findByEmail(email);
     }
 
     @Override
@@ -49,6 +51,6 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public Collection<User> getAll() {
-        return null;
+        return userRepository.findAll();
     }
 }

@@ -9,30 +9,12 @@ import java.util.regex.Pattern;
 
 public class RegularExpressionsValidatorTest {
 
-    private Pattern pattern;
-    private Matcher matcher;
-
+    public static final String PASSWORD_PATTERN = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
     private static final String EMAIL_PATTERN =
             "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@" +
                     "[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
-    private static final String EMAIL_PATTERN_HABR ="^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$";
-    public static final String PASSWORD_PATTERN = "(?=^.{8,}$)((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$";
-
-    public boolean validateEmail(String hex) {
-        pattern = Pattern.compile(EMAIL_PATTERN_HABR);
-        matcher = pattern.matcher(hex);
-
-        return matcher.matches();
-    }
-
-    private boolean validatePassword(String temp) {
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(temp);
-
-        return matcher.matches();
-    }
-
-    String[] emailsValid = new String[] {
+    private static final String EMAIL_PATTERN_HABR = "^[-\\w.]+@([A-z0-9][-A-z0-9]+\\.)+[A-z]{2,4}$";
+    String[] emailsValid = new String[]{
             "aleSx@yandex.ru",
             "alex-27@yandex.com",
             "aleSx.27@yandex.com",
@@ -43,8 +25,7 @@ public class RegularExpressionsValidatorTest {
             "aleSx+27@gmail.com",
             "alex-27@yandex-test.com"
     };
-
-    String[] notValid = new String[] {
+    String[] notValid = new String[]{
             "devcolibri",
             "alex@.com.ua",
             "alex123@gmail.a",
@@ -58,22 +39,36 @@ public class RegularExpressionsValidatorTest {
             "alex@devcolibri@gmail.com",
             "alex@gmail.com.1ua"
     };
-
-    String[] passwordsValid = new String[] {
+    String[] passwordsValid = new String[]{
             "qwekSjlfdsa78632",
             "pasDsword123",
             "Qws!er123",
             "Q1q!@$%#!@$%!@"
     };
-
-    String[] passwordsNotValid = new String[] {
+    String[] passwordsNotValid = new String[]{
             "123",
             "asd",
             "q1w"
     };
+    private Pattern pattern;
+    private Matcher matcher;
+
+    public boolean validateEmail(String hex) {
+        pattern = Pattern.compile(User.EMAIL_PATTERN);
+        matcher = pattern.matcher(hex);
+
+        return matcher.matches();
+    }
+
+    private boolean validatePassword(String temp) {
+        pattern = Pattern.compile(User.PASSWORD_PATTERN);
+        matcher = pattern.matcher(temp);
+
+        return matcher.matches();
+    }
 
     @Test
-    public void testEmails(){
+    public void testEmails() {
         for (String temp : emailsValid) {
             boolean valid = validateEmail(temp);
             System.out.println("Email: " + temp + " -> " + valid);
@@ -87,7 +82,7 @@ public class RegularExpressionsValidatorTest {
     }
 
     @Test
-    public void testPasswords(){
+    public void testPasswords() {
         for (String temp : passwordsValid) {
             boolean valid = validatePassword(temp);
             System.out.println("Password: " + temp + " -> " + valid);
@@ -99,7 +94,6 @@ public class RegularExpressionsValidatorTest {
             Assert.assertEquals(valid, false);
         }
     }
-
 
 
 }

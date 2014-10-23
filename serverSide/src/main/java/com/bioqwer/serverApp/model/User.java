@@ -43,7 +43,7 @@ public class User {
 
     @Basic
     @Pattern(regexp = EMAIL_PATTERN, message = "email not valid")
-    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 40)
+    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 40, unique = true)
     public String getEmail() {
         return email;
     }
@@ -53,7 +53,7 @@ public class User {
     }
 
     @Basic
-    @Column(name = "login", nullable = false, insertable = true, updatable = true, length = 40)
+    @Column(name = "login", nullable = false, insertable = true, updatable = true, length = 40, unique = true)
     public String getLogin() {
         return login;
     }
