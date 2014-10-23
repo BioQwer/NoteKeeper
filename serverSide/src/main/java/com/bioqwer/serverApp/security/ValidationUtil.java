@@ -17,26 +17,26 @@ public class ValidationUtil {
     public static boolean isValidEmail(User user) {
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validator = vf.getValidator();
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(user);
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
         return constraintViolations.isEmpty();
     }
 
     public static boolean isValidPassword(User user) {
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validator = vf.getValidator();
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(user);
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
         return constraintViolations.isEmpty();
     }
 
     public static boolean isValid(User user) {
         ValidatorFactory vf = Validation.buildDefaultValidatorFactory();
         Validator validator = vf.getValidator();
-        Set<ConstraintViolation<Object>> constraintViolations = validator.validate(user);
+        Set<ConstraintViolation<User>> constraintViolations = validator.validate(user);
 
         if (!constraintViolations.isEmpty()) {
             String errorsLog = new String();
             errorsLog += "Properties not valid = " + constraintViolations.size() + "\n";
-            for (ConstraintViolation<Object> cv : constraintViolations)
+            for (ConstraintViolation<User> cv : constraintViolations)
                 errorsLog += String.format("property: [%s], value: [%s], message: [%s]\n", cv.getPropertyPath(), cv.getInvalidValue(), cv.getMessage());
             throw new RuntimeException(errorsLog);
         }
