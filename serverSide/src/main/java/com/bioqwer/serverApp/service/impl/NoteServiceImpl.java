@@ -18,36 +18,36 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Note addNote(Note note) {
-        return null;
+        return noteRepository.saveAndFlush(note);
     }
 
     @Override
     public Note editNote(Note note) {
-        return null;
+        return noteRepository.saveAndFlush(note);
     }
 
     @Override
     public void deleteNote(long id) {
-
+        noteRepository.delete(id);
     }
 
     @Override
     public Note getById(long id) {
-        return null;
+        return noteRepository.findOne(id);
     }
 
     @Override
     public Note getByHead(String head) {
-        return null;
+        return noteRepository.findByHead(head);
     }
 
     @Override
     public Note getByBody(String body) {
-        return null;
+        return noteRepository.findByBody(body);
     }
 
     @Override
-    public User getByUser(Note note) {
-        return null;
+    public User getUser(long noteId) {
+        return noteRepository.findOne(noteId).getUserByUserId();
     }
 }

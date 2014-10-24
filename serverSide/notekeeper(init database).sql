@@ -4,14 +4,14 @@ CREATE TABLE note
   body           LONGTEXT,
   creationDate   DATE,
   lastChangeDate DATE,
-  noteId         BIGINT PRIMARY KEY NOT NULL,
-  userId         BIGINT             NOT NULL
+  noteId         BIGINT UNIQUE PRIMARY KEY NOT NULL,
+  userId         BIGINT                    NOT NULL
 );
 CREATE TABLE user
 (
   userId   BIGINT PRIMARY KEY NOT NULL,
-  email    CHAR(40),
-  login    CHAR(40)           NOT NULL,
+  email    CHAR(40) UNIQUE,
+  login    CHAR(40) UNIQUE    NOT NULL,
   password CHAR(40)
 );
 ALTER TABLE note ADD FOREIGN KEY (userId) REFERENCES user (userId);

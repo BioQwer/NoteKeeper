@@ -20,6 +20,6 @@ public interface NoteService {
 
     Note getByBody(String body);
 
-    User getByUser(Note note);
+    User getUser(long noteId);
 
 }

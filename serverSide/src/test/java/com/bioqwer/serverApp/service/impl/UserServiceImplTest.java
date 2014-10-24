@@ -22,7 +22,7 @@ public class UserServiceImplTest {
     @Before
     public void setUp() throws Exception {
         user = new User();
-        user.setEmail("test@mailTest.ru");
+        user.setEmail("asd@mailTest.ru");
         user.setLogin("testUser");
         user.setPassword("TestPassword1");
     }
@@ -59,7 +59,7 @@ public class UserServiceImplTest {
 
     @Test
     public void testGetAll() throws Exception {
-
+        System.out.println("userService.getAll() = " + userService.getAll());
     }
 
     @Test

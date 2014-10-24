@@ -99,6 +99,16 @@ public class Note {
         return result;
     }
 
+    @Override
+    public String toString() {
+        return "Note{" +
+                ", noteId=" + noteId +
+                "head='" + head + '\'' +
+                ", body='" + body + '\'' +
+                ", userByUserId=" + userByUserId +
+                '}';
+    }
+
     @ManyToOne
     @JoinColumn(name = "userId", referencedColumnName = "userId", nullable = false)
     public User getUserByUserId() {

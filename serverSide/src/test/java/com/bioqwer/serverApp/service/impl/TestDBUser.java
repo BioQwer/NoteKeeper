@@ -12,7 +12,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataConfig.class)
-public class TestUser {
+public class TestDBUser {
 
     @Autowired
     UserService userService;
@@ -28,8 +28,7 @@ public class TestUser {
 
     @Test
     public void sampleTestCase() {
-
-        userService.addUser(user);
+        userService.addUser(new User("", "", ""));
     }
 
     @Test
