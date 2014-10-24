@@ -14,5 +14,7 @@ CREATE TABLE user
   login    CHAR(40) UNIQUE    NOT NULL,
   password CHAR(40)
 );
-ALTER TABLE note ADD FOREIGN KEY (userId) REFERENCES user (userId);
+ALTER TABLE note ADD CONSTRAINT note_ibfk_1 FOREIGN KEY (userId)
+REFERENCES user (userId)
+  ON DELETE CASCADE;
 CREATE INDEX R_3 ON note (userId);
