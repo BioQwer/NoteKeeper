@@ -20,6 +20,12 @@ public class Note {
     public Note() {
     }
 
+    public Note(User ownerUser, String body, String head) {
+        this.userByUserId = ownerUser;
+        this.body = body;
+        this.head = head;
+    }
+
     @Basic
     @Column(name = "head", nullable = true, insertable = true, updatable = true, length = 255)
     public String getHead() {
@@ -102,8 +108,8 @@ public class Note {
     @Override
     public String toString() {
         return "Note{" +
-                ", noteId=" + noteId +
-                "head='" + head + '\'' +
+                "noteId=" + noteId +
+                ",head='" + head + '\'' +
                 ", body='" + body + '\'' +
                 ", userByUserId=" + userByUserId +
                 '}';
