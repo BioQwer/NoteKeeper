@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.validation.ConstraintViolationException;
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataConfig.class)
 public class TestDataBase {
@@ -55,10 +57,15 @@ public class TestDataBase {
     public void findSavedUserById() {
         User dbUser = userService.getById(1);
         System.out.println("dbUser = " + dbUser);
-        dbUser.setEmail("ASD@ka.ru");
-        dbUser.setPassword("asdS@23sda");
-        userService.editUser(dbUser);
-        System.out.println("dbUser = " + dbUser);
+        try {
+            dbUser.setEmail("ASD@.ru");
+            dbUser.setPassword("asdS@23sda");
+            userService.editUser(dbUser);
+            System.out.println("dbUser = " + dbUser);
+        } catch (ConstraintViolationException e) {
+            e.printStackTrace();
+            System.out.println("e.getConstraintViolations() = " + e.getConstraintViolations());
+        }
     }
 
 
