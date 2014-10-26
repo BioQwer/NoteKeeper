@@ -1,12 +1,14 @@
 package com.bioqwer.serverApp.service;
 
 import com.bioqwer.serverApp.model.User;
+import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
 /**
  * Created by Antony on 21.10.2014.
  */
+@Service
 public interface UserService {
 
     User addUser(User user);

@@ -2,10 +2,12 @@ package com.bioqwer.serverApp.service;
 
 import com.bioqwer.serverApp.model.Note;
 import com.bioqwer.serverApp.model.User;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by Antony on 18.10.2014.
  */
+@Service
 public interface NoteService {
 
     Note addNote(Note note);
