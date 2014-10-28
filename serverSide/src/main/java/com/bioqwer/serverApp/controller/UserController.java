@@ -26,9 +26,8 @@ public class UserController {
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
-    public String getAuthors() {
-
-        return "All users";
+    public String getMyData() {
+        return "Это ответ метода GET!";
     }
 
 
