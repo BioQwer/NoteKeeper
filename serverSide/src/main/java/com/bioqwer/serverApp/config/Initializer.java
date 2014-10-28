@@ -1,6 +1,5 @@
 package com.bioqwer.serverApp.config;
 
-import org.springframework.context.annotation.Configuration;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
@@ -13,7 +12,6 @@ import javax.servlet.ServletRegistration;
 /**
  * Created by Antony on 28.10.2014.
  */
-@Configuration
 public class Initializer implements WebApplicationInitializer {
     // Указываем имя нашему Servlet Dispatcher для мапинга
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";

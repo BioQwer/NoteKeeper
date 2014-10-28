@@ -14,7 +14,7 @@ import org.springframework.web.servlet.view.JstlView;
  */
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.bioqwer.serverApp.controller")
+@ComponentScan("com.bioqwer.serverApp")
 public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     // Позволяет видеть все ресурсы в папке pages, такие как картинки, стили и т.п.
@@ -34,4 +34,5 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
         return resolver;
     }
+
 }
