@@ -34,17 +34,20 @@ public class TestDataBase {
 
     @Test
     public void complexTestDataBase() {
-        userService.addUser(user);
-        System.out.println("user = " + user);
-        user.setEmail("@asd.ew");
-        user.setLogin("tesasdB");
-        user.setPassword("");
-        System.out.println("user = " + user);
-        Note note = new Note(user, "head" + user.getLogin(), "body" + user.getLogin());
-        noteService.addNote(note);
-        Note note1 = new Note(user, "head1" + user.getLogin(), "body1" + user.getLogin());
-        noteService.addNote(note1);
-
+        try {
+            userService.addUser(user);
+            System.out.println("user = " + user);
+            user.setEmail("@asd.ew");
+            user.setLogin("tesasdB");
+            user.setPassword("");
+            System.out.println("user = " + user);
+            Note note = new Note(user, "head" + user.getLogin(), "body" + user.getLogin());
+            noteService.addNote(note);
+            Note note1 = new Note(user, "head1" + user.getLogin(), "body1" + user.getLogin());
+            noteService.addNote(note1);
+        } catch (ConstraintViolationException e) {
+            e.printStackTrace();
+        }
 //        userService.delete(user.getUserId());
     }
 
@@ -68,5 +71,8 @@ public class TestDataBase {
         }
     }
 
-
+    @Test
+    public void testGetAll() throws Exception {
+        System.out.println("userService.getAll() = " + userService.getAll());
+    }
 }

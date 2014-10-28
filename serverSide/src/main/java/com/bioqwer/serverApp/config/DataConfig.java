@@ -21,7 +21,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
-@ComponentScan({"com.bioqwer.serverApp.model", "com.bioqwer.serverApp.repository", "com.bioqwer.serverApp.service"})
+@ComponentScan({"com.bioqwer.serverApp.model", "com.bioqwer.serverApp.service"})
 @PropertySource("classpath:app.properties")
 @EnableJpaRepositories("com.bioqwer.serverApp.repository")
 public class DataConfig {

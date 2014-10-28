@@ -5,7 +5,10 @@ import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.repository.NoteRepository;
 import com.bioqwer.serverApp.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
+
+import java.util.Collection;
 
 /**
  * Created by Antony on 24.10.2014.
@@ -13,6 +16,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class NoteServiceImpl implements NoteService {
 
+    @Qualifier("noteRepository")
     @Autowired
     private NoteRepository noteRepository;
 
@@ -49,5 +53,10 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public User getUser(long noteId) {
         return noteRepository.findOne(noteId).getUserByUserId();
+    }
+
+    @Override
+    public Collection<Note> getAll() {
+        return noteRepository.findAll();
     }
 }

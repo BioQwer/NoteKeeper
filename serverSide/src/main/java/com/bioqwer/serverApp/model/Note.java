@@ -1,5 +1,6 @@
 package com.bioqwer.serverApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -15,6 +16,7 @@ public class Note {
     private Date creationDate;
     private Date lastChangeDate;
     private long noteId;
+    @JsonIgnore
     private User userByUserId;
 
     public Note() {

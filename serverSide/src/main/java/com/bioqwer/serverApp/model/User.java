@@ -1,5 +1,6 @@
 package com.bioqwer.serverApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -17,6 +18,7 @@ public class User {
     private String email;
     private String login;
     private String password;
+    @JsonIgnore
     private Collection<Note> notesByUserId;
 
 
@@ -107,7 +109,7 @@ public class User {
                 '}';
     }
 
-    @OneToMany(mappedBy = "userByUserId")
+    @OneToMany(mappedBy = "userByUserId", fetch = FetchType.EAGER)
     public Collection<Note> getNotesByUserId() {
         return notesByUserId;
     }

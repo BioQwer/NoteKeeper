@@ -55,7 +55,7 @@
         </dependency>
 
         <dependency>
-        <groupId>javax.validation</groupId>
+            <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>1.1.0.Final</version>
         </dependency>
@@ -63,8 +63,9 @@
         <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-validator-annotation-processor</artifactId>
-            <version>4.1.0.Final</version>
+            <version>5.1.2.Final</version>
         </dependency>
+
 
         <dependency>
             <groupId>org.testng</groupId>
@@ -114,17 +115,5 @@
 
     </dependencies>
 
-    <build>
-        <finalName>ServerApp</finalName>
-        <plugins>
-            <plugin>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>1.7</source>
-                    <target>1.7</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 
 </project>
