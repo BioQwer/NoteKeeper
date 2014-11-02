@@ -26,6 +26,6 @@ public interface NoteService {
 
     User getUser(long noteId);
 
-    Collection<Note> getAll();
+    Collection<Note> getAll(long userId);
 
 }

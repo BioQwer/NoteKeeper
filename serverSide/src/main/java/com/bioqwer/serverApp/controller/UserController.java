@@ -6,6 +6,7 @@ import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -35,7 +36,7 @@ public class UserController {
             produces = MediaTypesUtf8.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Collection<Note> getMyData() {
-        return noteService.getAll();
+        return noteService.getAll(3);
     }
 
     @RequestMapping(value = "/str", method = RequestMethod.GET)
@@ -44,5 +45,14 @@ public class UserController {
         return userService.getAll().toString();
     }
 
-
+    @RequestMapping(value = "/{userId}",
+            method = RequestMethod.GET,
+            produces = MediaTypesUtf8.APPLICATION_JSON_UTF8_VALUE)
+    @ResponseBody
+    public User getUser(@PathVariable long userId) {
+        if (userService.getById(userId) != null)
+            return userService.getById(userId);
+        else
+            return null;
+    }
 }
