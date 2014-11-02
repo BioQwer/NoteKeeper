@@ -59,4 +59,9 @@ public class NoteServiceImpl implements NoteService {
     public Collection<Note> getAll(long userId) {
         return noteRepository.findAll(userId);
     }
+
+    @Override
+    public Collection<Note> getNotesWhere(String partOfWord) {
+        return noteRepository.findWhereParam("%" + partOfWord + "%");
+    }
 }

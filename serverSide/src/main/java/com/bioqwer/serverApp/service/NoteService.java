@@ -28,4 +28,5 @@ public interface NoteService {
 
     Collection<Note> getAll(long userId);
 
+    Collection<Note> getNotesWhere(String partOfWord);
 }

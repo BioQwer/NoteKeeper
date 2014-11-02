@@ -75,4 +75,14 @@ public class TestDataBase {
     public void testGetAll() throws Exception {
         System.out.println("userService.getAll() = " + userService.getAll());
     }
+
+    @Test
+    public void testGetNotesLike() throws Exception {
+        System.out.println("noteService.getNotesWhere(\"2\") = " + noteService.getNotesWhere("2"));
+    }
+
+    @Test
+    public void testGetUsersLike() throws Exception {
+        System.out.println("userService = " + userService.getUsersWhereLoginHave("D"));
+    }
 }
