@@ -94,6 +94,10 @@ public class TestDataBase {
     @Test
     public void testGetAllNotes() throws Exception {
         System.out.println("noteService.getAllUserNotes(user) = " + noteService.getAllUserNotes(3));
-
+        Note note = noteService.getById(1);
+        System.out.println("note = " + note);
+        note.setBody("wqeqwe");
+        noteService.editNote(note);
+        System.out.println("note = " + note);
     }
 }

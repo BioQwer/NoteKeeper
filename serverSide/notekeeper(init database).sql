@@ -2,8 +2,8 @@ CREATE TABLE note
 (
   head           CHAR(255),
   body           LONGTEXT,
-  creationDate   DATE,
-  lastChangeDate DATE,
+  creationDate   DATETIME,
+  lastChangeDate DATETIME,
   noteId         BIGINT UNIQUE PRIMARY KEY NOT NULL,
   userId         BIGINT                    NOT NULL
 );

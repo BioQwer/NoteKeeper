@@ -4,7 +4,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
-import java.sql.Date;
+import java.sql.Timestamp;
 
 /**
  * Created by Antony on 18.10.2014.
@@ -13,8 +13,8 @@ import java.sql.Date;
 public class Note {
     private String head;
     private String body;
-    private Date creationDate;
-    private Date lastChangeDate;
+    private Timestamp creationDate;
+    private Timestamp lastChangeDate;
     private long noteId;
     @JsonIgnore
     private User userByUserId;
@@ -50,21 +50,21 @@ public class Note {
 
     @Basic
     @Column(name = "creationDate", nullable = true, insertable = true, updatable = true)
-    public Date getCreationDate() {
+    public Timestamp getCreationDate() {
         return creationDate;
     }
 
-    public void setCreationDate(Date creationDate) {
+    public void setCreationDate(Timestamp creationDate) {
         this.creationDate = creationDate;
     }
 
     @Basic
     @Column(name = "lastChangeDate", nullable = true, insertable = true, updatable = true)
-    public Date getLastChangeDate() {
+    public Timestamp getLastChangeDate() {
         return lastChangeDate;
     }
 
-    public void setLastChangeDate(Date lastChangeDate) {
+    public void setLastChangeDate(Timestamp lastChangeDate) {
         this.lastChangeDate = lastChangeDate;
     }
 
@@ -114,6 +114,7 @@ public class Note {
                 ",head='" + head + '\'' +
                 ", body='" + body + '\'' +
                 ", userByUserId=" + userByUserId +
+                ", createTime=" + creationDate +
                 '}';
     }
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.sql.Timestamp;
 import java.util.Collection;
 
 /**
@@ -22,11 +23,14 @@ public class NoteServiceImpl implements NoteService {
 
     @Override
     public Note addNote(Note note) {
+        note.setCreationDate(new Timestamp(System.currentTimeMillis()));
+        note.setLastChangeDate(new Timestamp(System.currentTimeMillis()));
         return noteRepository.saveAndFlush(note);
     }
 
     @Override
     public Note editNote(Note note) {
+        note.setLastChangeDate(new Timestamp(System.currentTimeMillis()));
         return noteRepository.saveAndFlush(note);
     }
 
