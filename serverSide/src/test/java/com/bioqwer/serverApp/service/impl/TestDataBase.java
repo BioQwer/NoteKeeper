@@ -85,4 +85,15 @@ public class TestDataBase {
     public void testGetUsersLike() throws Exception {
         System.out.println("userService = " + userService.getUsersWhereLoginHave("D"));
     }
+
+    @Test
+    public void testGetUser() throws Exception {
+        userService.getById(5);
+    }
+
+    @Test
+    public void testGetAllNotes() throws Exception {
+        System.out.println("noteService.getAllUserNotes(user) = " + noteService.getAllUserNotes(3));
+
+    }
 }

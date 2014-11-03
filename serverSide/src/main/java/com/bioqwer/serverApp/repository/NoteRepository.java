@@ -20,7 +20,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     @Query("select b from Note b where b.body = :body")
     Note findByBody(@Param("body") String body);
 
-    @Query("select b from Note b where b.userByUserId = :userId")
+    @Query("select a from Note a fetch all properties where userByUserId.userId = :userId")
     Collection<Note> findAll(@Param("userId") long userId);
 
     @Query("select b from Note b where b.head like :partOfWord or b.body like :partOfWord")

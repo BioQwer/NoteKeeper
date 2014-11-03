@@ -36,7 +36,7 @@ public class UserController {
             produces = MediaTypesUtf8.APPLICATION_JSON_UTF8_VALUE)
     @ResponseBody
     public Collection<Note> getMyData() {
-        return noteService.getAll(3);
+        return noteService.getAllUserNotes(3);
     }
 
     @RequestMapping(value = "/str", method = RequestMethod.GET)

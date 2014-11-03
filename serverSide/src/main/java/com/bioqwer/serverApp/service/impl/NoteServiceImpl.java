@@ -56,7 +56,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Collection<Note> getAll(long userId) {
+    public Collection<Note> getAllUserNotes(long userId) {
         return noteRepository.findAll(userId);
     }
 

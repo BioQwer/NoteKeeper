@@ -26,7 +26,7 @@ public interface NoteService {
 
     User getUser(long noteId);
 
-    Collection<Note> getAll(long userId);
+    Collection<Note> getAllUserNotes(long userId);
 
     Collection<Note> getNotesWhere(String partOfWord);
 }
