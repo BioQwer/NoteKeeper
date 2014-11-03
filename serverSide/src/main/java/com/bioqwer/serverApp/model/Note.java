@@ -7,7 +7,7 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 
 /**
- * Created by Antony on 18.10.2014.
+ * Note @Entity
  */
 @Entity
 public class Note {
@@ -93,6 +93,7 @@ public class Note {
         if (head != null ? !head.equals(note.head) : note.head != null) return false;
         if (lastChangeDate != null ? !lastChangeDate.equals(note.lastChangeDate) : note.lastChangeDate != null)
             return false;
+        if (userByUserId != null ? !userByUserId.equals(note.userByUserId) : note.userByUserId != null) return false;
 
         return true;
     }
@@ -104,6 +105,7 @@ public class Note {
         result = 31 * result + (creationDate != null ? creationDate.hashCode() : 0);
         result = 31 * result + (lastChangeDate != null ? lastChangeDate.hashCode() : 0);
         result = 31 * result + (int) (noteId ^ (noteId >>> 32));
+        result = 31 * result + (userByUserId != null ? userByUserId.hashCode() : 0);
         return result;
     }
 

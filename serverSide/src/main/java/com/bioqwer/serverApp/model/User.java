@@ -8,7 +8,7 @@ import javax.validation.constraints.Pattern;
 import java.util.Collection;
 
 /**
- * Created by Antony on 18.10.2014.
+ * User @Entity
  */
 @Entity
 public class User {
@@ -85,6 +85,8 @@ public class User {
         if (userId != user.userId) return false;
         if (email != null ? !email.equals(user.email) : user.email != null) return false;
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
+        if (notesByUserId != null ? !notesByUserId.equals(user.notesByUserId) : user.notesByUserId != null)
+            return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
 
         return true;
@@ -96,6 +98,7 @@ public class User {
         result = 31 * result + (email != null ? email.hashCode() : 0);
         result = 31 * result + (login != null ? login.hashCode() : 0);
         result = 31 * result + (password != null ? password.hashCode() : 0);
+        result = 31 * result + (notesByUserId != null ? notesByUserId.hashCode() : 0);
         return result;
     }
 

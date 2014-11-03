@@ -10,17 +10,17 @@ import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
 /**
- * Created by Antony on 28.10.2014.
+ * Enable Controllers for Spring
  */
 public class Initializer implements WebApplicationInitializer {
-    // Указываем имя нашему Servlet Dispatcher для мапинга
+    // Name of  "Servlet Dispatcher" for mapping
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
 
     @Override
     public void onStartup(ServletContext servletContext) throws ServletException {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 
-        // Регистрируем в контексте конфигурационный класс, который мы создадим ниже
+        // Registry WebConfig class in context
         ctx.register(WebAppConfig.class);
         servletContext.addListener(new ContextLoaderListener(ctx));
 

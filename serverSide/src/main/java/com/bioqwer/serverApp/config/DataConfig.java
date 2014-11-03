@@ -17,7 +17,7 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 /**
- * Created by Antony on 17.10.2014.
+ * DataBase JavaConfigs for Persistence
  */
 @Configuration
 @EnableTransactionManagement
@@ -32,9 +32,12 @@ public class DataConfig {
     private static final String PROP_DATABASE_USERNAME = "db.username";
     private static final String PROP_HIBERNATE_DIALECT = "db.hibernate.dialect";
     private static final String PROP_HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
-    private static final String PROP_ENTITYMANAGER_PACKAGES_TO_SCAN = "db.entitymanager.packages.to.scan";
+    private static final String PROP_ENTITY_MANAGER_PACKAGES_TO_SCAN = "db.entitymanager.packages.to.scan";
     private static final String PROP_HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
 
+    /**
+     * Enable use properties from resource package file app.properties
+     */
     @Resource
     private Environment env;
 
@@ -55,7 +58,7 @@ public class DataConfig {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPersistenceProviderClass(HibernatePersistence.class);
-        entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(PROP_ENTITYMANAGER_PACKAGES_TO_SCAN));
+        entityManagerFactoryBean.setPackagesToScan(env.getRequiredProperty(PROP_ENTITY_MANAGER_PACKAGES_TO_SCAN));
 
         entityManagerFactoryBean.setJpaProperties(getHibernateProperties());
 

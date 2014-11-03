@@ -13,7 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataConfig.class)
-public class UserServiceImplTest {
+public class UserServiceImplTest1 {
 
     @Autowired
     private UserService userService;

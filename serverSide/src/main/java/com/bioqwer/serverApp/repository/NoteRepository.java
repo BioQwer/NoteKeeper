@@ -9,11 +9,17 @@ import org.springframework.stereotype.Repository;
 import java.util.Collection;
 
 /**
- * Created by Antony on 18.10.2014.
+ * Contains Notes @Query for DB
  */
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
+    /**
+     * Used for get notes by head
+     *
+     * @param head some String
+     * @return Notes with
+     */
     @Query("select b from Note b where b.head = :head")
     Note findByHead(@Param("head") String head);
 
