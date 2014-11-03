@@ -45,13 +45,13 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Note getByHead(String head) {
-        return noteRepository.findByHead(head);
+    public Collection<Note> searchByHead(String partOfHead, long userId) {
+        return noteRepository.findByHead("%" + partOfHead + "%", userId);
     }
 
     @Override
-    public Note getByBody(String body) {
-        return noteRepository.findByBody(body);
+    public Collection<Note> searchByBody(String partOfBody, long userId) {
+        return noteRepository.findByBody("%" + partOfBody + "%", userId);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class NoteServiceImpl implements NoteService {
     }
 
     @Override
-    public Collection<Note> getNotesWhere(String partOfWord) {
-        return noteRepository.findWhereParam("%" + partOfWord + "%");
+    public Collection<Note> searchInAllParamsOfNotes(String partOfWord, long userId) {
+        return noteRepository.findWhereParam("%" + partOfWord + "%", userId);
     }
 }

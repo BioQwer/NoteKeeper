@@ -14,21 +14,15 @@ import java.util.Collection;
 @Repository
 public interface NoteRepository extends JpaRepository<Note, Long> {
 
-    /**
-     * Used for get notes by head
-     *
-     * @param head some String
-     * @return Notes with
-     */
-    @Query("select b from Note b where b.head = :head")
-    Note findByHead(@Param("head") String head);
+    @Query("select a from Note a fetch all properties where userByUserId.userId = :userId and head like :partOfHead")
+    Collection<Note> findByHead(@Param("partOfHead") String partOfHead, @Param("userId") long userId);
 
-    @Query("select b from Note b where b.body = :body")
-    Note findByBody(@Param("body") String body);
+    @Query("select a from Note a fetch all properties where userByUserId.userId = :userId and body like :partOfBody")
+    Collection<Note> findByBody(@Param("partOfBody") String body, @Param("userId") long userId);
 
     @Query("select a from Note a fetch all properties where userByUserId.userId = :userId")
     Collection<Note> findAll(@Param("userId") long userId);
 
-    @Query("select b from Note b where b.head like :partOfWord or b.body like :partOfWord")
-    Collection<Note> findWhereParam(@Param("partOfWord") String partOfWord);
+    @Query("select a from Note a fetch all properties where userByUserId.userId = :userId and (head like :partOfWord or body like :partOfWord)")
+    Collection<Note> findWhereParam(@Param("partOfWord") String partOfWord, @Param("userId") long userId);
 }

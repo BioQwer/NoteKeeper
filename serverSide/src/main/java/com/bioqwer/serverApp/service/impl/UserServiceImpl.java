@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public Collection<User> getUsersWhereLoginHave(String partOfLogin) {
+    public Collection<User> searchByUserLogin(String partOfLogin) {
         return userRepository.findWhereLogin("%" + partOfLogin + "%");
     }
 }

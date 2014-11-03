@@ -25,5 +25,5 @@ public interface UserService {
 
     Collection<User> getAll();
 
-    Collection<User> getUsersWhereLoginHave(String partOfLogin);
+    Collection<User> searchByUserLogin(String partOfLogin);
 }

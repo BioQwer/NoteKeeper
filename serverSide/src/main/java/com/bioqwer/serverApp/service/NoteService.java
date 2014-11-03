@@ -20,13 +20,13 @@ public interface NoteService {
 
     Note getById(long id);
 
-    Note getByHead(String head);
+    Collection<Note> searchByHead(String partOfHead, long userId);
 
-    Note getByBody(String body);
+    Collection<Note> searchByBody(String partOfBody, long userId);
 
     User getUser(long noteId);
 
     Collection<Note> getAllUserNotes(long userId);
 
-    Collection<Note> getNotesWhere(String partOfWord);
+    Collection<Note> searchInAllParamsOfNotes(String partOfWord, long userId);
 }

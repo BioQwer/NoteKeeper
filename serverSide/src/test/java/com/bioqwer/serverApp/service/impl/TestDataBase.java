@@ -78,12 +78,12 @@ public class TestDataBase {
 
     @Test
     public void testGetNotesLike() throws Exception {
-        System.out.println("noteService.getNotesWhere(\"2\") = " + noteService.getNotesWhere("2"));
+        System.out.println("noteService.getNotesWhere(\"2\") = " + noteService.searchInAllParamsOfNotes("2", ));
     }
 
     @Test
     public void testGetUsersLike() throws Exception {
-        System.out.println("userService = " + userService.getUsersWhereLoginHave("D"));
+        System.out.println("userService = " + userService.searchByUserLogin("D"));
     }
 
     @Test
@@ -99,5 +99,19 @@ public class TestDataBase {
         note.setBody("wqeqwe");
         noteService.editNote(note);
         System.out.println("note = " + note);
+    }
+
+    @Test
+    public void testCreateDatabaseData() throws Exception {
+
+        User dbCreate = new User("create@qwe.er", "tester", "PassTest1");
+        userService.addUser(dbCreate);
+        System.out.println("user = " + dbCreate);
+        for (int i = 0; i < 5; i++) {
+            int q = i + 2013;
+            Note note = new Note(dbCreate, "Some head " + i + " " + dbCreate.getLogin(),
+                    q + " some body " + i + dbCreate.getLogin());
+            noteService.addNote(note);
+        }
     }
 }
