@@ -78,7 +78,7 @@ public class TestDataBase {
 
     @Test
     public void testGetNotesLike() throws Exception {
-        System.out.println("noteService.getNotesWhere(\"2\") = " + noteService.searchInAllParamsOfNotes("2", ));
+        System.out.println("noteService.getNotesWhere(\"2\") = ");
     }
 
     @Test
