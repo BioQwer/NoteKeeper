@@ -26,29 +26,40 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordEncoder(getShaPasswordEncoder());
     }
 
+    // permitAll()  - разрешить всем
+    // denyAll() - запретить всем
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http.csrf()
-                .disable()
+        http
+                .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/resources/**", "/**").permitAll()
-                .anyRequest().permitAll()
-                .and();
-
-        http.formLogin()
+                .antMatchers("/login*", "/register", "/logout*", "/pages/resources/**", "/index*").permitAll()
+                .antMatchers("/user/**").permitAll()
+                .anyRequest().authenticated()
+                .and()
+                .formLogin()
                 .loginPage("/login")
                 .loginProcessingUrl("/j_spring_security_check")
                 .failureUrl("/login?error")
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
+<<<<<<< HEAD
                 .permitAll();
 
         http.logout()
+=======
+                .permitAll()
+                .and()
+                .logout()
+>>>>>>> added Spring Security Support
                 .permitAll()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
                 .invalidateHttpSession(true);
+<<<<<<< HEAD
 
+=======
+>>>>>>> added Spring Security Support
     }
 
     @Bean
