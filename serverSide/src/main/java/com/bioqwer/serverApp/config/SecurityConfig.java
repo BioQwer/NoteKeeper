@@ -43,23 +43,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .failureUrl("/login?error")
                 .usernameParameter("j_username")
                 .passwordParameter("j_password")
-<<<<<<< HEAD
                 .permitAll();
 
         http.logout()
-=======
                 .permitAll()
                 .and()
                 .logout()
->>>>>>> added Spring Security Support
                 .permitAll()
                 .logoutUrl("/logout")
                 .logoutSuccessUrl("/login?logout")
                 .invalidateHttpSession(true);
-<<<<<<< HEAD
-
-=======
->>>>>>> added Spring Security Support
     }
 
     @Bean
