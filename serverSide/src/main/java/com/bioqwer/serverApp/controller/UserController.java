@@ -4,14 +4,9 @@ import com.bioqwer.serverApp.model.Note;
 import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Collection;
 
@@ -22,12 +17,16 @@ import java.util.Collection;
 @RequestMapping(value = "/user")
 public class UserController {
 
-    private static final Logger logger = LogManager.getLogger(UserController.class.getName());
-
     @Autowired(required = true)
     private UserService userService;
     @Autowired(required = true)
     private NoteService noteService;
+
+    @RequestMapping(method = RequestMethod.POST)
+    @ResponseBody
+    public User editUser(@RequestBody User user) {
+        return userService.editUser(user);
+    }
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseBody
@@ -39,7 +38,6 @@ public class UserController {
     @ResponseBody
     public User getUser(@PathVariable long userId) {
         User user = userService.getById(userId);
-        // logger.info("User "+user+" by DB");
         return user;
     }
 

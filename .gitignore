@@ -46,3 +46,4 @@ crashlytics.properties
 crashlytics-build.properties
 serverSide/src/webapp/pages/docs
 serverSide/src/webapp/pages/resources/docs
+webSide/src/webapp/pages/resources

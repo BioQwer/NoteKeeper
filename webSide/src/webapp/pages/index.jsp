@@ -13,10 +13,10 @@
     <title>NoteKeeper</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="<c:url value="/pages/resources/css/bootstrap.css" />" rel="stylesheet">
+    <link href="<c:url value="//pages/resources/css/bootstrap.css" />" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="<c:url value="/pages/resources/css/jumbotron-narrow.css" />" rel="stylesheet">
+    <link href="<c:url value="//pages/resources/css/jumbotron-narrow.css" />" rel="stylesheet">
 
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
@@ -36,12 +36,12 @@
             Simple note Service.
         </p>
         <sec:authorize access="!isAuthenticated()">
-            <p><a class="btn btn-lg btn-success" href="<c:url value="/login" />" role="button">Войти</a></p>
+            <p><a class="btn btn-lg btn-success" href="<c:url value="/api/login" />" role="button">Войти</a></p>
         </sec:authorize>
         <sec:authorize access="isAuthenticated()">
             <p>Ваш логин: <sec:authentication property="principal.username"/></p>
 
-            <p><a class="btn btn-lg btn-danger" href="<c:url value="/logout" />" role="button">Выйти</a></p>
+            <p><a class="btn btn-lg btn-danger" href="<c:url value="/api/logout" />" role="button">Выйти</a></p>
         </sec:authorize>
     </div>
 

@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,11 +19,14 @@ import javax.validation.ConstraintViolationException;
 @ContextConfiguration(classes = DataConfig.class)
 public class TestDataBase {
 
-    @Autowired
-    UserService userService;
-    @Autowired
-    NoteService noteService;
+
     User user;
+    @Qualifier("userServiceImpl")
+    @Autowired
+    private UserService userService;
+    @Qualifier("noteServiceImpl")
+    @Autowired
+    private NoteService noteService;
 
     @Before
     public void setUp() {
@@ -114,4 +118,19 @@ public class TestDataBase {
             noteService.addNote(note);
         }
     }
+
+
+    @Test
+    public void testRegistrableLogic() throws Exception {
+        try {
+            User dbCreate = new User("reg@qwe.e", "register", "PassTest1");
+            userService.addUser(dbCreate);
+        } catch (ConstraintViolationException e) {
+            e.getConstraintViolations().toArray();
+            System.out.println(e.getConstraintViolations());
+            e.printStackTrace();
+        }
+
+    }
+
 }
