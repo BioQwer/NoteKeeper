@@ -1,4 +1,4 @@
-package com.bioqwer.serverApp;
+package com.bioqwer.serverApp.integrationTests;
 
 import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.service.UserService;
@@ -12,31 +12,34 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
+import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
+import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import javax.persistence.PersistenceContext;
-import java.util.Collection;
+import javax.persistence.PersistenceUnit;
 
-import static junit.framework.Assert.assertEquals;
-
+/**
+ * @author Petri Kainulainen
+ */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceContext.class})
-@TestExecutionListeners({DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class})
+//@ContextConfiguration(locations = {"classpath:exampleApplicationContext-persistence.xml"})
+@TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
+        DirtiesContextTestExecutionListener.class,
+        TransactionalTestExecutionListener.class,
+        DbUnitTestExecutionListener.class})
 @DatabaseSetup("toDoData.xml")
-public class ServiceTest {
+@PersistenceUnit(unitName = "sdsda")
+public class ITTodoRepositoryTest {
+
 
     @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
 
     @Test
-    public void testFind() throws Exception {
-        Collection<User> userList = userService.getAll();
-        assertEquals(3, userList.size());
-        assertEquals("tester", userList.iterator().next().getLogin());
+    public void search_NoTodoEntriesFound_ShouldReturnEmptyList() {
+        User user = userService.getById(1L);
+        System.out.println("user = " + user);
     }
 
-    @Test
-    public void testRemove() throws Exception {
-
-    }
 }
