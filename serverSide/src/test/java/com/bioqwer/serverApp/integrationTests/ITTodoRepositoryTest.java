@@ -1,6 +1,7 @@
 package com.bioqwer.serverApp.integrationTests;
 
 import com.bioqwer.serverApp.model.User;
+import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
@@ -15,8 +16,6 @@ import org.springframework.test.context.support.DependencyInjectionTestExecution
 import org.springframework.test.context.support.DirtiesContextTestExecutionListener;
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
-import javax.persistence.PersistenceUnit;
-
 /**
  * @author Petri Kainulainen
  */
@@ -28,13 +27,16 @@ import javax.persistence.PersistenceUnit;
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
 @DatabaseSetup("toDoData.xml")
-@PersistenceUnit(unitName = "sdsda")
 public class ITTodoRepositoryTest {
 
 
     @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
+    @Qualifier("noteServiceImpl")
+    @Autowired
+    private NoteService noteService;
+
 
     @Test
     public void search_NoTodoEntriesFound_ShouldReturnEmptyList() {
