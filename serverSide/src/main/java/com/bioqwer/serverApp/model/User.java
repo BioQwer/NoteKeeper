@@ -89,9 +89,8 @@ public class User {
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (notesByUserId != null ? !notesByUserId.equals(user.notesByUserId) : user.notesByUserId != null)
             return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        return !(password != null ? !password.equals(user.password) : user.password != null);
 
-        return true;
     }
 
     @Override
