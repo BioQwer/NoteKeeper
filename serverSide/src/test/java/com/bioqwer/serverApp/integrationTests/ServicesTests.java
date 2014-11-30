@@ -3,6 +3,7 @@ package com.bioqwer.serverApp.integrationTests;
 import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.service.UserService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,6 +17,7 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.util.Collection;
+import java.util.Iterator;
 
 import static org.junit.Assert.assertEquals;
 
@@ -57,13 +59,21 @@ public class ServicesTests {
 
     @Test(expected = Exception.class)
     public void testSavingWithSameLogin() throws Exception {
-        User user = new User("user2@email.ru", "login1", "Passsword1");
+        User user = new User("user3@email.ru", "login1", "Passsword1");
         userService.addUser(user);
     }
 
-    @Test
+    @Test(expected = Exception.class)
     public void testSavingWithNotValidPassword() throws Exception {
-        User user = new User("user2@email.ru", "login2", "");
+        User user = new User("user4@email.ru", "login213", "");
         userService.addUser(user);
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        Collection<User> collection = userService.getAll();
+        for (Iterator<User> iterator = collection.iterator(); iterator.hasNext(); ) {
+            userService.delete(iterator.next().getUserId());
+        }
     }
 }

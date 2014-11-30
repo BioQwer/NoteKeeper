@@ -2,7 +2,7 @@ package com.bioqwer.serverApp.skillsCache;
 
 import com.bioqwer.serverApp.model.User;
 import org.junit.Assert;
-import org.testng.annotations.Test;
+import org.junit.Test;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

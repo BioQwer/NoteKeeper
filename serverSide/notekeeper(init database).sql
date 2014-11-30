@@ -10,9 +10,9 @@ CREATE TABLE note
 CREATE TABLE user
 (
   userId   BIGINT PRIMARY KEY NOT NULL,
-  email    CHAR(40) UNIQUE,
+  email    CHAR(40) UNIQUE    NOT NULL,
   login    CHAR(40) UNIQUE    NOT NULL,
-  password CHAR(40)
+  password CHAR(40)           NOT NULL
 );
 ALTER TABLE note ADD CONSTRAINT note_ibfk_1 FOREIGN KEY (userId)
 REFERENCES user (userId)

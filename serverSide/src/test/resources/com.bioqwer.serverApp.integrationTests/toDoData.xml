@@ -1,9 +1,0 @@
-<dataset>
-    <user userId="0" email="asdf@sad.rt" login="tester" password="Qweert1234"/>
-    <user userId="1" email="test1@sad.rt" login="test1" password="QweSDAASDert1234"/>
-    <user userId="2" email="test2@sad.rt" login="asdas" password="tdashgsdTvgvds23"/>
-    <note head="qwe" body="JSON some body 0tester" creationDate="2014-11-03 18:14:05.0"
-          lastChangeDate="2014-11-09 19:16:02.0" noteId="1" userId="0"/>
-    <note head="qweDQqwe" body="JqwdqwdSON some body 0tester" creationDate="2014-11-03 18:14:05.0"
-          lastChangeDate="2014-11-09 19:16:02.0" noteId="2" userId="1"/>
-</dataset>
