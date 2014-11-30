@@ -133,4 +133,11 @@ public class TestDataBase {
 
     }
 
+    @Test
+    public void testSavingWithNotValidPassword() throws Exception {
+        User user = new User("user", "login2", "");
+        userService.addUser(user);
+        userService.delete(user.getUserId());
+    }
+
 }

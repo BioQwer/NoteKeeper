@@ -11,7 +11,6 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.sql.DataSource;
 import java.util.Properties;
@@ -20,11 +19,14 @@ import java.util.Properties;
  * @author Petri Kainulainen
  */
 @Configuration
-@EnableTransactionManagement
 @ComponentScan({"com.bioqwer.serverApp.model", "com.bioqwer.serverApp.service"})
-@EnableJpaRepositories(basePackages = "com.bioqwer.serverApp.repository")
+@EnableJpaRepositories("com.bioqwer.serverApp.repository")
 @PropertySource("classpath:config.properties")
 public class PersistenceContext {
+
+    /**
+     * Properties for DataBase
+     */
 
     protected static final String PROPERTY_NAME_DATABASE_DRIVER = "db.driver";
     protected static final String PROPERTY_NAME_DATABASE_PASSWORD = "db.password";
@@ -37,7 +39,11 @@ public class PersistenceContext {
     private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "hibernate.ejb.naming_strategy";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "hibernate.show_sql";
 
+    private static final String PROPERTY_PACKAGES_TO_SCAN = "com.bioqwer.serverApp.model";
 
+    /**
+     * Variable for access data from file
+     */
     @Autowired
     private Environment environment;
 
@@ -68,6 +74,8 @@ public class PersistenceContext {
 
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+
+        entityManagerFactoryBean.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
 
         Properties jpaProperties = new Properties();
         jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
