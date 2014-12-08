@@ -1,6 +1,8 @@
 package com.bioqwer.serverApp.integrationTests;
 
+import com.bioqwer.serverApp.model.Note;
 import com.bioqwer.serverApp.model.User;
+import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.junit.After;
@@ -17,63 +19,83 @@ import org.springframework.test.context.support.DirtiesContextTestExecutionListe
 import org.springframework.test.context.transaction.TransactionalTestExecutionListener;
 
 import java.util.Collection;
-import java.util.Iterator;
-
-import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = {PersistenceContext.class})
-//@ContextConfiguration(locations = {"classpath:exampleApplicationContext-persistence.xml"})
 @TestExecutionListeners({DependencyInjectionTestExecutionListener.class,
         DirtiesContextTestExecutionListener.class,
         TransactionalTestExecutionListener.class,
         DbUnitTestExecutionListener.class})
-public class ServicesTests {
+public class NoteServiceTests {
 
+    User user = new User("user1@email.ru", "login1", "Passsword1");
+    Note testNote = new Note(user, "Head1", "Body1");
+    User dbCreate = new User("tester2@qwe.er", "login2", "PassTest1");
     @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
+    @Qualifier("noteService")
+    @Autowired
+    private NoteService noteService;
 
     @Before
     public void setUp() throws Exception {
-        User user = new User("user1@email.ru", "login1", "Passsword1");
         userService.addUser(user);
-
-        User dbCreate = new User("create@qwe.er", "tester", "PassTest1");
         userService.addUser(dbCreate);
+        noteService.addNote(testNote);
+    }
+
+    @Test
+    public void testAddNote() throws Exception {
+        Note valid = new Note(user,"123","");
+        noteService.addNote(valid);
+    }
+
+    @Test
+    public void testEditNote() throws Exception {
 
     }
 
     @Test
-    public void testGetAllUsers() {
-        Collection<User> users = userService.getAll();
-        assertEquals(users.size(), 2);
-        System.out.println("users = " + users);
+    public void testDeleteNote() throws Exception {
+
     }
 
-    @Test(expected = Exception.class)
-    public void testSavingWithSameEmail() throws Exception {
-        User user = new User("user1@email.ru", "login2", "Passsword1");
-        userService.addUser(user);
+    @Test
+    public void testGetById() throws Exception {
+
     }
 
-    @Test(expected = Exception.class)
-    public void testSavingWithSameLogin() throws Exception {
-        User user = new User("user3@email.ru", "login1", "Passsword1");
-        userService.addUser(user);
+    @Test
+    public void testSearchByHead() throws Exception {
+
     }
 
-    @Test(expected = Exception.class)
-    public void testSavingWithNotValidPassword() throws Exception {
-        User user = new User("user4@email.ru", "login213", "");
-        userService.addUser(user);
+    @Test
+    public void testSearchByBody() throws Exception {
+
+    }
+
+    @Test
+    public void testGetUser() throws Exception {
+
+    }
+
+    @Test
+    public void testGetAllUserNotes() throws Exception {
+
+    }
+
+    @Test
+    public void testSearchInAllParamsOfNotes() throws Exception {
+
     }
 
     @After
     public void tearDown() throws Exception {
         Collection<User> collection = userService.getAll();
-        for (Iterator<User> iterator = collection.iterator(); iterator.hasNext(); ) {
-            userService.delete(iterator.next().getUserId());
+        for (User aCollection : collection) {
+            userService.delete(aCollection.getUserId());
         }
     }
 }

@@ -9,9 +9,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Collection;
 
-/**
- * Created by Antony on 18.10.2014.
- */
 @Service
 public class UserServiceImpl implements UserService {
 
@@ -21,7 +18,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User addUser(User user) {
-        return userRepository.save(user);
+        return userRepository.saveAndFlush(user);
     }
 
     @Override

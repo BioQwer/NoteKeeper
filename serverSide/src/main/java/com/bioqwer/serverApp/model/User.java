@@ -6,6 +6,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 /**
@@ -56,6 +57,8 @@ public class User {
     }
 
     @Basic
+    @NotNull
+    @Size(min = 6, message = "min login size 6")
     @Column(name = "login", nullable = false, insertable = true, updatable = true, length = 40, unique = true)
     public String getLogin() {
         return login;
@@ -89,8 +92,8 @@ public class User {
         if (login != null ? !login.equals(user.login) : user.login != null) return false;
         if (notesByUserId != null ? !notesByUserId.equals(user.notesByUserId) : user.notesByUserId != null)
             return false;
-        return !(password != null ? !password.equals(user.password) : user.password != null);
-
+        if (password != null ? !password.equals(user.password) : user.password != null) return false;
+        return true;
     }
 
     @Override
