@@ -3,6 +3,7 @@ package com.bioqwer.serverApp.service.impl;
 import com.bioqwer.serverApp.config.DataConfig;
 import com.bioqwer.serverApp.model.Note;
 import com.bioqwer.serverApp.model.User;
+import com.bioqwer.serverApp.repository.UserRepository;
 import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import org.junit.Before;
@@ -19,7 +20,6 @@ import javax.validation.ConstraintViolationException;
 @ContextConfiguration(classes = DataConfig.class)
 public class TestDataBase {
 
-
     User user;
     @Qualifier("userServiceImpl")
     @Autowired
@@ -27,6 +27,9 @@ public class TestDataBase {
     @Qualifier("noteServiceImpl")
     @Autowired
     private NoteService noteService;
+    @Qualifier("userRepository")
+    @Autowired
+    private UserRepository userRepository;
 
     @Before
     public void setUp() {
@@ -65,8 +68,8 @@ public class TestDataBase {
         User dbUser = userService.getById(1);
         System.out.println("dbUser = " + dbUser);
         try {
-            dbUser.setEmail("ASD@.ru");
-            dbUser.setPassword("asdS@23sda");
+            dbUser.setEmail("@.ru");
+            dbUser.setPassword("3sda");
             userService.editUser(dbUser);
             System.out.println("dbUser = " + dbUser);
         } catch (ConstraintViolationException e) {
@@ -136,7 +139,7 @@ public class TestDataBase {
     @Test
     public void testSavingWithNotValidPassword() throws Exception {
         User user = new User("user", "login2", "");
-        userService.addUser(user);
+        userRepository.save(user);
         userService.delete(user.getUserId());
     }
 
