@@ -114,9 +114,9 @@ public class Note {
                 "noteId=" + noteId +
                 ",head='" + head + '\'' +
                 ", body='" + body + '\'' +
-                ", userByUserId=" + userByUserId +
+                ", userByUserId=" + userByUserId.getUserId() +
                 ", createTime=" + creationDate +
-                '}';
+                "}\n";
     }
 
     @ManyToOne
