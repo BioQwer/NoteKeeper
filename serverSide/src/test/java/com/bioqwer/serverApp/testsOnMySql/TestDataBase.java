@@ -1,4 +1,4 @@
-package com.bioqwer.serverApp;
+package com.bioqwer.serverApp.testsOnMySql;
 
 import com.bioqwer.serverApp.config.DataConfig;
 import com.bioqwer.serverApp.model.Note;
@@ -7,6 +7,7 @@ import com.bioqwer.serverApp.repository.UserRepository;
 import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.ConstraintViolationException;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataConfig.class)
 public class TestDataBase {
