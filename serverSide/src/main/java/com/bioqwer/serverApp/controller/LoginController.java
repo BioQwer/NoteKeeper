@@ -44,6 +44,7 @@ public class LoginController {
         return userService.addUser(user);
     }
 
+    @SuppressWarnings("UnnecessaryLocalVariable")
     @RequestMapping(value = "login", method = RequestMethod.POST)
     public
     @ResponseBody

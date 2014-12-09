@@ -4,7 +4,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.Collection;
 
 /**
@@ -45,7 +47,7 @@ public class User {
 
     @Basic
     @Pattern(regexp = EMAIL_PATTERN, message = "email not valid")
-    @Column(name = "email", nullable = true, insertable = true, updatable = true, length = 40, unique = true)
+    @Column(name = "email", nullable = false, insertable = true, updatable = true, length = 40, unique = true)
     public String getEmail() {
         return email;
     }
@@ -55,6 +57,8 @@ public class User {
     }
 
     @Basic
+    @NotNull
+    @Size(min = 6, message = "min login size 6")
     @Column(name = "login", nullable = false, insertable = true, updatable = true, length = 40, unique = true)
     public String getLogin() {
         return login;
@@ -65,8 +69,9 @@ public class User {
     }
 
     @Basic
+    @NotNull
     @Pattern(regexp = PASSWORD_PATTERN, message = "password not valid")
-    @Column(name = "password", nullable = true, insertable = true, updatable = true, length = 40)
+    @Column(name = "password", nullable = false, insertable = true, updatable = true, length = 40)
     public String getPassword() {
         return password;
     }
@@ -88,7 +93,6 @@ public class User {
         if (notesByUserId != null ? !notesByUserId.equals(user.notesByUserId) : user.notesByUserId != null)
             return false;
         if (password != null ? !password.equals(user.password) : user.password != null) return false;
-
         return true;
     }
 
