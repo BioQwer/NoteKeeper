@@ -11,12 +11,8 @@ import org.springframework.stereotype.Service;
 import java.sql.Timestamp;
 import java.util.Collection;
 
-/**
- * Created by Antony on 24.10.2014.
- */
 @Service
 public class NoteServiceImpl implements NoteService {
-
 
     @Qualifier("noteRepository")
     @Autowired

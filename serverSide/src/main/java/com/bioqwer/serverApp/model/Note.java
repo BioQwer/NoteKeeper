@@ -3,6 +3,7 @@ package com.bioqwer.serverApp.model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 /**
@@ -27,7 +28,8 @@ public class Note {
     }
 
     @Basic
-    @Column(name = "head", nullable = true, insertable = true, updatable = true, length = 255)
+    @Size(min = 1, message = "min head size = 1")
+    @Column(name = "head", nullable = false, insertable = true, updatable = true, length = 255)
     public String getHead() {
         return head;
     }
@@ -92,7 +94,6 @@ public class Note {
         if (lastChangeDate != null ? !lastChangeDate.equals(note.lastChangeDate) : note.lastChangeDate != null)
             return false;
         if (userByUserId != null ? !userByUserId.equals(note.userByUserId) : note.userByUserId != null) return false;
-
         return true;
     }
 
@@ -113,9 +114,9 @@ public class Note {
                 "noteId=" + noteId +
                 ",head='" + head + '\'' +
                 ", body='" + body + '\'' +
-                ", userByUserId=" + userByUserId +
+                ", userByUserId=" + userByUserId.getUserId() +
                 ", createTime=" + creationDate +
-                '}';
+                "}\n";
     }
 
     @ManyToOne

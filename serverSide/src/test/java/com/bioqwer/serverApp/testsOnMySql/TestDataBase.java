@@ -1,11 +1,13 @@
-package com.bioqwer.serverApp.service.impl;
+package com.bioqwer.serverApp.testsOnMySql;
 
 import com.bioqwer.serverApp.config.DataConfig;
 import com.bioqwer.serverApp.model.Note;
 import com.bioqwer.serverApp.model.User;
+import com.bioqwer.serverApp.repository.UserRepository;
 import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +17,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import javax.validation.ConstraintViolationException;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataConfig.class)
 public class TestDataBase {
-
 
     User user;
     @Qualifier("userServiceImpl")
@@ -27,6 +29,9 @@ public class TestDataBase {
     @Qualifier("noteServiceImpl")
     @Autowired
     private NoteService noteService;
+    @Qualifier("userRepository")
+    @Autowired
+    private UserRepository userRepository;
 
     @Before
     public void setUp() {
@@ -41,9 +46,9 @@ public class TestDataBase {
         try {
             userService.addUser(user);
             System.out.println("user = " + user);
-            user.setEmail("@asd.ew");
+            user.setEmail("qwe@asd.ew");
             user.setLogin("tesasdB");
-            user.setPassword("");
+            user.setPassword("qweeEWeweqe12");
             System.out.println("user = " + user);
             Note note = new Note(user, "head" + user.getLogin(), "body" + user.getLogin());
             noteService.addNote(note);
@@ -57,16 +62,16 @@ public class TestDataBase {
 
     @Test
     public void delete() {
-        userService.delete(3);
+        userService.delete(1);
     }
 
     @Test
     public void findSavedUserById() {
-        User dbUser = userService.getById(1);
+        User dbUser = userService.getById(2);
         System.out.println("dbUser = " + dbUser);
         try {
-            dbUser.setEmail("ASD@.ru");
-            dbUser.setPassword("asdS@23sda");
+            dbUser.setEmail("@.ru");
+            dbUser.setPassword("3sda");
             userService.editUser(dbUser);
             System.out.println("dbUser = " + dbUser);
         } catch (ConstraintViolationException e) {
@@ -108,7 +113,7 @@ public class TestDataBase {
     @Test
     public void testCreateDatabaseData() throws Exception {
 
-        User dbCreate = new User("create@qwe.er", "tester", "PassTest1");
+        User dbCreate = new User("creat2e@qwe.er", "tester2", "PassTest1");
         userService.addUser(dbCreate);
         System.out.println("user = " + dbCreate);
         for (int i = 0; i < 5; i++) {
@@ -131,6 +136,13 @@ public class TestDataBase {
             e.printStackTrace();
         }
 
+    }
+
+    @Test
+    public void testSavingWithNotValidPassword() throws Exception {
+        User user = new User("user", "login2", "");
+        userRepository.save(user);
+        userService.delete(user.getUserId());
     }
 
 }
