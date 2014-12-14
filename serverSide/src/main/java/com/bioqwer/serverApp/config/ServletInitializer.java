@@ -14,7 +14,7 @@ import javax.servlet.ServletRegistration;
 /**
  * Enable Controllers for Spring
  */
-public class Initializer implements WebApplicationInitializer {
+public class ServletInitializer implements WebApplicationInitializer {
     // Name of  "Servlet Dispatcher" for mapping
     private static final String DISPATCHER_SERVLET_NAME = "dispatcher";
 
@@ -23,8 +23,6 @@ public class Initializer implements WebApplicationInitializer {
         AnnotationConfigWebApplicationContext ctx = new AnnotationConfigWebApplicationContext();
 
         // Registry Config classes in context
-        ctx.register(WebAppConfig.class);
-        ctx.register(SecurityConfig.class);
         servletContext.addListener(new ContextLoaderListener(ctx));
 
         ctx.setServletContext(servletContext);
