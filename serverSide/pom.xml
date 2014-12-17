@@ -39,6 +39,9 @@
                     <includes>
                         <include>**/*.java</include>
                     </includes>
+                    <excludes>
+                        <exclude>**/TestDataBase.java</exclude>
+                    </excludes>
                 </configuration>
             </plugin>
         </plugins>
