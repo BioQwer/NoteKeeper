@@ -16,14 +16,13 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/pages/**").addResourceLocations("/pages/");
+        registry.addResourceHandler("/**").addResourceLocations("/");
     }
 
     @Bean
     public UrlBasedViewResolver setupViewResolver() {
         UrlBasedViewResolver resolver = new UrlBasedViewResolver();
-        resolver.setPrefix("/pages/");
-        resolver.setSuffix(".jsp");
+        resolver.setPrefix("/");
         resolver.setViewClass(JstlView.class);
 
         return resolver;
