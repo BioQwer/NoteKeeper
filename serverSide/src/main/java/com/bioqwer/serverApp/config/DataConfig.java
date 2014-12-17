@@ -10,9 +10,9 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import javax.annotation.Resource;
+import javax.persistence.ValidationMode;
 import javax.sql.DataSource;
 import java.util.Properties;
 
@@ -20,7 +20,6 @@ import java.util.Properties;
  * DataBase JavaConfigs for Persistence
  */
 @Configuration
-@EnableTransactionManagement
 @ComponentScan({"com.bioqwer.serverApp.model", "com.bioqwer.serverApp.service"})
 @PropertySource("classpath:app.properties")
 @EnableJpaRepositories("com.bioqwer.serverApp.repository")
@@ -66,6 +65,7 @@ public class DataConfig {
 
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
+        entityManagerFactoryBean.setValidationMode(ValidationMode.AUTO);
 
         Properties jpaProperties = new Properties();
         jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));

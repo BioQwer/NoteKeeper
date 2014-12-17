@@ -5,6 +5,7 @@ import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,9 +18,11 @@ import java.util.Collection;
 @RequestMapping(value = "/user")
 public class UserController {
 
-    @Autowired(required = true)
+    @Qualifier("userServiceImpl")
+    @Autowired
     private UserService userService;
-    @Autowired(required = true)
+    @Qualifier("noteServiceImpl")
+    @Autowired
     private NoteService noteService;
 
     @RequestMapping(method = RequestMethod.POST)
