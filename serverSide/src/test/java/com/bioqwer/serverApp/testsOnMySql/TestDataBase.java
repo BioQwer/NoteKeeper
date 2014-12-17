@@ -150,4 +150,10 @@ public class TestDataBase {
         userService.delete(user.getUserId());
     }
 
+    @Test
+    public void testNull() throws Exception {
+        User user = userService.getById(1);
+        System.out.println("user = " + user);
+    }
+
 }

@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.WebApplicationException;
 import java.util.Collection;
 
 /**
@@ -40,7 +41,10 @@ public class UserController {
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
     @ResponseBody
     public User getUser(@PathVariable long userId) {
-        return userService.getById(userId);
+        User result = userService.getById(userId);
+        if (result == null) {
+            throw new WebApplicationException(404);
+        } else return result;
     }
 
     @RequestMapping(value = "/{userId}/all", method = RequestMethod.GET)
