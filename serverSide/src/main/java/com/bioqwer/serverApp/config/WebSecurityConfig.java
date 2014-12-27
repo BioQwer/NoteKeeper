@@ -1,47 +1,61 @@
 package com.bioqwer.serverApp.config;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 
 @Configuration
 @EnableWebMvcSecurity
+@EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/css/**", "/fonts/**", "/js/**", "/index*", "/login*");
+    }
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/", "/css/**", "/fonts/**", "/js/**", "/me").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
                 .usernameParameter("j_username") /* BY DEFAULT IS username!!! */
                 .passwordParameter("j_password") /* BY DEFAULT IS password!!! */
                 .loginProcessingUrl("/j_spring_security_check")
-                .loginPage("/login.html")
-                .defaultSuccessUrl("/")
                 .permitAll()
                 .and()
                 .logout()
+                .permitAll()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/");
+                .logoutSuccessUrl("/login?logout")
+                .invalidateHttpSession(true);
     }
 
     @Configuration
     protected static class AuthenticationConfiguration extends
             GlobalAuthenticationConfigurerAdapter {
 
+        @Qualifier("userDetailsServiseImpl")
+        @Autowired
+        private UserDetailsService userDetailsServise;
+
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
-            auth
-                    .inMemoryAuthentication()
-                    .withUser("user").password("user").roles("USER").and()
-                    .withUser("admin").password("admin").roles("USER");
+            auth.
+                    userDetailsService(userDetailsServise);
         }
 
     }
