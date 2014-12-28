@@ -6,10 +6,11 @@ import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-import javax.ws.rs.WebApplicationException;
+import java.security.Principal;
 import java.util.Collection;
 
 /**
@@ -25,6 +26,14 @@ public class UserController {
     @Qualifier("noteServiceImpl")
     @Autowired
     private NoteService noteService;
+
+    @RequestMapping("/me")
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public User getMe(Principal principal) {
+        User user = userService.getByLogin(principal.getName());
+        return user;
+    }
 
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
@@ -42,9 +51,7 @@ public class UserController {
     @ResponseBody
     public User getUser(@PathVariable long userId) {
         User result = userService.getById(userId);
-        if (result == null) {
-            throw new WebApplicationException(404);
-        } else return result;
+        return result;
     }
 
     @RequestMapping(value = "/{userId}/all", method = RequestMethod.GET)

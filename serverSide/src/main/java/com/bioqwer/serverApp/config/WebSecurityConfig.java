@@ -11,11 +11,17 @@ import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
 @Configuration
 @EnableWebMvcSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Qualifier("restAuthenticationExceptionHandler")
+    @Autowired
+    private SimpleUrlAuthenticationFailureHandler restError;
 
     @Override
     public void configure(WebSecurity web) throws Exception {
@@ -35,6 +41,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .usernameParameter("j_username") /* BY DEFAULT IS username!!! */
                 .passwordParameter("j_password") /* BY DEFAULT IS password!!! */
                 .loginProcessingUrl("/j_spring_security_check")
+                .failureHandler(restError)
                 .permitAll()
                 .and()
                 .logout()
