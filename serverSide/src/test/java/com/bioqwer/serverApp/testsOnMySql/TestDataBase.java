@@ -156,4 +156,15 @@ public class TestDataBase {
         System.out.println("user = " + user);
     }
 
+    @Test
+    public void testName() throws Exception {
+        User user1 = userService.getById(1L);
+        for (int i = 0; i < 3; i++) {
+            int q = i + 2013;
+            Note note = new Note(user1, "Some head " + i + " " + user1.getLogin(),
+                    q + " some body " + i + user1.getLogin());
+            noteService.addNote(note);
+        }
+
+    }
 }

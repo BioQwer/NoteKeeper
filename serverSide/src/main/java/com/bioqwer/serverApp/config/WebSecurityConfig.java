@@ -42,12 +42,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("j_password") /* BY DEFAULT IS password!!! */
                 .loginProcessingUrl("/j_spring_security_check")
                 .failureHandler(restError)
+                .defaultSuccessUrl("/user/me")
                 .permitAll()
                 .and()
                 .logout()
                 .permitAll()
                 .logoutUrl("/logout")
-                .logoutSuccessUrl("/login?logout")
+                .logoutSuccessUrl("/")
                 .invalidateHttpSession(true);
     }
 
