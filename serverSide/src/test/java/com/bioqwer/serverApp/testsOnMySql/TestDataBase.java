@@ -11,11 +11,15 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = DataConfig.class)
@@ -157,7 +161,7 @@ public class TestDataBase {
     }
 
     @Test
-    public void testName() throws Exception {
+    public void testCreateNotes() throws Exception {
         User user1 = userService.getById(1L);
         for (int i = 0; i < 3; i++) {
             int q = i + 2013;
@@ -165,6 +169,32 @@ public class TestDataBase {
                     q + " some body " + i + user1.getLogin());
             noteService.addNote(note);
         }
+    }
 
+    @Test
+    public void testConstants() throws Exception {
+        user = userService.getById(1);
+        user.setLogin("user1");
+        try {
+            userService.editUser(user);
+        } catch (ConstraintViolationException e) {
+            List list = new ArrayList();
+            for (ConstraintViolation<?> cv : e.getConstraintViolations()) {
+                System.out.println(String.format(
+                        "Внимание, ошибка! property: [%s], value: [%s], message: [%s]",
+                        cv.getPropertyPath(), cv.getInvalidValue(), cv.getMessage()));
+                list.add(cv);
+            }
+            System.out.println("map = " + list);
+        }
+    }
+
+    @Test
+    public void testDBerror() throws Exception {
+        try {
+            userService.addUser(new User("sada@qwe.ew", "testDB", "Password1"));
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("e = " + e.getLocalizedMessage());
+        }
     }
 }

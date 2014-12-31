@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.SimpleUrlAuthenticationFa
 @EnableGlobalMethodSecurity(securedEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     @Qualifier("restAuthenticationExceptionHandler")
     @Autowired
     private SimpleUrlAuthenticationFailureHandler restError;
@@ -35,6 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
+                .antMatchers("/user/singIn").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
@@ -42,7 +42,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .passwordParameter("j_password") /* BY DEFAULT IS password!!! */
                 .loginProcessingUrl("/j_spring_security_check")
                 .failureHandler(restError)
-                .defaultSuccessUrl("/user/me")
+                .defaultSuccessUrl("/user")
+                .loginPage("/login.html")
                 .permitAll()
                 .and()
                 .logout()

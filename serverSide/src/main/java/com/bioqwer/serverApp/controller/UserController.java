@@ -10,8 +10,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.ConstraintViolation;
+import javax.validation.ConstraintViolationException;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 
 /**
  * Created by Antony on 26.10.2014.
@@ -37,21 +41,45 @@ public class UserController {
         return principal.getName();
     }
 
-    @RequestMapping("/me")
+    @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public User getMe(Principal principal) {
         return getCurrentUser(principal);
     }
 
+    @RequestMapping(value = "/singIn", method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Object singInUser(@RequestBody User user) {
+        if (userService.getByEmail(user.getEmail()) != null) {
+            Constraint emailReason = new Constraint("email", user.getEmail(), "User with email " + user.getEmail() + " is exist");
+            return emailReason;
+        } else if (userService.getByLogin(user.getLogin()) != null) {
+            Constraint loginReason = new Constraint("login", user.getLogin(), "User with login " + user.getLogin() + " is exist");
+            return loginReason;
+        }
+        try {
+            return userService.addUser(user);
+        } catch (ConstraintViolationException e) {
+            e.printStackTrace();
+            return getInCorrectValues(e);
+        }
+    }
+
     @RequestMapping(method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public User editUser(Principal principal, @RequestBody User user) {
-        if (user.getUserId() == getCurrentUser(principal).getUserId())
-            return userService.editUser(user);
-        else
-            throw new BadRequestException();
+    public Object editUser(Principal principal, @RequestBody User user) {
+        try {
+            if (user.getUserId() == getCurrentUser(principal).getUserId())
+                return userService.editUser(user);
+            else
+                throw new BadRequestException();
+        } catch (ConstraintViolationException e) {
+            e.printStackTrace();
+            return getInCorrectValues(e);
+        }
     }
 
     @RequestMapping(value = "/notes", method = RequestMethod.GET)
@@ -85,7 +113,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Note editNote(Principal principal, @RequestBody Note note) {
-        if (note.getUserByUserId().getLogin() != getCurrentUserLogin(principal))
+        if (!note.getUserByUserId().getLogin().equals(getCurrentUserLogin(principal)))
             throw new BadRequestException();
         else
             return noteService.editNote(note);
@@ -95,7 +123,7 @@ public class UserController {
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Note createNote(Principal principal, @RequestBody Note note) {
-        if (note.getUserByUserId().getLogin() != getCurrentUserLogin(principal))
+        if (!note.getUserByUserId().getLogin().equals(getCurrentUserLogin(principal)))
             throw new BadRequestException();
         else
             return noteService.addNote(note);
@@ -109,5 +137,14 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.NOT_FOUND)
     public class ResourceNotFoundException extends RuntimeException {
         //
+    }
+
+    private List getInCorrectValues(ConstraintViolationException exception) {
+        List list = new ArrayList();
+        for (ConstraintViolation<?> cv : exception.getConstraintViolations()) {
+            Constraint constraint = new Constraint(cv.getPropertyPath().toString(), cv.getPropertyPath().toString(), cv.getMessage());
+            list.add(constraint);
+        }
+        return list;        
     }
 }
