@@ -1,5 +1,6 @@
 (function () {
-    var app = angular.module('noteKeeper', ['ngRoute']);
+    var app = angular.module('noteKeeper', []);
+
 
     app.directive("mainPage", function () {
         return {
@@ -40,7 +41,7 @@
         user = {};
         this.errorMessage = '';
 
-        this.doLogin = function (user) {
+        this.doLogin = function (user, page) {
             console.log("start do Login");
             $http({
                 method: 'POST',
@@ -60,13 +61,13 @@
                 console.log(data);
                 this.user = data;
                 console.log(this.user);
-                dashPage.setPage('dash');
+                page.setPage('dash');
             }).error(function (data, status) {
                     console.log("status = " + status);
                     if (status === 403)
                         errorMessage = 'Password Invalid';
                     else if (status === 404)
-                        errorMessage = 'User not Found';
+                        this.errorMessage = "User not Found";
                 }
             );
             console.log("end do Login");
