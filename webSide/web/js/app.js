@@ -25,7 +25,6 @@
     });
 
     app.controller("PageCtrl", function () {
-        this.state = 'main';
 
         this.doShow = function (isShow) {
             return this.state === isShow;
@@ -33,13 +32,34 @@
 
         this.setPage = function (newPage) {
             this.state = newPage;
+            loginCtrl.isLogin();
         };
     });
 
-    app.controller("LoginController", ['$http', function ($http) {
+    app.controller("LoginController", ['$http', '$scope', function ($http, $scope) {
         var user = this;
         user = {};
-        this.errorMessage = '';
+        var errorMessage = this;
+        errorMessage = '';
+        $scope.logged = '';
+
+        this.getError = function () {
+            return errorMessage;
+        };
+
+        this.isLogin = function () {
+
+            $http.get('/api/user')
+                .success(function () {
+                    $scope.logged = true;
+                })
+                .error(function () {
+                    $scope.logged = false;
+                });
+
+            console.log("logged = " + logged);
+        };
+
 
         this.doLogin = function (user, page) {
             console.log("start do Login");
@@ -67,7 +87,8 @@
                     if (status === 403)
                         errorMessage = 'Password Invalid';
                     else if (status === 404)
-                        this.errorMessage = "User not Found";
+                        errorMessage = "User not Found";
+                    console.log(errorMessage);
                 }
             );
             console.log("end do Login");
