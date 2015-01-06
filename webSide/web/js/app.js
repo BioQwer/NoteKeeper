@@ -49,6 +49,7 @@
             login: undefined,
             password: undefined
         };
+
         var errorMessage = this;
         errorMessage = '';
 
@@ -56,7 +57,7 @@
             return errorMessage;
         };
 
-        this.doLogin = function (user, page) {
+        this.doLogin = function (user, page, loginCtrl) {
             console.log("start do Login");
             $http({
                 method: 'POST',
@@ -77,6 +78,7 @@
                 this.user = data;
                 console.log(this.user);
                 page.setPage('dash');
+                loginCtrl.doGetNotes();
             }).error(function (data, status) {
                     console.log("status = " + status);
                     if (status === 403)
@@ -95,11 +97,11 @@
         this.getSingUpErrors = function () {
             return singUpErrors;
         };
-        this.doSingUp = function (user, page) {
+        this.doSingUp = function (user, page, loginCtrl) {
             console.log("start do SingUp");
             $http({
                 method: 'POST',
-                url: '/api/user/singUp',
+                url: '/api/user/singIn',
                 data: {
                     login: user.login,
                     password: user.password,
@@ -110,6 +112,7 @@
                 this.user = data;
                 console.log(this.user);
                 page.setPage('dash');
+                loginCtrl.doGetNotes();
             }).error(function (data, status) {
                     console.log("status = " + status);
                     if (data.length === undefined)
@@ -121,7 +124,48 @@
                 }
             );
             console.log("end do SingUp");
+        };
+
+        var notes = this;
+        notes = [];
+
+        this.getNotes = function () {
+            return notes;
+        };
+
+        this.doGetNotes = function () {
+            console.log("start do getNotes");
+            $http({
+                method: 'GET',
+                url: '/api/user/notes'
+            }).success(function (data) {
+                notes = data;
+            }).error(function (data, status) {
+                console.log("error" + status);
+                console.log(data)
+            });
+            console.log("end do getNotes");
+        };
+
+        function getNoteById(id) {
+            for (var i = 0; i < notes.length; i++) {
+                if (notes[i].noteId === id)
+                    return notes[i];
+            }            
         }
+
+        this.deleteNote = function (id, loginCtrl) {
+            console.log("start do deleteNote");
+            $http({
+                method: 'DELETE',
+                url: '/api/user/note',
+                data: getNoteById(id),
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data) {
+                loginCtrl.doGetNotes();
+            });
+            console.log("end do deleteNote");
+        };
     }]);
 
 

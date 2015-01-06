@@ -34,7 +34,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http.csrf().disable();
         http
                 .authorizeRequests()
-                .antMatchers("/user/singUp").permitAll()
+                .antMatchers("/user/singIn").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()

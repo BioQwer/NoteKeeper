@@ -1,3 +1,17 @@
 <ol class="breadcrumb">
     <li class="active">DashBoard</li>
 </ol>
+<div ng-repeat="note in loginCtrl.getNotes()">
+    <hr/>
+    <div class="pull-right">
+        <a ng-click="loginCtrl.deleteNote(note.noteId,loginCtrl)" class="btn btn-xs btn-default" title="delete"><span
+                class="glyphicon glyphicon-trash"></span></a>
+        <a class="btn btn-xs btn-default" title="edit"><span class="glyphicon glyphicon-pencil"></span></a>
+    </div>
+    <h2>{{note.head}}</h2>
+    <h4>{{note.body}}</h4>
+
+    <p>Create date:{{note.creationDate | date:'medium'}}</p>
+
+    <p>Last change:{{note.lastChangeDate | date:'medium'}}</p>
+</div>

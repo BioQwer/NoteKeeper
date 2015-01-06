@@ -50,7 +50,7 @@ public class UserController {
         return getCurrentUser(principal);
     }
 
-    @RequestMapping(value = "/singUp", method = RequestMethod.POST)
+    @RequestMapping(value = "/singIn", method = RequestMethod.POST)
     @ResponseBody
     public Object singInUser(@RequestBody User user, HttpServletResponse response) {
         response.setStatus(400);
