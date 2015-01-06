@@ -3,16 +3,22 @@
     <li class="active">Login</li>
 </ol>
 
-<form class="form-signin" role="form" ng-submit="loginCtrl.doLogin(loginCtrl.user,page)" novalidate>
+<form class="form-signin" role="form" name="singInForm"
+      ng-submit="singInForm.$valid&&loginCtrl.doLogin(loginCtrl.user,page)" novalidate>
 
     <h2 class="form-signin-heading">Please sign in</h2>
-    <label for="inputEmail" class="sr-only">Email address</label>
-    <input type="text" id="inputEmail" class="form-control" ng-model="loginCtrl.user.login" placeholder="Username"
-           required autofocus>
+    <label for="inputLogin" class="sr-only">Username</label>
+    <input type="text" id="inputLogin" class="form-control" ng-model="loginCtrl.user.login" placeholder="Username"
+           required autofocus minlength="6" name="Username">
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" ng-model="loginCtrl.user.password" class="form-control"
-           placeholder="Password" required>
+           placeholder="Password" required minlength="8" pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$"
+           name="Password">
 
+    <div class="alert alert-danger" role="alert" ng-show="!singInForm.Username.$valid">Login minimum length 6</div>
+    <div class="alert alert-danger" role="alert" ng-show="!singInForm.Password.$valid">Password minimum length 8 and
+        should have main letter and digit
+    </div>
     <div class="alert alert-danger" role="alert" ng-show="loginCtrl.getError().length">{{loginCtrl.getError()}}</div>
     <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
     <button class="btn btn-lg btn-success btn-primary btn-block" ng-click="page.setPage('singUp')">Sing up?</button>

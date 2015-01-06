@@ -112,9 +112,11 @@
                 page.setPage('dash');
             }).error(function (data, status) {
                     console.log("status = " + status);
-                    if (status === 400)
+                    if (data.length === undefined)
+                        singUpErrors.push(data);
+                    else
                         singUpErrors = data;
-                    console.log("singUpErrors = " + singUpErrors);
+                    console.log("singUpErrors = " + singUpErrors.length);
                     console.log(singUpErrors);
                 }
             );
