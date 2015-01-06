@@ -17,7 +17,7 @@ public class MainController {
     }
 
     @RequestMapping("/notLogin")
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public void notLogin() {
 
     }
