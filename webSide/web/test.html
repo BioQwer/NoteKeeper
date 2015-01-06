@@ -8,7 +8,7 @@
     <meta name="author" content="">
     <link rel="icon" href="application-plus-black.png">
 
-    <title>NoteKeeper Welcome Page</title>
+    <title>TEST</title>
 
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap-3.1.1.min.css" rel="stylesheet">
@@ -27,34 +27,30 @@
 
     <script src="js/bootstrap-3.1.1.min.js"></script>
     <script src="js/angular.min.js"></script>
+    <script src="js/angular-cookies.min.js"></script>
+    <script src="js/angular-loader.min.js"></script>
+    <script src="js/angular-route.min.js"></script>
     <script src="js/angular-touch.min.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/testApp.js"></script>
 </head>
 
-<body ng-controller="PageCtrl as page">
+<body>
 
-<div class="container" ng-controller="LoginController as loginCtrl" ng-init="page.setPage('main')">
+<div class="container">
 
     <div class="header">
         <nav>
-            <ul class="nav nav-pills pull-right" ng-show="!page.doShow('dash')">
-                <li role="presentation"><a href="#">About</a></li>
-            </ul>
-            <ul class="nav nav-pills pull-right" ng-show="page.doShow('dash')">
-                <li role="presentation" class="active"><a href="#">Hello, {{loginCtrl.user.login}}</a></li>
-                <li role="presentation"><a href="#">Account</a></li>
-                <li role="presentation"><a href="#">Logout</a></li>
+            <ul class="nav nav-pills pull-right">
+                <li role="presentation"><a>Login {{loginCtrl.logged}}</a></li>
+                <li role="presentation" class="active"><a href="#">Home</a></li>
+                <li role="presentation"><a href="/dash">About</a></li>
+                <li role="presentation"><a href="#">Contact</a></li>
             </ul>
         </nav>
         <h3 class="text-muted">NoteKeeper</h3>
     </div>
 
-    <div>
-        <div main-page ng-show="page.doShow('main')"></div>
-        <div login-page ng-show="page.doShow('login')"></div>
-        <div dash-page ng-show="page.doShow('dash')"></div>
-        <div sing-up ng-show="page.doShow('singUp')"></div>
-    </div>
+    <div ng-view></div>
 
     <footer class="footer">
         <p>&copy; BioQwer 2014</p>
