@@ -31,6 +31,13 @@
         };
     });
 
+    app.directive("accountPage", function () {
+        return {
+            restrict: "A",
+            templateUrl: "/views/account.html"
+        };
+    });
+
     app.controller("PageCtrl", function () {
 
         this.doShow = function (isShow) {
@@ -50,6 +57,13 @@
             password: undefined
         };
 
+        this.setUser = function (user) {
+            this.user = user;
+        };
+        this.getUser = function () {
+            return user;
+        };
+        
         var errorMessage = this;
         errorMessage = '';
 
@@ -76,6 +90,7 @@
             }).success(function (data) {
                 console.log(data);
                 this.user = data;
+                loginCtrl.setUser(data);
                 console.log(this.user);
                 page.setPage('dash');
                 loginCtrl.doGetNotes();
@@ -110,6 +125,7 @@
             }).success(function (data) {
                 console.log(data);
                 this.user = data;
+                loginCtrl.setUser(data);
                 console.log(this.user);
                 page.setPage('dash');
                 loginCtrl.doGetNotes();
@@ -166,6 +182,70 @@
             });
             console.log("end do deleteNote");
         };
+
+        this.logout = function (page, login) {
+            console.log("start do logout");
+            $http({
+                method: 'GET',
+                url: '/api/logout'
+            }).error(function () {
+                login.setUser({});
+                notes = [];
+                page.setPage('main');
+            });
+            console.log("end do logout");
+        };
+
+        var editNote = this;
+        editNote = {};
+
+        this.setForEdit = function (note) {
+            editNote = note
+        };
+
+        this.getForEdit = function () {
+            return editNote;
+        };
+
+        this.saveEdit = function (loginCtrl) {
+            console.log("start do saveEdit");
+            $http({
+                method: 'POST',
+                url: '/api/user/note',
+                data: editNote
+            }).success(function (data) {
+                console.log(data);
+                editNote = {};
+                loginCtrl.doGetNotes();
+            }).error(function (data, status) {
+                    console.log("status = " + status);
+                    console.log("saveEdit Errors = " + data);
+                    console.log(data);
+                }
+            );
+            console.log("end do saveEdit");
+        };
+
+        this.addNewNote = function (loginCtrl) {
+            console.log("start do saveEdit");
+            editNote.userByUserId = loginCtrl.user;
+            $http({
+                method: 'POST',
+                url: '/api/user/newNote',
+                data: editNote
+            }).success(function (data) {
+                console.log(data);
+                editNote = {};
+                loginCtrl.doGetNotes();
+            }).error(function (data, status) {
+                    console.log("status = " + status);
+                    console.log("saveEdit Errors = " + data);
+                    console.log(data);
+                }
+            );
+            console.log("end do saveEdit");
+        }
+        
     }]);
 
 

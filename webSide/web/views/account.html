@@ -1,12 +1,11 @@
 <ol class="breadcrumb">
-    <li><a ng-click="page.setPage('main')">Home</a></li>
-    <li><a ng-click="page.setPage('login')">Login</a></li>
-    <li class="active">Sing Up</li>
+    <li><a ng-click="page.setPage('dash')">DashBoard</a></li>
+    <li class="active">Account</li>
 </ol>
 
-<form class="form-signin" name="singUpForm" role="form"
+<form class="form-signin" name="accountForm" role="form"
       ng-submit="accountForm.$valid&&loginCtrl.doSingUp(loginCtrl.user,page,loginCtrl)" novalidate>
-    <h2 class="form-signin-heading">Please Sign Up</h2>
+    <h2 class="form-signin-heading">Edit your account settings </h2>
     <label for="inputEmail" class="sr-only">Email</label>
     <input type="email" id="inputEmail" class="form-control" ng-model="loginCtrl.user.emailVal" placeholder="Email"
            name="Email" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
@@ -20,22 +19,14 @@
     <input type="password" id="inputPassword" ng-model="loginCtrl.user.password" class="form-control"
            placeholder="Password" name="Password" pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$" required>
 
-    <label for="inputPassword2" class="sr-only">Password2</label>
-    <input type="password" id="inputPassword2" class="form-control" ng-model="loginCtrl.user.password2"
-           placeholder="Confirm Password" name="Password2" pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$" required>
-
     <div class="alert alert-danger" role="alert" ng-show="!accountForm.Email.$valid">Email must be like abc@abd.ru</div>
     <div class="alert alert-danger" role="alert" ng-show="!accountForm.Username.$valid">Login minimum length 6</div>
     <div class="alert alert-danger" role="alert" ng-show="!accountForm.Password.$valid">Password minimum length 8 and
         should have main letter and digit
     </div>
-    <div class="alert alert-danger" role="alert" ng-show="(loginCtrl.user.password===loginCtrl.user.password2)">
-        Passwords
-        should be same
-    </div>
 
     <div ng-repeat="error in loginCtrl.getSingUpErrors()" ng-show="loginCtrl.getSingUpErrors().length">
         <div class="alert alert-danger" role="alert">{{error.property}} = {{error.message}}</div>
     </div>
-    <button class="btn btn-lg btn-primary btn-block btn-success" type="submit">Sign Up</button>
+    <button class="btn btn-lg btn-primary btn-block btn-success" type="submit">Edit</button>
 </form>
