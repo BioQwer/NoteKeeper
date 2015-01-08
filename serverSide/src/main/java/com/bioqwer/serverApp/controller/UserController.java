@@ -7,6 +7,7 @@ import com.bioqwer.serverApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -32,11 +33,12 @@ public class UserController {
     @Qualifier("noteServiceImpl")
     @Autowired
     private NoteService noteService;
-    private String param;
+    @Qualifier("userDetailsServiceImpl")
+    @Autowired
+    private UserDetailsService userDetailsService;
 
     public User getCurrentUser(Principal principal) {
-        User user = userService.getByLogin(principal.getName());
-        return user;
+        return userService.getByLogin(principal.getName());
     }
 
     public String getCurrentUserLogin(Principal principal) {
@@ -55,11 +57,9 @@ public class UserController {
     public Object singInUser(@RequestBody User user, HttpServletResponse response) {
         response.setStatus(400);
         if (userService.getByEmail(user.getEmail()) != null) {
-            Constraint emailReason = new Constraint("email", user.getEmail(), "User with email " + user.getEmail() + " is exist");
-            return emailReason;
+            return new Constraint("email", user.getEmail(), "User with email " + user.getEmail() + " is exist");
         } else if (userService.getByLogin(user.getLogin()) != null) {
-            Constraint loginReason = new Constraint("login", user.getLogin(), "User with login " + user.getLogin() + " is exist");
-            return loginReason;
+            return new Constraint("login", user.getLogin(), "User with login " + user.getLogin() + " is exist");
         }
         try {
             response.setStatus(200);
@@ -71,17 +71,34 @@ public class UserController {
         }
     }
 
+    /**
+     * Edit user method
+     * !! if Change user.login you must to re singIn on client !!
+     */
     @RequestMapping(method = RequestMethod.POST)
-    @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Object editUser(Principal principal, @RequestBody User user) {
+    public Object editUser(Principal principal, @RequestBody User user, HttpServletResponse response) {
+        response.setStatus(400);
+        // Check user for situation when login or email is busy
+        User checker = userService.getByEmail(user.getEmail());
+        if ((checker != null) && (checker.getUserId() != user.getUserId())) {
+            return new Constraint("email", user.getEmail(), "Email " + user.getEmail() + " is busy");
+        } else {
+            checker = userService.getByLogin(user.getLogin());
+            if ((checker != null) && (checker.getUserId() != user.getUserId())) {
+                return new Constraint("login", user.getLogin(), "Login " + user.getLogin() + " is busy");
+            }
+        }
+        //try to edit user
         try {
+            response.setStatus(200);
             if (user.getUserId() == getCurrentUser(principal).getUserId())
                 return userService.editUser(user);
             else
                 throw new BadRequestException();
         } catch (ConstraintViolationException e) {
             e.printStackTrace();
+            response.setStatus(400);
             return getInCorrectValues(e);
         }
     }
@@ -170,6 +187,6 @@ public class UserController {
             Constraint constraint = new Constraint(cv.getPropertyPath().toString(), cv.getPropertyPath().toString(), cv.getMessage());
             list.add(constraint);
         }
-        return list;        
+        return list;
     }
 }

@@ -57,14 +57,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected static class AuthenticationConfiguration extends
             GlobalAuthenticationConfigurerAdapter {
 
-        @Qualifier("userDetailsServiseImpl")
+        @Qualifier("userDetailsServiceImpl")
         @Autowired
-        private UserDetailsService userDetailsServise;
+        private UserDetailsService userDetailsService;
 
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
             auth.
-                    userDetailsService(userDetailsServise);
+                    userDetailsService(userDetailsService);
         }
 
     }

@@ -19,7 +19,7 @@ import java.util.Set;
  * Created by Antony on 27.12.2014.
  */
 @Service
-public class UserDetailsServiseImpl implements UserDetailsService {
+public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Qualifier("userServiceImpl")
     @Autowired
@@ -31,9 +31,6 @@ public class UserDetailsServiseImpl implements UserDetailsService {
         Set<GrantedAuthority> roles = new HashSet();
         roles.add(new SimpleGrantedAuthority(UserRoleEnum.USER.name()));
 
-        UserDetails userDetails =
-                new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), roles);
-
-        return userDetails;
+        return new org.springframework.security.core.userdetails.User(user.getLogin(), user.getPassword(), roles);
     }
 }
