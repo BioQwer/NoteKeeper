@@ -1,25 +1,43 @@
-<ol class="breadcrumb">
-    <li><a ng-click="page.setPage('main')">Home</a></li>
-    <li class="active">Login</li>
-</ol>
-
-<form class="form-signin" role="form" name="singInForm"
+<form class="form-horizontal form-signin" role="form" name="singInForm"
       ng-submit="singInForm.$valid&&loginCtrl.doLogin(loginCtrl.user,page,loginCtrl)" novalidate>
 
-    <h2 class="form-signin-heading">Please sign in</h2>
+    <legend>Please Sign in</legend>
     <label for="inputLogin" class="sr-only">Username</label>
-    <input type="text" id="inputLogin" class="form-control" ng-model="loginCtrl.user.login" placeholder="Username"
-           required autofocus minlength="6" name="Username">
+    <input type="text" id="inputLogin" class="form-control form-control input-md" ng-model="loginCtrl.user.login"
+           placeholder="Username"
+           required autofocus minlength="6" name="Username" ng-click="loginCtrl.clearError()">
+
+    <p></p>
+    <span class="label label-warning" ng-show="!singInForm.Username.$valid">Login minimum length 6</span>
+
+    <p></p>
+
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" ng-model="loginCtrl.user.password" class="form-control"
            placeholder="Password" required minlength="8" pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$"
-           name="Password">
+           name="Password" ng-click="loginCtrl.clearError()">
 
-    <div class="alert alert-danger" role="alert" ng-show="!singInForm.Username.$valid">Login minimum length 6</div>
-    <div class="alert alert-danger" role="alert" ng-show="!singInForm.Password.$valid">Password minimum length 8 and
-        should have main letter and digit
-    </div>
+    <p></p>
+    <span class="label label-warning" ng-show="!singInForm.Password.$valid">Password minimum length 8 and
+        should have main letter and digit</span>
+
+    <p></p>
+
     <div class="alert alert-danger" role="alert" ng-show="loginCtrl.getError().length">{{loginCtrl.getError()}}</div>
-    <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-    <button class="btn btn-lg btn-success btn-primary btn-block" ng-click="page.setPage('singUp')">Sing up?</button>
+
+    <button class="btn btn-lg btn-block" type="submit"
+            ng-class="{'btn-success'   : singInForm.$valid, 'btn-danger' : !singInForm.$valid}">Sign in
+    </button>
+    <p></p>
+
+    <div class="form-group">
+        <div class="col-md-12 control">
+            <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%">
+                Don't have an account!
+                <a ng-click="page.setPage('singUp')">
+                    Sign Up Here
+                </a>
+            </div>
+        </div>
+    </div>
 </form>

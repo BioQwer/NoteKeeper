@@ -31,6 +31,13 @@
         };
     });
 
+    app.directive("locator", function () {
+        return {
+            restrict: "A",
+            templateUrl: "/views/locator.html"
+        };
+    });
+
     app.directive("accountPage", function () {
         return {
             restrict: "A",
@@ -69,6 +76,10 @@
 
         this.getError = function () {
             return errorMessage;
+        };
+
+        this.clearError = function () {
+            errorMessage = '';
         };
 
         this.doLogin = function (user, page, loginCtrl) {

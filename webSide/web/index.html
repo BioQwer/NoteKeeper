@@ -42,7 +42,7 @@
             <ul class="nav nav-pills pull-right" ng-show="!page.doShow('dash')">
                 <li role="presentation"><a>About</a></li>
             </ul>
-            <ul class="nav nav-pills pull-right" ng-show="page.doShow('dash')">
+            <ul class="nav nav-pills pull-right" ng-show="page.doShow('dash')||page.doShow('account')">
                 <li role="presentation" class="active"><a href="#">Hello, {{loginCtrl.user.login}}</a></li>
                 <li role="presentation"><a ng-click="page.setPage('account')">Account</a></li>
                 <li role="presentation"><a data-toggle="modal" data-target="#addModal"
@@ -51,8 +51,10 @@
             </ul>
         </nav>
         <h3 class="text-muted">NoteKeeper</h3>
+
     </div>
 
+    <div locator></div>
     <div ng-init="loginCtrl.logout(page,loginCtrl)">
         <div main-page ng-show="page.doShow('main')"></div>
         <div login-page ng-show="page.doShow('login')"></div>
