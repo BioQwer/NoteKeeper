@@ -1,0 +1,19 @@
+<ol class="breadcrumb" ng-show="page.doShow('account')">
+    <li><a ng-click="page.setPage('dash')">DashBoard</a></li>
+    <li class="active">Account</li>
+</ol>
+
+<ol class="breadcrumb" ng-show="page.doShow('dash')">
+    <li class="active">DashBoard</li>
+</ol>
+
+<ol class="breadcrumb" ng-show="page.doShow('login')">
+    <li><a ng-click="page.setPage('main')">Home</a></li>
+    <li class="active">Login</li>
+</ol>
+
+<ol class="breadcrumb" ng-show="page.doShow('singUp')">
+    <li><a ng-click="page.setPage('main')">Home</a></li>
+    <li><a ng-click="page.setPage('login')">Login</a></li>
+    <li class="active">Sing Up</li>
+</ol>

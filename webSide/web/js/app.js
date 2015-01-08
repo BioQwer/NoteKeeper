@@ -59,7 +59,7 @@
     app.controller("LoginController", ['$http', '$scope', function ($http, $scope) {
         var user = this;
         user = {
-            emailVal: undefined,
+            email: undefined,
             login: undefined,
             password: undefined
         };
@@ -131,7 +131,7 @@
                 data: {
                     login: user.login,
                     password: user.password,
-                    email: user.emailVal
+                    email: user.email
                 }
             }).success(function (data) {
                 console.log(data);
@@ -140,6 +140,7 @@
                 console.log(this.user);
                 page.setPage('dash');
                 loginCtrl.doGetNotes();
+                loginCtrl.confirmPassword = '';
             }).error(function (data, status) {
                     console.log("status = " + status);
                     if (data.length === undefined)
@@ -256,7 +257,7 @@
             );
             console.log("end do saveEdit");
         }
-        
+
     }]);
 
 
