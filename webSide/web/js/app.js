@@ -56,7 +56,7 @@
         };
     });
 
-    app.controller("LoginController", ['$http', '$scope', function ($http, $scope) {
+    app.controller("LoginController", ['$http', function ($http) {
         var user = this;
         user = {
             email: undefined,
@@ -70,7 +70,7 @@
         this.getUser = function () {
             return user;
         };
-        
+
         var errorMessage = this;
         errorMessage = '';
 
@@ -87,16 +87,9 @@
             $http({
                 method: 'POST',
                 url: '/api/j_spring_security_check',
-                headers: {'Content-Type': 'application/x-www-form-urlencoded'},
-                transformRequest: function (obj) {
-                    var str = [];
-                    for (var p in obj)
-                        str.push(encodeURIComponent(p) + "=" + encodeURIComponent(obj[p]));
-                    return str.join("&");
-                },
-                data: {
-                    j_username: user.login,
-                    j_password: user.password
+                params: {
+                    "j_username": user.login,
+                    "j_password": user.password
                 }
             }).success(function (data) {
                 console.log(data);
@@ -104,7 +97,7 @@
                 loginCtrl.setUser(data);
                 console.log(this.user);
                 page.setPage('dash');
-                loginCtrl.doGetNotes();
+                loginCtrl.updateNotes();
             }).error(function (data, status) {
                     console.log("status = " + status);
                     if (status === 403)
@@ -123,6 +116,7 @@
         this.getSingUpErrors = function () {
             return singUpErrors;
         };
+
         this.doSingUp = function (user, page, loginCtrl) {
             console.log("start do SingUp");
             $http({
@@ -138,8 +132,7 @@
                 this.user = data;
                 loginCtrl.setUser(data);
                 console.log(this.user);
-                page.setPage('dash');
-                loginCtrl.doGetNotes();
+                loginCtrl.doLogin(data, page, loginCtrl);
                 loginCtrl.confirmPassword = '';
             }).error(function (data, status) {
                     console.log("status = " + status);
@@ -161,7 +154,7 @@
             return notes;
         };
 
-        this.doGetNotes = function () {
+        this.updateNotes = function () {
             console.log("start do getNotes");
             $http({
                 method: 'GET',
@@ -170,7 +163,7 @@
                 notes = data;
             }).error(function (data, status) {
                 console.log("error" + status);
-                console.log(data)
+                console.log(data);
             });
             console.log("end do getNotes");
         };
@@ -179,7 +172,7 @@
             for (var i = 0; i < notes.length; i++) {
                 if (notes[i].noteId === id)
                     return notes[i];
-            }            
+            }
         }
 
         this.deleteNote = function (id, loginCtrl) {
@@ -189,8 +182,8 @@
                 url: '/api/user/note',
                 data: getNoteById(id),
                 headers: {'Content-Type': 'application/json'}
-            }).success(function (data) {
-                loginCtrl.doGetNotes();
+            }).success(function () {
+                loginCtrl.updateNotes();
             });
             console.log("end do deleteNote");
         };
@@ -203,7 +196,6 @@
             }).error(function () {
                 login.setUser({});
                 notes = [];
-                page.setPage('main');
             });
             console.log("end do logout");
         };
@@ -212,7 +204,7 @@
         editNote = {};
 
         this.setForEdit = function (note) {
-            editNote = note
+            editNote = note;
         };
 
         this.getForEdit = function () {
@@ -228,7 +220,7 @@
             }).success(function (data) {
                 console.log(data);
                 editNote = {};
-                loginCtrl.doGetNotes();
+                loginCtrl.updateNotes();
             }).error(function (data, status) {
                     console.log("status = " + status);
                     console.log("saveEdit Errors = " + data);
@@ -248,7 +240,7 @@
             }).success(function (data) {
                 console.log(data);
                 editNote = {};
-                loginCtrl.doGetNotes();
+                loginCtrl.updateNotes();
             }).error(function (data, status) {
                     console.log("status = " + status);
                     console.log("saveEdit Errors = " + data);
@@ -256,9 +248,40 @@
                 }
             );
             console.log("end do saveEdit");
-        }
+        };
 
+        var editUserErrors = this;
+        editUserErrors = [];
+
+        this.getEditUserErrors = function () {
+            return editUserErrors;
+        };
+
+        this.doEditUser = function (page, loginCtrl) {
+            console.log("start do EditUser");
+            console.log("before");
+            console.log(loginCtrl.user);
+            $http({
+                method: 'POST',
+                url: '/api/user',
+                data: loginCtrl.user
+            }).success(function (data) {
+                console.log("after");
+                loginCtrl.setUser(data);
+                console.log(loginCtrl.user);
+                loginCtrl.confirmPassword = '';
+            }).error(function (data, status) {
+                    console.log("status = " + status);
+                    console.log("saveEdit Errors = " + data);
+                    if (data.length === undefined)
+                        editUserErrors.push(data);
+                    else
+                        editUserErrors = data;
+                    console.log(data);
+                }
+            );
+            console.log("end do EditUser");
+        };
     }]);
-
 
 })();

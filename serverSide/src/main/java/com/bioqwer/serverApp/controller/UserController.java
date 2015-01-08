@@ -38,6 +38,8 @@ public class UserController {
     private UserDetailsService userDetailsService;
 
     public User getCurrentUser(Principal principal) {
+        System.out.println("principal.getName() = " + principal.getName());
+        System.out.println(" userService.getByLogin(principal.getName()) = " + userService.getByLogin(principal.getName()));
         return userService.getByLogin(principal.getName());
     }
 

@@ -1,32 +1,56 @@
-<ol class="breadcrumb">
-    <li><a ng-click="page.setPage('dash')">DashBoard</a></li>
-    <li class="active">Account</li>
-</ol>
+<form class="form-signin" name="editAccountForm" role="form"
+      ng-submit="(editAccountForm.Password.$viewValue===editAccountForm.confirmPassword.$viewValue)&&editAccountForm.$valid&&loginCtrl.doEditUser(page,loginCtrl)"
+      novalidate>
 
-<form class="form-signin" name="accountForm" role="form"
-      ng-submit="accountForm.$valid&&loginCtrl.doSingUp(loginCtrl.user,page,loginCtrl)" novalidate>
-    <h2 class="form-signin-heading">Edit your account settings </h2>
+    <legend>Edit your account settings</legend>
+
     <label for="inputEmail" class="sr-only">Email</label>
-    <input type="email" id="inputEmail" class="form-control" ng-model="loginCtrl.user.emailVal" placeholder="Email"
+    <input type="email" id="inputEmail" class="form-control" ng-model="loginCtrl.user.email" placeholder="Email"
            name="Email" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
            required autofocus>
 
-    <label for="inputLogin" class="sr-only">Username</label>
+    <p></p>
+    <span class="label label-warning" ng-show="!editAccountForm.Email.$valid">Email must be like abc@abd.ru</span>
+
+    <p></p>
+
+    <!--<label for="inputLogin" class="sr-only">Username</label>
     <input type="text" id="inputLogin" class="form-control" ng-model="loginCtrl.user.login" placeholder="Username"
            name="Username" minlength="6" required>
+
+    <p></p>
+    <span class="label label-warning" ng-show="!editAccountForm.Username.$valid">Login minimum length 6</span>
+
+    <p></p>-->
 
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" ng-model="loginCtrl.user.password" class="form-control"
            placeholder="Password" name="Password" pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$" required>
 
-    <div class="alert alert-danger" role="alert" ng-show="!accountForm.Email.$valid">Email must be like abc@abd.ru</div>
-    <div class="alert alert-danger" role="alert" ng-show="!accountForm.Username.$valid">Login minimum length 6</div>
-    <div class="alert alert-danger" role="alert" ng-show="!accountForm.Password.$valid">Password minimum length 8 and
-        should have main letter and digit
-    </div>
+    <p></p>
+<span class="label label-warning" ng-show="!editAccountForm.Password.$valid">Password minimum length 8 and
+    should have main letter and digit</span>
 
-    <div ng-repeat="error in loginCtrl.getSingUpErrors()" ng-show="loginCtrl.getSingUpErrors().length">
+    <p></p>
+
+    <label for="confirmPassword" class="sr-only">Password Confirm</label>
+    <input type="password" id="confirmPassword" class="form-control" ng-model="loginCtrl.confirmPassword"
+           placeholder="Confirm Password" name="confirmPassword" pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$"
+           required>
+
+    <p></p>
+<span class="label label-warning"
+      ng-show="(editAccountForm.Password.$viewValue!==editAccountForm.confirmPassword.$viewValue)">
+    Passwords should be same</span>
+
+    <p></p>
+
+    <div ng-repeat="error in loginCtrl.getEditUserErrors()" ng-show="loginCtrl.getEditUserErrors().length">
         <div class="alert alert-danger" role="alert">{{error.property}} = {{error.message}}</div>
     </div>
-    <button class="btn btn-lg btn-primary btn-block btn-success" type="submit">Edit</button>
+
+    <button class="btn btn-lg btn-block" type="submit"
+            ng-class="{'btn-success' : editAccountForm.$valid&&(editAccountForm.Password.$viewValue===editAccountForm.confirmPassword.$viewValue), 'btn-danger' : !editAccountForm.$valid||(editAccountForm.Password.$viewValue!==editAccountForm.confirmPassword.$viewValue)}">
+        Confirm changes
+    </button>
 </form>
