@@ -279,6 +279,7 @@
                 loginCtrl.setUser(data);
                 console.log(loginCtrl.user);
                 loginCtrl.confirmPassword = '';
+                page.setPage('dash');
             }).error(function (data, status) {
                     console.log("status = " + status);
                     console.log("saveEdit Errors = " + data);
