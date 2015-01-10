@@ -50,7 +50,7 @@
     </div>
 
     <button class="btn btn-lg btn-block" type="submit"
-            ng-class="{'btn-success' : singUpForm.$valid&&(singUpForm.Password.$viewValue===singUpForm.confirmPassword.$viewValue), 'btn-danger' : !singUpForm.$valid||(singUpForm.Password.$viewValue!==singUpForm.confirmPassword.$viewValue)}">
+            ng-class="{'btn-success' : singUpForm.$valid&&(singUpForm.Password.$viewValue===singUpForm.confirmPassword.$viewValue), 'btn-danger disabled' : !singUpForm.$valid||(singUpForm.Password.$viewValue!==singUpForm.confirmPassword.$viewValue)}">
         Sign Up
     </button>
 </form>

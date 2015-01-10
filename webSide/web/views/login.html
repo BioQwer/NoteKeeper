@@ -25,7 +25,7 @@
     <div class="alert alert-danger" role="alert" ng-show="loginCtrl.getError().length">{{loginCtrl.getError()}}</div>
 
     <button class="btn btn-lg btn-block" type="submit"
-            ng-class="{'btn-success'   : singInForm.$valid, 'btn-danger' : !singInForm.$valid}">Sign in
+            ng-class="{'btn-success'   : singInForm.$valid, 'btn-danger disabled'  : !singInForm.$valid}">Sign in
     </button>
     <p></p>
 
