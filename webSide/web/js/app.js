@@ -45,6 +45,14 @@
         };
     });
 
+    app.directive("header", function () {
+        return {
+            restrict: "A",
+            templateUrl: "/views/header.html"
+        };
+    });
+
+
     app.controller("PageCtrl", function () {
 
         this.doShow = function (isShow) {
@@ -196,6 +204,7 @@
             }).error(function () {
                 login.setUser({});
                 notes = [];
+                page.setPage('main');
             });
             console.log("end do logout");
         };

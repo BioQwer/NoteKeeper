@@ -37,23 +37,7 @@
 
 <div class="container" ng-controller="LoginController as loginCtrl" ng-init="page.setPage('main')">
 
-    <div class="header">
-        <nav>
-            <ul class="nav nav-pills pull-right" ng-show="!page.doShow('dash')">
-                <li role="presentation"><a>About</a></li>
-            </ul>
-            <ul class="nav nav-pills pull-right" ng-show="page.doShow('dash')||page.doShow('account')">
-                <li role="presentation" class="active"><a href="#">Hello, {{loginCtrl.user.login}}</a></li>
-                <li role="presentation"><a ng-click="page.setPage('account')">Account</a></li>
-                <li role="presentation"><a data-toggle="modal" data-target="#addModal"
-                                           ng-click="loginCtrl.setForEdit({})">Add Note</a></li>
-                <li role="presentation"><a ng-click="loginCtrl.logout(page,loginCtrl)">Logout</a></li>
-            </ul>
-        </nav>
-        <h3 class="text-muted">NoteKeeper</h3>
-
-    </div>
-
+    <div header></div>
     <div locator></div>
     <div>
         <div main-page ng-show="page.doShow('main')"></div>
@@ -64,7 +48,7 @@
     </div>
 
     <footer class="footer">
-        <p>&copy; BioQwer 2014-2015</p>
+        <p>&copy; <a href="//github.com/BioQwer" target="_blank">BioQwer</a> 2014-2015</p>
     </footer>
 </div>
 <!-- /container -->
