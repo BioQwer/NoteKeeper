@@ -1,16 +1,31 @@
 <div ng-repeat="note in loginCtrl.getNotes()">
     <hr/>
-    <div class="pull-right">
-        <a ng-click="loginCtrl.deleteNote(note.noteId,loginCtrl)" class="btn btn-default" title="delete"><span
-                class="glyphicon glyphicon-trash"></span></a>
-        <a ng-click="loginCtrl.setForEdit(note)" class="btn btn-default" title="edit" data-toggle="modal"
-           data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></a>
-    </div>
-    <h4>{{note.head}}</h4>
-    <h5>{{note.body}}</h5>
+    <div class="panel panel-info">
 
-    <h6>Create date:{{note.creationDate | date:'medium'}}</h6>
-    <h6>Last change:{{note.lastChangeDate | date:'medium'}}</h6>
+        <!-- Default panel contents -->
+        <div class="panel-heading">
+            <div class="pull-right">
+                <a ng-click="loginCtrl.deleteNote(note.noteId,loginCtrl)" class="btn btn-danger btn-xs"
+                   title="delete"><span
+                        class="glyphicon glyphicon-trash"></span></a>
+                <a ng-click="loginCtrl.setForEdit(note)" class="btn btn-success btn-xs" title="edit" data-toggle="modal"
+                   data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></a>
+            </div>
+            {{note.head}}
+        </div>
+        <div class="panel-body">
+            <p>{{note.body}}</p>
+        </div>
+        <!-- List group -->
+        <ul class="list-group">
+            <li class="list-group-item"><span class="label label-info">Created</span> {{note.creationDate |
+                date:'medium'}}
+            </li>
+            <li class="list-group-item"><span class="label label-success">Updated</span> {{note.lastChangeDate |
+                date:'medium'}}
+            </li>
+        </ul>
+    </div>
 </div>
 
 <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -35,7 +50,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                <button type="button" class="btn btn-success" data-dismiss="modal"
                         ng-click="loginCtrl.saveEdit(loginCtrl)">Save changes
                 </button>
             </div>
@@ -65,7 +80,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary" data-dismiss="modal"
+                <button type="button" class="btn btn-success" data-dismiss="modal"
                         ng-click="loginCtrl.addNewNote(loginCtrl)">Save changes
                 </button>
             </div>
