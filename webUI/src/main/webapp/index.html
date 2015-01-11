@@ -35,7 +35,7 @@
 
 <body ng-controller="PageCtrl as page">
 
-<div class="container" ng-controller="LoginController as loginCtrl" ng-init="page.setPage('main')">
+<div class="container" ng-controller="LoginController as loginCtrl" ng-init="page.checkLogin(loginCtrl,page)">
 
     <div header></div>
     <div locator></div>
