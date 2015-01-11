@@ -197,4 +197,14 @@ public class TestDataBase {
             System.out.println("e = " + e.getLocalizedMessage());
         }
     }
+
+    @Test
+    public void testLongEmail() throws Exception {
+        try {
+            String longValid = "sdasasddddddddddddddddddddddddddddddddddd@d2.re";
+            User user1 = userService.addUser(new User(longValid, longValid, longValid));
+        } catch (DataIntegrityViolationException e) {
+            System.out.println("e = " + e.getLocalizedMessage());
+        }
+    }
 }

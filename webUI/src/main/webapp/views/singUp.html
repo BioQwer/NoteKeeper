@@ -7,7 +7,7 @@
     <label for="inputEmail" class="sr-only">Email</label>
     <input type="email" id="inputEmail" class="form-control" ng-model="loginCtrl.user.email" placeholder="Email"
            name="Email" pattern="^[_A-Za-z0-9-\+]+(\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\.[A-Za-z0-9]+)*(\.[A-Za-z]{2,})$"
-           required autofocus>
+           required maxlength="40" autofocus>
 
     <p></p>
     <span class="label label-warning" ng-show="!singUpForm.Email.$valid">Email must be like usermail@email.ru</span>
@@ -16,7 +16,7 @@
 
     <label for="inputLogin" class="sr-only">Username</label>
     <input type="text" id="inputLogin" class="form-control" ng-model="loginCtrl.user.login" placeholder="Username"
-           name="Username" minlength="6" required>
+           name="Username" minlength="6" maxlength="40" required>
 
     <p></p>
     <span class="label label-warning" ng-show="!singUpForm.Username.$valid">Login minimum length 6</span>
@@ -25,7 +25,8 @@
 
     <label for="inputPassword" class="sr-only">Password</label>
     <input type="password" id="inputPassword" ng-model="loginCtrl.user.password" class="form-control"
-           placeholder="Password" name="Password" pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$" required>
+           placeholder="Password" name="Password" maxlength="40" pattern="^.*(?=.{8,})(?=.*\d)(?=.*[a-zA-Z]).*$"
+           required>
 
     <p></p>
     <span class="label label-warning" ng-show="!singUpForm.Password.$valid">Password minimum length 8 and
