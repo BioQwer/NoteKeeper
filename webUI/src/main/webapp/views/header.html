@@ -11,6 +11,8 @@
                                                                          ng-click="loginCtrl.setForEdit({})"><span
                     class="glyphicon glyphicon-plus"></span> Add
                 Note</a></li>
+            <li role="presentation" ng-show="!page.doShow('account')"><a><span
+                    class="glyphicon glyphicon-search"></span> Search</a></li>
             <li role="presentation"><a ng-click="page.setPage('dash')" ng-show="page.doShow('account')">Go to
                 DashBoard</a></li>
             <li role="presentation"><a ng-click="loginCtrl.logout(page,loginCtrl)">Logout</a></li>

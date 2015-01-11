@@ -38,6 +38,18 @@
 
 <div class="container">
 
+    <form class="breadcrumb navbar-right" role="search">
+        <div>
+            <input type="text" class="form-control" placeholder="Search">
+        </div>
+    </form>
+    <ol class="breadcrumb">
+        <li><a ng-click="page.setPage('main')">Home</a></li>
+        <li><a ng-click="page.setPage('login')">Login</a></li>
+        <li class="active">Sing Up</li>
+
+    </ol>
+
     <!-- Button trigger modal -->
     <button type="button" class="btn btn-primary btn-lg" data-toggle="modal" data-target="#myModal">
         Launch demo modal
