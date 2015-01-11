@@ -53,7 +53,7 @@
     });
 
 
-    app.controller("PageCtrl", function () {
+    app.controller("PageCtrl", ['$http', function ($http) {
 
         this.doShow = function (isShow) {
             return this.state === isShow;
@@ -62,7 +62,19 @@
         this.setPage = function (newPage) {
             this.state = newPage;
         };
-    });
+
+        this.checkLogin = function (login, page) {
+            page.setPage('main');
+            console.log("start do checkLogin");
+            $http({
+                method: 'GET',
+                url: '/api/user'
+            }).success(function (data) {
+                login.doLogin(data, page, login);
+            });
+            console.log("end do checkLogin");
+        };
+    }]);
 
     app.controller("LoginController", ['$http', function ($http) {
         var user = this;
