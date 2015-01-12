@@ -17,3 +17,8 @@
     <li><a ng-click="page.setPage('login')">Login</a></li>
     <li class="active">Sing Up</li>
 </ol>
+
+<ol class="breadcrumb" ng-show="page.doShow('search')">
+    <li><a ng-click="page.setPage('dash')">DashBoard</a></li>
+    <li class="active">Search</li>
+</ol>

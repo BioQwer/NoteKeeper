@@ -52,6 +52,60 @@
         };
     });
 
+    app.directive("note", function () {
+        return {
+            restrict: "A",
+            templateUrl: "/views/note.html"
+        };
+    });
+
+    app.directive("searchPage", function () {
+        return {
+            restrict: "A",
+            templateUrl: "/views/searchPage.html"
+        };
+    });
+
+    app.controller("SearchController", ['$http', function ($http) {
+        var vm = this;
+        vm.searchItem = '';
+        vm.notes = [];
+
+        this.getNotes = function () {
+            return vm.notes;
+        };
+
+        this.setSearchItem = function (newSearchItem) {
+            vm.searchItem = newSearchItem;
+            if (vm.searchItem !== '')
+                this.updateSearchNotes();
+        };
+
+        this.getSearchItem = function () {
+            return vm.searchItem;
+        };
+
+        this.updateSearchNotes = function () {
+            console.log("start do updateSearchNotes");
+            vm.notes = [];
+            $http({
+                method: 'GET',
+                url: '/api/user/search/' + vm.searchItem
+            }).success(function (data) {
+                vm.notes = data;
+            }).error(function (data, status) {
+                console.log("error" + status);
+                console.log(data);
+            });
+            console.log("end do updateSearchNotes");
+        };
+
+        this.setForEdit = function (note, login) {
+            login.setForEdit(note, login);
+        };
+
+    }]);
+
 
     app.controller("PageCtrl", ['$http', function ($http) {
 

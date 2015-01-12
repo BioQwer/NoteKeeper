@@ -39,13 +39,83 @@
 
     <div header></div>
     <div locator></div>
-    <div>
+    <div ng-controller="SearchController as searchCtrl">
         <div main-page ng-show="page.doShow('main')"></div>
         <div login-page ng-show="page.doShow('login')"></div>
         <div dash-page ng-show="page.doShow('dash')"></div>
         <div sing-up ng-show="page.doShow('singUp')"></div>
         <div account-page ng-show="page.doShow('account')"></div>
+        <div search-page ng-show="page.doShow('search')"></div>
     </div>
+
+    <form name="editNote" novalidate>
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Edit note</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="head"><span class="label label-info">Head</span></label>
+                        <textarea ng-model="loginCtrl.getForEdit().head" class="form-control" rows="1"
+                                  id="head" required></textarea>
+                                <label for="body"><span class="label label-info">Body</span></label>
+                        <textarea ng-model="loginCtrl.getForEdit().body" class="form-control" rows="3"
+                                  id="body"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal"
+                                ng-click="editNote.$valid&&loginCtrl.saveEdit(loginCtrl)"
+                                ng-class="{'btn-success'   : editNote.$valid, 'disabled' : !editNote.$valid}">Save
+                            changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form name="addNote" novalidate>
+        <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="addModalLabel">Add note</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="addHead"><span class="label label-info">Head</span></label>
+                            <textarea ng-model="loginCtrl.getForEdit().head" class="form-control" rows="1"
+                                      id="addHead" required></textarea>
+                                <label for="addBody"><span class="label label-info">Body</span></label>
+                            <textarea ng-model="loginCtrl.getForEdit().body" class="form-control" rows="3"
+                                      id="addBody"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-success" data-dismiss="modal"
+                                ng-click="addNote.$valid&&loginCtrl.addNewNote(loginCtrl)"
+                                ng-class="{'btn-success'   : addNote.$valid, 'disabled' : !addNote.$valid}">Save changes
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
 
     <footer class="footer">
         <p>&copy; <a href="//github.com/BioQwer" target="_blank">BioQwer</a> 2014-2015</p>

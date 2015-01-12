@@ -123,7 +123,7 @@ public class UserController {
         return noteService.getAllUserNotes(getCurrentUser(principal).getUserId());
     }
 
-    @RequestMapping(value = "/search/{searchValue}", method = RequestMethod.POST)
+    @RequestMapping(value = "/search/{searchValue}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
     public Collection<Note> searchNotes(Principal principal, @PathVariable("searchValue") String value) {

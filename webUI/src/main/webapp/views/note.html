@@ -1,0 +1,34 @@
+<hr/>
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <div class="pull-right" ng-show="page.doShow('dash')">
+            <a ng-click="loginCtrl.deleteNote(note.noteId,loginCtrl)" class="btn btn-danger btn-xs"
+               title="delete"><span
+                    class="glyphicon glyphicon-trash"></span></a>
+            <a ng-click="loginCtrl.setForEdit(note)" class="btn btn-success btn-xs" title="edit" data-toggle="modal"
+               data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </div>
+        <div class="pull-right" ng-show="page.doShow('search')">
+            <a ng-click="loginCtrl.deleteNote(note.noteId,loginCtrl);searchCtrl.updateSearchNotes()"
+               class="btn btn-danger btn-xs"
+               title="delete"><span
+                    class="glyphicon glyphicon-trash"></span></a>
+            <a ng-click="searchCtrl.setForEdit(note,loginCtrl)" class="btn btn-success btn-xs" title="edit"
+               data-toggle="modal"
+               data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></a>
+        </div>
+        {{note.head}}
+    </div>
+    <div class="panel-body">
+        <p>{{note.body}}</p>
+    </div>
+    <!-- List group -->
+    <ul class="list-group">
+        <li class="list-group-item"><span class="label label-info">Created</span> {{note.creationDate |
+            date:'medium'}}
+        </li>
+        <li class="list-group-item"><span class="label label-success">Updated</span> {{note.lastChangeDate |
+            date:'medium'}}
+        </li>
+    </ul>
+</div>
