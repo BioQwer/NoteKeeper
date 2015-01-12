@@ -64,13 +64,14 @@
         };
 
         this.checkLogin = function (login, page) {
-            page.setPage('main');
             console.log("start do checkLogin");
             $http({
                 method: 'GET',
                 url: '/api/user'
             }).success(function (data) {
                 login.doLogin(data, page, login);
+            }).error(function () {
+                page.setPage('main');
             });
             console.log("end do checkLogin");
         };
