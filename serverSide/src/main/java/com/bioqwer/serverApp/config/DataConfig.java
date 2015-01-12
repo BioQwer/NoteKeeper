@@ -38,6 +38,11 @@ public class DataConfig {
     @Resource
     private Environment environment;
 
+    /**
+     * *
+     *
+     * @return
+     */
     @Bean
     public DataSource dataSource() {
         BoneCPDataSource dataSource = new BoneCPDataSource();
