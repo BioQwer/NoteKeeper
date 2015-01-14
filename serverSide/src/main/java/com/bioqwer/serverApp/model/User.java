@@ -10,7 +10,7 @@ import javax.validation.constraints.Size;
 import java.util.Collection;
 
 /**
- * User @Entity
+ * Provide data structure of {@link com.bioqwer.serverApp.model.User} for application logic
  */
 @Entity
 public class User {

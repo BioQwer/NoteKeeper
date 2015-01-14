@@ -7,15 +7,33 @@ import javax.validation.constraints.Size;
 import java.sql.Timestamp;
 
 /**
- * Note provide data structure for application  
+ * Provide data structure of {@link com.bioqwer.serverApp.model.Note} for application logic
  */
 @Entity
 public class Note {
+    /**
+     * Name of {@link com.bioqwer.serverApp.model.Note}.
+     */
     private String head;
+    /**
+     * Content of {@link com.bioqwer.serverApp.model.Note}.
+     */
     private String body;
+    /**
+     * Creation time of {@link com.bioqwer.serverApp.model.Note}.
+     */
     private Timestamp creationDate;
+    /**
+     * Time when {@link com.bioqwer.serverApp.model.Note} last updated.
+     */
     private Timestamp lastChangeDate;
+    /**
+     * {@link com.bioqwer.serverApp.model.Note} ID for DataBase.
+     */
     private long noteId;
+    /**
+     * {@link com.bioqwer.serverApp.model.User} owner of {@link com.bioqwer.serverApp.model.Note}.
+     */
     private User userByUserId;
 
     /**
@@ -67,8 +85,8 @@ public class Note {
     }
 
     /**
-     * Allow to set body of {@link com.bioqwer.serverApp.model.Note}
-     * @param body can be null
+     * Allow to set body of {@link com.bioqwer.serverApp.model.Note}.
+     * @param body can be null.
      */
     public void setBody(String body) {
         this.body = body;
@@ -183,7 +201,6 @@ public class Note {
     /**
      * Set owner {@link com.bioqwer.serverApp.model.User} of {@link com.bioqwer.serverApp.model.Note}.
      * Method does work for calls <code>note.setUserByUserId(user)</code>.
-     * @return owner {@link com.bioqwer.serverApp.model.User}.
      */
     public void setUserByUserId(User userByUserId) {
         this.userByUserId = userByUserId;
