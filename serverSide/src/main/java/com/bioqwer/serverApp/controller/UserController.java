@@ -7,7 +7,6 @@ import com.bioqwer.serverApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.http.HttpStatus;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,7 +20,7 @@ import java.util.Collection;
 import java.util.List;
 
 /**
- * Created by Antony on 26.10.2014.
+ * Provide REST Service of Application.
  */
 @Controller
 @RequestMapping(value = "/user")
@@ -33,20 +32,32 @@ public class UserController {
     @Qualifier("noteServiceImpl")
     @Autowired
     private NoteService noteService;
-    @Qualifier("userDetailsServiceImpl")
-    @Autowired
-    private UserDetailsService userDetailsService;
 
+    /**
+     * Allow to get {@link com.bioqwer.serverApp.model.User} which caused the request.
+     *
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @return {@link com.bioqwer.serverApp.model.User} which caused the request.
+     */
     public User getCurrentUser(Principal principal) {
-        System.out.println("principal.getName() = " + principal.getName());
-        System.out.println(" userService.getByLogin(principal.getName()) = " + userService.getByLogin(principal.getName()));
         return userService.getByLogin(principal.getName());
     }
 
+    /**
+     * Allow to get {@link com.bioqwer.serverApp.model.User#login} which caused the request.
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @return {@link com.bioqwer.serverApp.model.User#login} which caused the request.
+     */
     public String getCurrentUserLogin(Principal principal) {
         return principal.getName();
     }
 
+    /**
+     * REST method.<p>
+     * Allow to get {@link com.bioqwer.serverApp.model.User} which caused the request.
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @return {@link com.bioqwer.serverApp.model.User} which caused the request.
+     */
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -54,6 +65,15 @@ public class UserController {
         return getCurrentUser(principal);
     }
 
+    /**
+     * SingIn REST method.<p>
+     * Call {@link com.bioqwer.serverApp.service.UserService#addUser(com.bioqwer.serverApp.model.User)}<p>
+     * If all {@link com.bioqwer.serverApp.model.User} fields valid by patterns.         
+     * @param user new {@link com.bioqwer.serverApp.model.User} data.
+     * @param response used for set {@link org.springframework.http.HttpStatus}. For not valid data 400.
+     * @return {@link com.bioqwer.serverApp.model.User} if fields valid by patterns.<p>
+     * {@link java.util.Collection} of {@link com.bioqwer.serverApp.controller.Constraint} if not valid request.
+     */
     @RequestMapping(value = "/singIn", method = RequestMethod.POST)
     @ResponseBody
     public Object singInUser(@RequestBody User user, HttpServletResponse response) {
@@ -74,8 +94,15 @@ public class UserController {
     }
 
     /**
-     * Edit user method
-     * !! if Change user.login you must to re singIn on client !!
+     * Edit User REST method.<p>
+     * Call {@link com.bioqwer.serverApp.service.UserService#editUser(com.bioqwer.serverApp.model.User)}<p>
+     * If all {@link com.bioqwer.serverApp.model.User} fields valid by patterns.         
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}. 
+     * @param user edited {@link com.bioqwer.serverApp.model.User} data.
+     * @param response used for set {@link org.springframework.http.HttpStatus}. For not valid data 400.
+     * @return {@link com.bioqwer.serverApp.model.User} if fields valid by patterns.<p>
+     * {@link java.util.Collection} of {@link com.bioqwer.serverApp.controller.Constraint} if not valid request.
+     * @throws com.bioqwer.serverApp.controller.UserController.BadRequestException
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
@@ -105,6 +132,14 @@ public class UserController {
         }
     }
 
+    /**
+     * Delete User REST method.<p>
+     * Call {@link com.bioqwer.serverApp.service.UserService#editUser(com.bioqwer.serverApp.model.User)}<p>
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}. 
+     * @param user Delete {@link com.bioqwer.serverApp.model.User} data.
+     * @param response used for set {@link org.springframework.http.HttpStatus}. For not valid data 400.
+     * @throws IOException
+     */
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -116,6 +151,12 @@ public class UserController {
             throw new BadRequestException();
     }
 
+    /**
+     * Get All User Notes REST method.<p>
+     * Call {@link com.bioqwer.serverApp.service.NoteService#getAllUserNotes(long)}.
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @return {@link java.util.Collection} of {@link com.bioqwer.serverApp.model.Note}s there owner logged {@link com.bioqwer.serverApp.model.User}.
+     */
     @RequestMapping(value = "/notes", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -123,6 +164,14 @@ public class UserController {
         return noteService.getAllUserNotes(getCurrentUser(principal).getUserId());
     }
 
+    /**
+     * Search by head and body Notes REST method.<p>
+     * Methods performs search by head and body of {@link com.bioqwer.serverApp.model.Note}.     
+     * Call {@link com.bioqwer.serverApp.service.NoteService#searchInAllParamsOfNotes(String, long)}<p>
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @param value search variable.
+     * @return Collection of founded {@link com.bioqwer.serverApp.model.Note}s by parameter.
+     */
     @RequestMapping(value = "/search/{searchValue}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -130,6 +179,13 @@ public class UserController {
         return noteService.searchInAllParamsOfNotes(value, getCurrentUser(principal).getUserId());
     }
 
+    /**
+     * Get {@link com.bioqwer.serverApp.model.Note} by {@link com.bioqwer.serverApp.model.Note#noteId} REST method.<p>
+     * Call {@link com.bioqwer.serverApp.service.NoteService#getById(long)}<p>
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @param noteId of {@link com.bioqwer.serverApp.model.Note}.
+     * @return {@link com.bioqwer.serverApp.model.Note} those create {@link com.bioqwer.serverApp.model.User}.
+     */
     @RequestMapping(value = "/note/{noteId}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -143,6 +199,13 @@ public class UserController {
             return resNote;
     }
 
+    /**
+     * Edit {@link com.bioqwer.serverApp.model.Note} REST method.<p>
+     * Call {@link com.bioqwer.serverApp.service.NoteService#editNote(com.bioqwer.serverApp.model.Note)}<p>
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @param note edited {@link com.bioqwer.serverApp.model.Note}.
+     * @return edited {@link com.bioqwer.serverApp.model.Note}.
+     */
     @RequestMapping(value = "/note", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -153,6 +216,12 @@ public class UserController {
             return noteService.editNote(note);
     }
 
+    /**
+     * Delete {@link com.bioqwer.serverApp.model.Note} REST method.<p>
+     * Call {@link com.bioqwer.serverApp.service.NoteService#deleteNote(long)}<p> 
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @param note delete {@link com.bioqwer.serverApp.model.Note} data.
+     */
     @RequestMapping(value = "/note", method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -163,6 +232,13 @@ public class UserController {
             noteService.deleteNote(note.getNoteId());
     }
 
+    /**
+     * Create {@link com.bioqwer.serverApp.model.Note} REST method.<p>
+     * Call {@link com.bioqwer.serverApp.service.NoteService#addNote(com.bioqwer.serverApp.model.Note)}<p> 
+     * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
+     * @param note created {@link com.bioqwer.serverApp.model.Note} data.
+     * @return created {@link com.bioqwer.serverApp.model.Note}.
+     */
     @RequestMapping(value = "/newNote", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
@@ -173,16 +249,12 @@ public class UserController {
             return noteService.addNote(note);
     }
 
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public class BadRequestException extends RuntimeException {
-        //
-    }
-
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public class ResourceNotFoundException extends RuntimeException {
-        //
-    }
-
+    /**
+     * Methods performs parse {@link javax.validation.ConstraintViolationException}. Uses for response in friendly format.
+     *
+     * @param exception thrown {@link javax.validation.ConstraintViolationException}.
+     * @return {@link java.util.List} of {@link com.bioqwer.serverApp.controller.Constraint}.
+     */
     private List getInCorrectValues(ConstraintViolationException exception) {
         List list = new ArrayList();
         for (ConstraintViolation<?> cv : exception.getConstraintViolations()) {
@@ -190,5 +262,21 @@ public class UserController {
             list.add(constraint);
         }
         return list;
+    }
+
+    /**
+     * Throw when {@link com.bioqwer.serverApp.model.User} Unauthorized or Access denied.
+     */
+    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
+    public class BadRequestException extends RuntimeException {
+        //
+    }
+
+    /**
+     * Throw when {@link com.bioqwer.serverApp.model.User} or {@link com.bioqwer.serverApp.model.Note} not found.
+     */
+    @ResponseStatus(value = HttpStatus.NOT_FOUND)
+    public class ResourceNotFoundException extends RuntimeException {
+        //
     }
 }

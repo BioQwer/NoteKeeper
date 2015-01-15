@@ -59,8 +59,8 @@ public interface NoteService {
 
     /**
      * Methods performs get owner {@link com.bioqwer.serverApp.model.User} of  {@link com.bioqwer.serverApp.model.Note} from Storage.
-     * @param noteId of {@link com.bioqwer.serverApp.model.Note}
-     * @return {@link com.bioqwer.serverApp.model.User} those create {@link com.bioqwer.serverApp.model.Note} 
+     * @param noteId of {@link com.bioqwer.serverApp.model.Note}.
+     * @return {@link com.bioqwer.serverApp.model.Note} those create {@link com.bioqwer.serverApp.model.User}.
      */
     User getUser(long noteId);
 
@@ -73,9 +73,9 @@ public interface NoteService {
 
     /**
      * Methods performs search by head and body of {@link com.bioqwer.serverApp.model.Note} created by {@link com.bioqwer.serverApp.model.User} from Storage.
-     * @param partOfWord search parameter
-     * @param userId of owner {@link com.bioqwer.serverApp.model.User}
-     * @return Collection of founded {@link com.bioqwer.serverApp.model.Note} by parameter
+     * @param partOfWord search parameter.
+     * @param userId of owner {@link com.bioqwer.serverApp.model.User}.
+     * @return Collection of founded {@link com.bioqwer.serverApp.model.Note} by parameter.
      */
     Collection<Note> searchInAllParamsOfNotes(String partOfWord, long userId);
 }

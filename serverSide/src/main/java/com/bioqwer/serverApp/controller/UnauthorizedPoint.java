@@ -6,16 +6,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 /**
- * Created by Antony on 28.12.2014.
+ * Provide UNAUTHORIZED point of application.
  */
 @Controller
-public class MainController {
+public class UnauthorizedPoint {
 
-    @RequestMapping("/")
-    public String redirect() {
-        return "redirect:index.html";
-    }
-
+    /**
+     * Allow redirect to /notLogin and set {@link org.springframework.http.HttpStatus#UNAUTHORIZED}.
+     */
     @RequestMapping("/notLogin")
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public void notLogin() {

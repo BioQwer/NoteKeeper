@@ -39,9 +39,9 @@ public class DataConfig {
     private Environment environment;
 
     /**
-     * *
-     *
-     * @return
+     * Provide load configs for DataBase.
+     * @return {@link javax.sql.DataSource} {@link org.springframework.context.annotation.Bean} config.
+     * @see org.springframework.context.annotation.Bean 
      */
     @Bean
     public DataSource dataSource() {
@@ -55,6 +55,9 @@ public class DataConfig {
         return dataSource;
     }
 
+    /**
+     * {@link org.springframework.orm.jpa.JpaTransactionManager}
+     */
     @Bean
     public JpaTransactionManager transactionManager() {
         JpaTransactionManager transactionManager = new JpaTransactionManager();
@@ -64,6 +67,9 @@ public class DataConfig {
         return transactionManager;
     }
 
+    /**
+     * {@link org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean}
+     */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();

@@ -13,6 +13,9 @@ import org.springframework.security.config.annotation.web.servlet.configuration.
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 
+/**
+ * JavaBased Security Configuration.
+ */
 @Configuration
 @EnableWebMvcSecurity
 @EnableGlobalMethodSecurity(securedEnabled = true)
@@ -53,6 +56,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .invalidateHttpSession(true);
     }
 
+    /**
+     * {@link org.springframework.security.config.annotation.authentication.configurers.GlobalAuthenticationConfigurerAdapter}
+     */
     @Configuration
     protected static class AuthenticationConfiguration extends
             GlobalAuthenticationConfigurerAdapter {

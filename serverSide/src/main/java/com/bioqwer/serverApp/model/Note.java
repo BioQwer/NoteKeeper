@@ -28,7 +28,7 @@ public class Note {
      */
     private Timestamp lastChangeDate;
     /**
-     * {@link com.bioqwer.serverApp.model.Note} ID for DataBase.
+     * {@link com.bioqwer.serverApp.model.Note} ID for Storage.
      */
     private long noteId;
     /**

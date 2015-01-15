@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
 /**
- * Created by Antony on 28.12.2014.
+ * Provide Exception Handler for Authentication Failure.
  */
 @Component
 public class RestAuthenticationExceptionHandler extends SimpleUrlAuthenticationFailureHandler {
@@ -23,6 +23,13 @@ public class RestAuthenticationExceptionHandler extends SimpleUrlAuthenticationF
     @Autowired
     private UserService userService;
 
+    /**
+     * {@inheritDoc}
+     * <p>
+     * <tt>when "User not Found in Storage" set {@link org.springframework.http.HttpStatus} 404 </tt>
+     * <p>
+     * <tt>when "Incorrect password for Login" set {@link org.springframework.http.HttpStatus} 403 </tt>
+     */
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         User user = userService.getByLogin((String) exception.getAuthentication().getPrincipal());
