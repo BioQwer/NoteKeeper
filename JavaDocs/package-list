@@ -1,0 +1,6 @@
+com.bioqwer.serverApp.config
+com.bioqwer.serverApp.controller
+com.bioqwer.serverApp.model
+com.bioqwer.serverApp.repository
+com.bioqwer.serverApp.service
+com.bioqwer.serverApp.service.impl
