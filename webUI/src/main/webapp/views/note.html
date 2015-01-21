@@ -9,7 +9,7 @@
                data-target="#editModal"><span class="glyphicon glyphicon-pencil"></span></a>
         </div>
         <div class="pull-right" ng-show="page.doShow('search')">
-            <a ng-click="loginCtrl.deleteNote(note.noteId,loginCtrl);searchCtrl.updateSearchNotes()"
+            <a ng-click="searchCtrl.deleteNote(note.noteId,searchCtrl)"
                class="btn btn-danger btn-xs"
                title="delete"><span
                     class="glyphicon glyphicon-trash"></span></a>

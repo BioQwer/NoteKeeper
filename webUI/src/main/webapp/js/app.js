@@ -104,6 +104,26 @@
             login.setForEdit(note, login);
         };
 
+        function getNoteById(id) {
+            for (var i = 0; i < vm.notes.length; i++) {
+                if (vm.notes[i].noteId === id)
+                    return vm.notes[i];
+            }
+        }
+
+        this.deleteNote = function (id, search) {
+            console.log("start do deleteNote");
+            $http({
+                method: 'DELETE',
+                url: '/api/user/note',
+                data: getNoteById(id),
+                headers: {'Content-Type': 'application/json'}
+            }).success(function () {
+                search.updateSearchNotes();
+            });
+            console.log("end do deleteNote");
+        };
+
     }]);
 
 
