@@ -66,13 +66,20 @@ WebUI support.
   git clone https://github.com/BioQwer/NoteKeeper.git
   ```
   
-3. Edit configs for DataBase `app.properties`, if you use not [MySql](http://dev.mysql.com/) you need to add [Maven dependency](http://mvnrepository.com/) for your JDBC.
+3. Install [Bower](http://bower.io/) dependencies for WebApplication.
+
+  ```
+  cd webUI/src/main/webapp/
+  bower i
+  ```
+  
+4. Edit configs for DataBase `app.properties`, if you use not [MySql](http://dev.mysql.com/) you need to add [Maven dependency](http://mvnrepository.com/) for your JDBC.
 
   ```
   cd serverSide/src/main/resources/app.properties
   ```
 
-4. Compile project.
+5. Compile project.
 
   ```
   mvn clean package

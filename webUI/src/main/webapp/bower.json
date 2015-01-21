@@ -1,0 +1,23 @@
+{
+  "name": "NoteKeeper",
+  "version": "0.9",
+  "homepage": "https://github.com/Bioqwer/NoteKeeper",
+  "authors": [
+    "Bioqwer <Bioqwer94@gmail.com>"
+  ],
+  "description": "Note service for keeping yours notes in the cloud.",
+  "main": "index.html",
+  "license": "MIT",
+  "dependencies": {
+    "angular": "~1.3.10",
+    "jquery": "~2.1.3",
+    "bootstrap": "~3.3.2"
+  },
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
