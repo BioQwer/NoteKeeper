@@ -36,9 +36,10 @@
 
 <div class="container" ng-controller="LoginController as loginCtrl" ng-init="page.checkLogin(loginCtrl,page)">
 
-    <div header></div>
-    <div locator></div>
+
     <div ng-controller="SearchController as searchCtrl">
+        <div header></div>
+        <div locator></div>
         <div main-page ng-show="page.doShow('main')"></div>
         <div login-page ng-show="page.doShow('login')"></div>
         <div dash-page ng-show="page.doShow('dash')"></div>
