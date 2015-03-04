@@ -44,6 +44,7 @@ public class User {
      */
     @JsonIgnore
     private Collection<Note> notesByUserId;
+    private Collection<Monitoring> monitoringsByUserId;
 
     /**
      * Default constructor.
@@ -193,5 +194,14 @@ public class User {
      */
     public void setNotesByUserId(Collection<Note> notesByUserId) {
         this.notesByUserId = notesByUserId;
+    }
+
+    @OneToMany(mappedBy = "userByUserId")
+    public Collection<Monitoring> getMonitoringsByUserId() {
+        return monitoringsByUserId;
+    }
+
+    public void setMonitoringsByUserId(Collection<Monitoring> monitoringsByUserId) {
+        this.monitoringsByUserId = monitoringsByUserId;
     }
 }

@@ -18,3 +18,12 @@ ALTER TABLE note ADD CONSTRAINT note_ibfk_1 FOREIGN KEY (userId)
 REFERENCES user (userId)
   ON DELETE CASCADE;
 CREATE INDEX R_3 ON note (userId);
+
+CREATE TABLE monitoring
+(
+    id BIGINT NOT NULL AUTO_INCREMENT,
+    user_id BIGINT NOT NULL,
+    note_id INT,
+    data LONGTEXT NOT NULL,
+    PRIMARY KEY (user_id, note_id)
+);

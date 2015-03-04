@@ -5,6 +5,7 @@ import org.hibernate.annotations.GenericGenerator;
 import javax.persistence.*;
 import javax.validation.constraints.Size;
 import java.sql.Timestamp;
+import java.util.Collection;
 
 /**
  * Provide data structure of {@link com.bioqwer.serverApp.model.Note} for application logic
@@ -35,6 +36,7 @@ public class Note {
      * {@link com.bioqwer.serverApp.model.User} owner of {@link com.bioqwer.serverApp.model.Note}.
      */
     private User userByUserId;
+    private Collection<Monitoring> monitoringsByNoteId;
 
     /**
      * Default constructor.
@@ -204,5 +206,14 @@ public class Note {
      */
     public void setUserByUserId(User userByUserId) {
         this.userByUserId = userByUserId;
+    }
+
+    @OneToMany(mappedBy = "noteByNoteId")
+    public Collection<Monitoring> getMonitoringsByNoteId() {
+        return monitoringsByNoteId;
+    }
+
+    public void setMonitoringsByNoteId(Collection<Monitoring> monitoringsByNoteId) {
+        this.monitoringsByNoteId = monitoringsByNoteId;
     }
 }

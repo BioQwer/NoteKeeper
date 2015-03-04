@@ -10,6 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
@@ -143,10 +145,10 @@ public class UserController {
     @RequestMapping(method = RequestMethod.DELETE)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public void deleteUser(Principal principal, @RequestBody User user, HttpServletResponse response) throws IOException {
+    public void deleteUser(Principal principal, @RequestBody User user, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
         if (user.getUserId() == getCurrentUser(principal).getUserId()) {
             userService.delete(user.getUserId());
-            response.sendRedirect("../logout");
+            request.logout();
         } else
             throw new BadRequestException();
     }
