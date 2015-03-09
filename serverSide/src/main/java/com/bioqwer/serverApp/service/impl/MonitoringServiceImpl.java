@@ -5,12 +5,14 @@ import com.bioqwer.serverApp.model.Note;
 import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.repository.MonitoringRepository;
 import com.bioqwer.serverApp.service.MonitoringService;
+import com.bioqwer.serverApp.service.NoteService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Collection;
 
@@ -25,34 +27,61 @@ public class MonitoringServiceImpl implements MonitoringService {
     @Autowired
     private MonitoringRepository monitoringRepository;
 
+    @Qualifier("noteServiceImpl")
+    @Autowired
+    private NoteService noteService;
+
+
     @Override
     public Collection<Monitoring> getUserAction(User user) {
-        return null;
+        return monitoringRepository.getUserAction(user);
     }
 
     @Override
-    public Collection<Monitoring> getUserActionOnNote(User user, Note note) {
-        return null;
+    public Collection<Monitoring> getUserActionOnNote(Note note) {
+        return monitoringRepository.getUserActionOnNote(note);
     }
 
     @Override
-    public Monitoring addMonitoring(Object o)  {
-        Monitoring result = new Monitoring();
-        ObjectMapper objectMapper = new ObjectMapper();
+    public Monitoring addUserMonitoring(User user) {
+        Monitoring monitoring = new Monitoring();
+        monitoring.setNoteByNoteId(null);
+        monitoring.setLogTime(new Timestamp(System.currentTimeMillis()));
+        monitoring.setUserByUserId(user);
         try {
-            result.setLogData(objectMapper.writeValueAsString(o));
+            monitoring.setLogData(new ObjectMapper().writeValueAsString(user));
         } catch (JsonProcessingException e) {
             e.printStackTrace();
+            monitoring.setLogData(e.getOriginalMessage());
         }
-        result.setLogTime(new Timestamp(System.currentTimeMillis()));
-        result.setUserId(o.getUserId());
-        result.setNoteId(null);
-
-        return monitoringRepository.saveAndFlush(result);
+        monitoringRepository.save(monitoring);
+        return monitoring;
     }
 
     @Override
-    public Object revertFromMonitoring(Monitoring monitoring) {
-        return null;
+    public Monitoring addNoteMonitoring(Note note) {
+        Monitoring monitoring = new Monitoring();
+        monitoring.setNoteByNoteId(note);
+        monitoring.setLogTime(note.getLastChangeDate());
+        monitoring.setUserByUserId(note.getUserByUserId());
+        try {
+            monitoring.setLogData(new ObjectMapper().writeValueAsString(note));
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+            monitoring.setLogData(e.getOriginalMessage());
+        }
+        monitoringRepository.save(monitoring);
+        return monitoring;
+    }
+
+    @Override
+    public Note revertNoteFromMonitoring(Monitoring monitoring) {
+        Note note = null;
+        try {
+            note = noteService.editNote(new ObjectMapper().readValue(monitoring.getLogData(), Note.class));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return note;
     }
 }

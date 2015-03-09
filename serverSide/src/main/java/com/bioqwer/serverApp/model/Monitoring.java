@@ -1,5 +1,7 @@
 package com.bioqwer.serverApp.model;
 
+import org.hibernate.annotations.GenericGenerator;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 
@@ -9,41 +11,21 @@ import java.sql.Timestamp;
 @Entity
 public class Monitoring {
     private long id;
-    private long userId;
-    private Long noteId;
     private Timestamp logTime;
     private String logData;
     private Note noteByNoteId;
     private User userByUserId;
 
     @Id
-    @Column(name = "id", nullable = false, insertable = true)
+    @GeneratedValue(generator = "increment")
+    @GenericGenerator(name = "increment", strategy = "increment")
+    @Column(name = "id", nullable = false)
     public long getId() {
         return id;
     }
 
     public void setId(long id) {
         this.id = id;
-    }
-
-    @Basic
-    @Column(name = "user_id", nullable = false, insertable = true)
-    public long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(long userId) {
-        this.userId = userId;
-    }
-
-    @Basic
-    @Column(name = "note_id", nullable = true, insertable = true)
-    public Long getNoteId() {
-        return noteId;
-    }
-
-    public void setNoteId(Long noteId) {
-        this.noteId = noteId;
     }
 
     @Basic
@@ -69,15 +51,15 @@ public class Monitoring {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof Monitoring)) return false;
 
         Monitoring that = (Monitoring) o;
 
         if (id != that.id) return false;
-        if (userId != that.userId) return false;
         if (logData != null ? !logData.equals(that.logData) : that.logData != null) return false;
         if (logTime != null ? !logTime.equals(that.logTime) : that.logTime != null) return false;
-        if (noteId != null ? !noteId.equals(that.noteId) : that.noteId != null) return false;
+        if (noteByNoteId != null ? !noteByNoteId.equals(that.noteByNoteId) : that.noteByNoteId != null) return false;
+        if (userByUserId != null ? !userByUserId.equals(that.userByUserId) : that.userByUserId != null) return false;
 
         return true;
     }
@@ -85,10 +67,10 @@ public class Monitoring {
     @Override
     public int hashCode() {
         int result = (int) (id ^ (id >>> 32));
-        result = 31 * result + (int) (userId ^ (userId >>> 32));
-        result = 31 * result + (noteId != null ? noteId.hashCode() : 0);
         result = 31 * result + (logTime != null ? logTime.hashCode() : 0);
         result = 31 * result + (logData != null ? logData.hashCode() : 0);
+        result = 31 * result + (noteByNoteId != null ? noteByNoteId.hashCode() : 0);
+        result = 31 * result + (userByUserId != null ? userByUserId.hashCode() : 0);
         return result;
     }
 
@@ -110,5 +92,16 @@ public class Monitoring {
 
     public void setUserByUserId(User userByUserId) {
         this.userByUserId = userByUserId;
+    }
+
+    @Override
+    public String toString() {
+        return "Monitoring{" +
+                "id=" + id +
+                ", logTime=" + logTime +
+                ", logData='" + logData + '\'' +
+                ", noteByNoteId=" + noteByNoteId +
+                ", userByUserId=" + userByUserId +
+                "}\n";
     }
 }

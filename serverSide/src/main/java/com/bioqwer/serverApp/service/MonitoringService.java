@@ -21,14 +21,15 @@ public interface MonitoringService {
 
     /**
      * Method allow to get all {@link com.bioqwer.serverApp.model.User} actions for {@link com.bioqwer.serverApp.model.Note}.
-     * @param user instance of {@link com.bioqwer.serverApp.model.User}.
      * @param note instance of {@link com.bioqwer.serverApp.model.Note}.
      * @return Monitoring.
      */
-    Collection<Monitoring> getUserActionOnNote(User user,Note note);
+    Collection<Monitoring> getUserActionOnNote(Note note);
+
+    Monitoring addUserMonitoring(User user);
+
+    Monitoring addNoteMonitoring(Note note);
     
-    Monitoring addMonitoring(Object o);
-    
-    Object revertFromMonitoring(Monitoring monitoring);
+    Note revertNoteFromMonitoring(Monitoring monitoring);
 
 }
