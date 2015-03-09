@@ -8,6 +8,8 @@ import com.bioqwer.serverApp.service.MonitoringService;
 import com.bioqwer.serverApp.service.NoteService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ import java.util.Collection;
  */
 @Service
 public class MonitoringServiceImpl implements MonitoringService {
+
+    private static final Logger logger = LogManager.getLogger(MonitoringServiceImpl.class);
 
     @Qualifier("monitoringRepository")
     @Autowired
@@ -39,6 +43,8 @@ public class MonitoringServiceImpl implements MonitoringService {
 
     @Override
     public Collection<Monitoring> getUserActionOnNote(Note note) {
+        Collection<Monitoring> result  = monitoringRepository.getUserActionOnNote(note);
+        logger.info("Get User Action On Note "+result);
         return monitoringRepository.getUserActionOnNote(note);
     }
 

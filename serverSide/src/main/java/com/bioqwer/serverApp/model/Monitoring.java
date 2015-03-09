@@ -102,6 +102,6 @@ public class Monitoring {
                 ", logData='" + logData + '\'' +
                 ", noteByNoteId=" + noteByNoteId +
                 ", userByUserId=" + userByUserId +
-                "}\n";
+                '}';
     }
 }

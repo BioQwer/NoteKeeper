@@ -2,6 +2,7 @@ package com.bioqwer.serverApp.service.impl;
 
 import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.repository.UserRepository;
+import com.bioqwer.serverApp.service.MonitoringService;
 import com.bioqwer.serverApp.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -19,9 +20,15 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserRepository userRepository;
 
+    @Qualifier("monitoringServiceImpl")
+    @Autowired
+    private MonitoringService monitoringService;
+
     @Override
     public User addUser(User user) {
-        return userRepository.saveAndFlush(user);
+        user = userRepository.saveAndFlush(user);
+        monitoringService.addUserMonitoring(user);
+        return user;
     }
 
     @Override
@@ -46,7 +53,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User editUser(User user) {
-        return userRepository.saveAndFlush(user);
+        user = userRepository.saveAndFlush(user);
+        monitoringService.addUserMonitoring(user);
+        return user;
     }
 
     @Override

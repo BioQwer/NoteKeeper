@@ -182,12 +182,13 @@ public class Note {
     @Override
     public String toString() {
         return "Note{" +
-                "noteId=" + noteId +
-                ",head='" + head + '\'' +
+                "head='" + head + '\'' +
                 ", body='" + body + '\'' +
-                ", userByUserId=" + userByUserId.getUserId() +
-                ", createTime=" + creationDate +
-                "}\n";
+                ", creationDate=" + creationDate +
+                ", lastChangeDate=" + lastChangeDate +
+                ", noteId=" + noteId +
+                ", userByUserId=" + userByUserId+
+                '}';
     }
 
     /**
@@ -208,12 +209,8 @@ public class Note {
         this.userByUserId = userByUserId;
     }
 
-    @OneToMany(mappedBy = "noteByNoteId")
-    public Collection<Monitoring> getMonitoringsByNoteId() {
-        return monitoringsByNoteId;
-    }
-
-    public void setMonitoringsByNoteId(Collection<Monitoring> monitoringsByNoteId) {
-        this.monitoringsByNoteId = monitoringsByNoteId;
+    @PreUpdate
+    void preUpdate() {
+        this.setLastChangeDate(new Timestamp(System.currentTimeMillis()));
     }
 }

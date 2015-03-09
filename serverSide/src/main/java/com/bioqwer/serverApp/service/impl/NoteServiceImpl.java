@@ -3,6 +3,7 @@ package com.bioqwer.serverApp.service.impl;
 import com.bioqwer.serverApp.model.Note;
 import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.repository.NoteRepository;
+import com.bioqwer.serverApp.service.MonitoringService;
 import com.bioqwer.serverApp.service.NoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -21,17 +22,25 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private NoteRepository noteRepository;
 
+    @Qualifier("monitoringServiceImpl")
+    @Autowired
+    private MonitoringService monitoringService;
+
+
     @Override
     public Note addNote(Note note) {
         note.setCreationDate(new Timestamp(System.currentTimeMillis()));
         note.setLastChangeDate(new Timestamp(System.currentTimeMillis()));
-        return noteRepository.saveAndFlush(note);
+        Note result = noteRepository.saveAndFlush(note);
+        monitoringService.addNoteMonitoring(result);
+        return result;
     }
 
     @Override
     public Note editNote(Note note) {
-        note.setLastChangeDate(new Timestamp(System.currentTimeMillis()));
-        return noteRepository.saveAndFlush(note);
+        Note result = noteRepository.saveAndFlush(note);
+        monitoringService.addNoteMonitoring(result);
+        return result;
     }
 
     @Override
