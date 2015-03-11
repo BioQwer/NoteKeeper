@@ -44,6 +44,7 @@ public class User {
      */
     @JsonIgnore
     private Collection<Note> notesByUserId;
+    @JsonIgnore
     private Collection<Monitoring> monitoringsByUserId;
 
     /**
@@ -54,8 +55,9 @@ public class User {
 
     /**
      * Specific constructor for {@link com.bioqwer.serverApp.model.User}.
-     * @param email {@link com.bioqwer.serverApp.model.User#email} of {@link com.bioqwer.serverApp.model.User}.
-     * @param login {@link com.bioqwer.serverApp.model.User#login} of {@link com.bioqwer.serverApp.model.User}.
+     *
+     * @param email    {@link com.bioqwer.serverApp.model.User#email} of {@link com.bioqwer.serverApp.model.User}.
+     * @param login    {@link com.bioqwer.serverApp.model.User#login} of {@link com.bioqwer.serverApp.model.User}.
      * @param password {@link com.bioqwer.serverApp.model.User#password} of {@link com.bioqwer.serverApp.model.User}.
      */
     public User(String email, String login, String password) {
@@ -66,6 +68,7 @@ public class User {
 
     /**
      * Allow to get {@link com.bioqwer.serverApp.model.User#userId} of {@link com.bioqwer.serverApp.model.User}.
+     *
      * @return {@link com.bioqwer.serverApp.model.User#userId}.
      */
     @Id
@@ -78,6 +81,7 @@ public class User {
 
     /**
      * Allow to set {@link com.bioqwer.serverApp.model.User#userId}.
+     *
      * @param userId new {@link com.bioqwer.serverApp.model.User#userId} of {@link com.bioqwer.serverApp.model.User}.
      */
     public void setUserId(long userId) {
@@ -86,6 +90,7 @@ public class User {
 
     /**
      * Allow to get {@link com.bioqwer.serverApp.model.User#email} of {@link com.bioqwer.serverApp.model.User}.
+     *
      * @return {@link com.bioqwer.serverApp.model.User#email}.
      */
     @Basic
@@ -97,6 +102,7 @@ public class User {
 
     /**
      * Allow to set {@link com.bioqwer.serverApp.model.User#email}.
+     *
      * @param email new {@link com.bioqwer.serverApp.model.User#email} of {@link com.bioqwer.serverApp.model.User}.
      */
     public void setEmail(String email) {
@@ -105,6 +111,7 @@ public class User {
 
     /**
      * Allow to get {@link com.bioqwer.serverApp.model.User#login} of {@link com.bioqwer.serverApp.model.User}.
+     *
      * @return {@link com.bioqwer.serverApp.model.User#login}.
      */
     @Basic
@@ -117,6 +124,7 @@ public class User {
 
     /**
      * Allow to set {@link com.bioqwer.serverApp.model.User#login}.
+     *
      * @param login new {@link com.bioqwer.serverApp.model.User#login} of {@link com.bioqwer.serverApp.model.User}.
      */
     public void setLogin(String login) {
@@ -125,6 +133,7 @@ public class User {
 
     /**
      * Allow to get {@link com.bioqwer.serverApp.model.User#password} of {@link com.bioqwer.serverApp.model.User}.
+     *
      * @return {@link com.bioqwer.serverApp.model.User#password}.
      */
     @Basic
@@ -137,6 +146,7 @@ public class User {
 
     /**
      * Allow to set {@link com.bioqwer.serverApp.model.User#password}.
+     *
      * @param password new {@link com.bioqwer.serverApp.model.User#password} of {@link com.bioqwer.serverApp.model.User}.
      */
     public void setPassword(String password) {
@@ -181,6 +191,7 @@ public class User {
 
     /**
      * Allow to get all {@link com.bioqwer.serverApp.model.Note}s of {@link com.bioqwer.serverApp.model.User}.
+     *
      * @return {@link com.bioqwer.serverApp.model.User#notesByUserId}.
      */
     @OneToMany(mappedBy = "userByUserId", fetch = FetchType.EAGER)
@@ -190,9 +201,19 @@ public class User {
 
     /**
      * Allow to set {@link java.util.Collection} of {@link com.bioqwer.serverApp.model.Note}s for {@link com.bioqwer.serverApp.model.User}.
+     *
      * @param notesByUserId new {@link com.bioqwer.serverApp.model.User#notesByUserId} of {@link com.bioqwer.serverApp.model.User}.
      */
     public void setNotesByUserId(Collection<Note> notesByUserId) {
         this.notesByUserId = notesByUserId;
+    }
+
+    @OneToMany(mappedBy = "userByUserId", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
+    public Collection<Monitoring> getMonitoringsByUserId() {
+        return monitoringsByUserId;
+    }
+
+    public void setMonitoringsByUserId(Collection<Monitoring> monitoringsByUserId) {
+        this.monitoringsByUserId = monitoringsByUserId;
     }
 }

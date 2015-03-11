@@ -1,5 +1,6 @@
 package com.bioqwer.serverApp.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
@@ -36,6 +37,7 @@ public class Note {
      * {@link com.bioqwer.serverApp.model.User} owner of {@link com.bioqwer.serverApp.model.Note}.
      */
     private User userByUserId;
+    @JsonIgnore
     private Collection<Monitoring> monitoringsByNoteId;
 
     /**
@@ -59,6 +61,7 @@ public class Note {
 
     /**
      * Allow to get head of {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @return head of {@link com.bioqwer.serverApp.model.Note}.
      */
     @Basic
@@ -70,6 +73,7 @@ public class Note {
 
     /**
      * Allow to set head.
+     *
      * @param head can't be null.
      */
     public void setHead(String head) {
@@ -78,6 +82,7 @@ public class Note {
 
     /**
      * Allow to get body of {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @return body of {@link com.bioqwer.serverApp.model.Note}.
      */
     @Basic
@@ -88,6 +93,7 @@ public class Note {
 
     /**
      * Allow to set body of {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @param body can be null.
      */
     public void setBody(String body) {
@@ -96,6 +102,7 @@ public class Note {
 
     /**
      * Allow to get time of creation {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @return time when {@link com.bioqwer.serverApp.model.Note} been created.
      */
     @Basic
@@ -106,6 +113,7 @@ public class Note {
 
     /**
      * Allow to set time of creation {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @param creationDate of {@link com.bioqwer.serverApp.model.Note}.
      */
     public void setCreationDate(Timestamp creationDate) {
@@ -114,6 +122,7 @@ public class Note {
 
     /**
      * Allow to get time of update {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @return time when {@link com.bioqwer.serverApp.model.Note} been updated.
      */
     @Basic
@@ -124,6 +133,7 @@ public class Note {
 
     /**
      * Allow to set time of update {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @param lastChangeDate of {@link com.bioqwer.serverApp.model.Note}.
      */
     public void setLastChangeDate(Timestamp lastChangeDate) {
@@ -132,6 +142,7 @@ public class Note {
 
     /**
      * Allow to get id of {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @return noteId of {@link com.bioqwer.serverApp.model.Note}.
      */
     @Id
@@ -145,6 +156,7 @@ public class Note {
     /**
      * Allow to set id of {@link com.bioqwer.serverApp.model.Note} for Persistence layer.
      * Method does work for calls <code>note.setNoteId(1)</code>.
+     *
      * @param noteId noteId of {@link com.bioqwer.serverApp.model.Note}.
      */
     public void setNoteId(long noteId) {
@@ -187,12 +199,13 @@ public class Note {
                 ", creationDate=" + creationDate +
                 ", lastChangeDate=" + lastChangeDate +
                 ", noteId=" + noteId +
-                ", userByUserId=" + userByUserId+
+                ", userByUserId=" + userByUserId +
                 '}';
     }
 
     /**
      * Get owner {@link com.bioqwer.serverApp.model.User} of {@link com.bioqwer.serverApp.model.Note}.
+     *
      * @return owner {@link com.bioqwer.serverApp.model.User}.
      */
     @ManyToOne
@@ -213,4 +226,14 @@ public class Note {
     void preUpdate() {
         this.setLastChangeDate(new Timestamp(System.currentTimeMillis()));
     }
+
+    @OneToMany(mappedBy = "noteByNoteId", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE)
+    public Collection<Monitoring> getMonitoringsByNoteId() {
+        return monitoringsByNoteId;
+    }
+
+    public void setMonitoringsByNoteId(Collection<Monitoring> monitoringsByNoteId) {
+        this.monitoringsByNoteId = monitoringsByNoteId;
+    }
+
 }
