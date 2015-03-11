@@ -147,7 +147,7 @@ public class UserController {
     @ResponseBody
     public void deleteUser(Principal principal, @RequestBody User user, HttpServletResponse response, HttpServletRequest request) throws IOException, ServletException {
         if (user.getUserId() == getCurrentUser(principal).getUserId()) {
-            userService.delete(user.getUserId());
+            userService.delete(user);
             request.logout();
         } else
             throw new BadRequestException();
@@ -220,7 +220,7 @@ public class UserController {
 
     /**
      * Delete {@link com.bioqwer.serverApp.model.Note} REST method.<p>
-     * Call {@link com.bioqwer.serverApp.service.NoteService#deleteNote(long)}<p> 
+     * Call {@link com.bioqwer.serverApp.service.NoteService#deleteNote(com.bioqwer.serverApp.model.Note)}<p>
      * @param principal security variable {@link java.security.Principal} which contain {@link com.bioqwer.serverApp.model.User#login} of logged {@link com.bioqwer.serverApp.model.User}.
      * @param note delete {@link com.bioqwer.serverApp.model.Note} data.
      */
@@ -231,7 +231,7 @@ public class UserController {
         if (!note.getUserByUserId().getLogin().equals(getCurrentUserLogin(principal)))
             throw new BadRequestException();
         else
-            noteService.deleteNote(note.getNoteId());
+            noteService.deleteNote(note);
     }
 
     /**

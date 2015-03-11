@@ -65,7 +65,7 @@ public class TestDataBase {
 
     @Test
     public void delete() {
-        userService.delete(1);
+        userService.delete(userRepository.findOne((long) 1));
     }
 
     @Test
@@ -151,7 +151,7 @@ public class TestDataBase {
     public void testSavingWithNotValidPassword() throws Exception {
         User user = new User("user", "login2", "");
         userRepository.save(user);
-        userService.delete(user.getUserId());
+        userService.delete(user);
     }
 
     @Test

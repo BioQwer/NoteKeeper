@@ -31,9 +31,9 @@ public interface NoteService {
     /**
      * Methods performs delete specified {@link com.bioqwer.serverApp.model.Note} by id field from Storage.
      *
-     * @param id field of {@link com.bioqwer.serverApp.model.Note}
+     * @param deletedNote field of {@link com.bioqwer.serverApp.model.Note}
      */
-    void deleteNote(long id);
+    void deleteNote(Note deletedNote);
 
     /**
      * Methods allow get {@link com.bioqwer.serverApp.model.Note} by id field from Storage.

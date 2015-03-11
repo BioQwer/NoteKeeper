@@ -48,21 +48,21 @@ public class MonitoringTests {
 
     @Test
     public void testBasic() throws Exception {
-        User user = new User("user1@email.ru", "login1", "Passsword1");
+        User user = new User("user1@email.ru", "login12", "Passsword1");
         user = userService.addUser(user);
-        //System.out.println("user = " + user);
-        monitoringService.addUserMonitoring(user);
 
         Note note = new Note(user,"Head ","Body ");
+        // 1 note
         noteService.addNote(note);
-        monitoringService.addNoteMonitoring(note);
+        // + 3 note
         for (int i = 0; i < 3; i++) {
             note.setHead("Head iterations " + i);
             noteService.editNote(note);
-            monitoringService.addNoteMonitoring(note);
         }
-        monitoringService.getUserActionOnNote(note);
         System.out.println("monitoringService = " + monitoringService.getUserActionOnNote(note).size());
+        // 4 changes in note
+        assertEquals(4,monitoringService.getUserActionOnNote(note).size());
+
     }
 
     @Test

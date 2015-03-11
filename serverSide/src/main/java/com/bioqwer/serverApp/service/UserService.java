@@ -22,9 +22,9 @@ public interface UserService {
     /**
      * Methods performs delete {@link com.bioqwer.serverApp.model.User} from Storage.
      *
-     * @param id of {@link com.bioqwer.serverApp.model.User} those be deleted.
+     * @param deleteUser of {@link com.bioqwer.serverApp.model.User} those be deleted.
      */
-    void delete(long id);
+    void delete(User deleteUser);
 
     /**
      * Methods performs get {@link com.bioqwer.serverApp.model.User} from Storage.

@@ -39,7 +39,7 @@ public class NoteServiceTests {
     @Autowired
     private NoteService noteService;
 
-    User user = new User("usqwe@email.ru", "login1", "Passsword1");
+    User user = new User("usqwe@email.ru", "loginw1", "Passsword1");
     User dbCreate = new User("tester2@qwe.er", "login2", "PassTest1");
     Note testNote = new Note(dbCreate, "Head1", "Body1");
 
@@ -123,8 +123,8 @@ public class NoteServiceTests {
         for (User aCollection : collection) {
             Collection<Note> notes = noteService.getAllUserNotes(aCollection.getUserId());
             for (Note nCollection : notes)
-                noteService.deleteNote(nCollection.getNoteId());
-            userService.delete(aCollection.getUserId());
+                noteService.deleteNote(nCollection);
+            userService.delete(aCollection);
         }
     }
 }

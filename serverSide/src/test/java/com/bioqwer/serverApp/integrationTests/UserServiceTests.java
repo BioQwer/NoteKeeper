@@ -126,7 +126,7 @@ public class UserServiceTests {
     public void tearDown() throws Exception {
         Collection<User> collection = userService.getAll();
         for (User aCollection : collection) {
-            userService.delete(aCollection.getUserId());
+            userService.delete(aCollection);
         }
     }
 }
