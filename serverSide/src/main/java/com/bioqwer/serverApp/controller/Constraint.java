@@ -23,6 +23,7 @@ class Constraint {
 
     /**
      * Allow to get {@link com.bioqwer.serverApp.controller.Constraint#property} of {@link com.bioqwer.serverApp.controller.Constraint}.
+     *
      * @return {@link com.bioqwer.serverApp.controller.Constraint#property}.
      */
     public String getProperty() {
@@ -31,6 +32,7 @@ class Constraint {
 
     /**
      * Allow to set {@link com.bioqwer.serverApp.controller.Constraint#property}.
+     *
      * @param property new {@link com.bioqwer.serverApp.controller.Constraint#property} of {@link com.bioqwer.serverApp.controller.Constraint}.
      */
     public void setProperty(String property) {
@@ -39,6 +41,7 @@ class Constraint {
 
     /**
      * Allow to get {@link com.bioqwer.serverApp.controller.Constraint#value} of {@link com.bioqwer.serverApp.controller.Constraint}.
+     *
      * @return {@link com.bioqwer.serverApp.controller.Constraint#value}.
      */
     public String getValue() {
@@ -47,6 +50,7 @@ class Constraint {
 
     /**
      * Allow to set {@link com.bioqwer.serverApp.controller.Constraint#value}.
+     *
      * @param value new {@link com.bioqwer.serverApp.controller.Constraint#value} of {@link com.bioqwer.serverApp.controller.Constraint}.
      */
     public void setValue(String value) {
@@ -55,6 +59,7 @@ class Constraint {
 
     /**
      * Allow to get {@link com.bioqwer.serverApp.controller.Constraint#message} of {@link com.bioqwer.serverApp.controller.Constraint}.
+     *
      * @return {@link com.bioqwer.serverApp.controller.Constraint#message}.
      */
     public String getMessage() {
@@ -63,9 +68,19 @@ class Constraint {
 
     /**
      * Allow to set {@link com.bioqwer.serverApp.controller.Constraint#message}.
+     *
      * @param message new {@link com.bioqwer.serverApp.controller.Constraint#message} of {@link com.bioqwer.serverApp.controller.Constraint}.
      */
     public void setMessage(String message) {
         this.message = message;
+    }
+
+    @Override
+    public String toString() {
+        return "Constraint{" +
+                "property='" + property + '\'' +
+                ", value='" + value + '\'' +
+                ", message='" + message + '\'' +
+                '}';
     }
 }

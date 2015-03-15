@@ -36,6 +36,7 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
 
     /**
      * Methods provide SQL Query for get all {@link com.bioqwer.serverApp.model.Note}s from Storage .
+     *
      * @param userId of owner {@link com.bioqwer.serverApp.model.User}.
      * @return Collection of {@link com.bioqwer.serverApp.model.Note}s where owner {@link com.bioqwer.serverApp.model.User}.
      */
@@ -45,8 +46,9 @@ public interface NoteRepository extends JpaRepository<Note, Long> {
     /**
      * Methods provide SQL Query for searching {@link com.bioqwer.serverApp.model.Note}s in Storage by part of {@link com.bioqwer.serverApp.model.Note#body} and part of {@link com.bioqwer.serverApp.model.Note#head}.
      * Case not sensitive.
+     *
      * @param partOfWord search parameter.
-     * @param userId of owner {@link com.bioqwer.serverApp.model.User#userId}.
+     * @param userId     of owner {@link com.bioqwer.serverApp.model.User#userId}.
      * @return Collection of found {@link com.bioqwer.serverApp.model.Note}s.
      */
     @Query("select a from Note a fetch all properties where userByUserId.userId = :userId and (head like :partOfWord or body like :partOfWord)")

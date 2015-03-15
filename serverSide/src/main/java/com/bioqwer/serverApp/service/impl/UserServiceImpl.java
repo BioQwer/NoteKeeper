@@ -30,14 +30,14 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User user) {
         user = userRepository.saveAndFlush(user);
-        logger.info("Success addUser "+user);
+        logger.info("Success addUser " + user);
         monitoringService.addUserMonitoring(user);
         return user;
     }
 
     @Override
     public void delete(User deleteUser) {
-        logger.info("Prepare to delete "+ deleteUser);
+        logger.info("Prepare to delete " + deleteUser);
         userRepository.delete(deleteUser.getUserId());
         logger.info("Sucess delete");
     }
@@ -49,7 +49,9 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getByLogin(String login) {
-        return userRepository.findByLogin(login);
+        User user = userRepository.findByLogin(login);
+        logger.info("GetByLogin " + user);
+        return user;
     }
 
     @Override
@@ -60,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User editUser(User user) {
         user = userRepository.saveAndFlush(user);
-        logger.info("Success editUser "+user);
+        logger.info("Success editUser " + user);
         monitoringService.addUserMonitoring(user);
         return user;
     }
@@ -73,7 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Collection<User> searchByUserLogin(String partOfLogin) {
         Collection<User> result = userRepository.findWhereLogin("%" + partOfLogin + "%");
-        logger.info("Success searchByUserLogin Find by partOfLogin "+partOfLogin+" is "+result);
+        logger.info("Success searchByUserLogin Find by partOfLogin " + partOfLogin + " is " + result);
         return result;
     }
 }

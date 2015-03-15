@@ -29,7 +29,6 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private MonitoringService monitoringService;
 
-
     @Override
     public Note addNote(Note note) {
         note.setCreationDate(new Timestamp(System.currentTimeMillis()));
@@ -62,33 +61,35 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Collection<Note> searchByHead(String partOfHead, long userId) {
         Collection<Note> result = noteRepository.findByHead("%" + partOfHead + "%", userId);
-        logger.info("Success searchByHead Find by partOfHead "+partOfHead+" for userID"+userId+" is "+result);
+        logger.info("Success searchByHead Find by partOfHead " + partOfHead + " for userID" + userId + " is " + result);
         return result;
     }
 
     @Override
     public Collection<Note> searchByBody(String partOfBody, long userId) {
         Collection<Note> result = noteRepository.findByBody("%" + partOfBody + "%", userId);
-        logger.info("Success searchByHead Find by partOfBody "+partOfBody+" for userID"+userId+" is "+result);
+        logger.info("Success searchByHead Find by partOfBody " + partOfBody + " for userID" + userId + " is " + result);
         return result;
     }
 
     @Override
     public User getUser(long noteId) {
-        return noteRepository.findOne(noteId).getUserByUserId();
+        User result = noteRepository.findOne(noteId).getUserByUserId();
+        logger.info("Call getUser " + result);
+        return result;
     }
 
     @Override
     public Collection<Note> getAllUserNotes(long userId) {
         Collection<Note> result = noteRepository.findAll(userId);
-        logger.info("Success getAllUserNotes for userID"+userId+" is "+result);
+        logger.info("Success getAllUserNotes for userID" + userId + " is " + result);
         return result;
     }
 
     @Override
     public Collection<Note> searchInAllParamsOfNotes(String partOfWord, long userId) {
-        Collection<Note> result =  noteRepository.findWhereParam("%" + partOfWord + "%", userId);
-        logger.info("Success searchInAllParamsOfNotes Find by partOfWord "+partOfWord+" for userID"+userId+" is "+result);
+        Collection<Note> result = noteRepository.findWhereParam("%" + partOfWord + "%", userId);
+        logger.info("Success searchInAllParamsOfNotes Find by partOfWord " + partOfWord + " for userID" + userId + " is " + result);
         return result;
     }
 }

@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import java.util.Collection;
 
 /**
- *  Interface for {@link com.bioqwer.serverApp.model.User} logic.
+ * Interface for {@link com.bioqwer.serverApp.model.User} logic.
  */
 @Service
 public interface UserService {
@@ -44,6 +44,7 @@ public interface UserService {
 
     /**
      * Methods performs get {@link com.bioqwer.serverApp.model.User} by email from Storage.
+     *
      * @param email of {@link com.bioqwer.serverApp.model.User}.
      * @return {@link com.bioqwer.serverApp.model.User} from Storage.
      */
@@ -51,6 +52,7 @@ public interface UserService {
 
     /**
      * Methods performs edit {@link com.bioqwer.serverApp.model.User} from Storage.
+     *
      * @param user of {@link com.bioqwer.serverApp.model.User}
      * @return edit {@link com.bioqwer.serverApp.model.User} from Storage.
      */
@@ -58,12 +60,14 @@ public interface UserService {
 
     /**
      * Methods performs get all {@link com.bioqwer.serverApp.model.User} from Storage.
+     *
      * @return Collection of {@link com.bioqwer.serverApp.model.User} from Storage.
      */
     Collection<User> getAll();
 
     /**
      * Methods performs search {@link com.bioqwer.serverApp.model.User} by login from Storage.
+     *
      * @param partOfLogin search parameter
      * @return Collection of {@link com.bioqwer.serverApp.model.User}
      */

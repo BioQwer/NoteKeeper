@@ -2,6 +2,7 @@ package com.bioqwer.serverApp.controller;
 
 import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.service.UserService;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.core.AuthenticationException;
@@ -19,6 +20,7 @@ import java.io.IOException;
 @Component
 public class RestAuthenticationExceptionHandler extends SimpleUrlAuthenticationFailureHandler {
 
+    private static final Logger LOGGER = Logger.getLogger(RestAuthenticationExceptionHandler.class);
     @Qualifier("userServiceImpl")
     @Autowired
     private UserService userService;
@@ -34,10 +36,14 @@ public class RestAuthenticationExceptionHandler extends SimpleUrlAuthenticationF
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         User user = userService.getByLogin((String) exception.getAuthentication().getPrincipal());
         if (user == null) {
-            response.sendError(404, "User not Found!");
+            String message = "User not Found!";
+            response.sendError(404, message);
+            LOGGER.debug("Send error response with status " + response.getStatus() + " and message " + message);
             return;
         } else {
-            response.sendError(403, "Incorrect password for Login " + user.getLogin());
+            String message = "Incorrect password for Login " + user.getLogin();
+            response.sendError(403, message);
+            LOGGER.debug("Send error response with status " + response.getStatus() + " and message " + message);
         }
     }
 }
