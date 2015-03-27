@@ -49,7 +49,7 @@ public class MonitoringController {
         }
         else
             throw new BadRequestException();
-        logger.debug("Call getNoteMonitoringById = "+ res);
+        logger.info("Call getNoteMonitoringById = "+ res);
         return res;
     }
 
@@ -60,7 +60,7 @@ public class MonitoringController {
     {
         User user = userController.getCurrentUser(principal);
         Collection<Monitoring> result = monitoringService.getUserAction(user);
-        logger.debug("Call getMonitoringForUser = " +result);
+        logger.info("Call getMonitoringForUser = " +result);
         return monitoringService.getUserAction(user);
     }
 
@@ -72,10 +72,9 @@ public class MonitoringController {
         User user = userController.getCurrentUser(principal);
         if(monitoring.getUserByUserId().getUserId()==user.getUserId()) {
             Note revertedNote = monitoringService.revertNoteFromMonitoring(monitoring);
-            logger.debug("Call revert from " +monitoring+", res = " + revertedNote);
+            logger.info("Call revert from " +monitoring+", res = " + revertedNote);
             return monitoringService.revertNoteFromMonitoring(monitoring);
         }
         else throw new BadRequestException();
     }
-
 }
