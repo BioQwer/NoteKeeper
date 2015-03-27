@@ -1,5 +1,7 @@
 package com.bioqwer.serverApp.controller;
 
+import com.bioqwer.serverApp.exceptions.BadRequestException;
+import com.bioqwer.serverApp.exceptions.ResourceNotFoundException;
 import com.bioqwer.serverApp.model.Note;
 import com.bioqwer.serverApp.model.User;
 import com.bioqwer.serverApp.service.NoteService;
@@ -45,7 +47,7 @@ public class UserController {
      * @return {@link com.bioqwer.serverApp.model.User} which caused the request.
      */
     public User getCurrentUser(Principal principal) {
-        logger.debug("getCurrentUser for" + principal.getName());
+        logger.debug("getCurrentUser for " + principal.getName());
         return userService.getByLogin(principal.getName());
     }
 
@@ -118,7 +120,7 @@ public class UserController {
      * @param response  used for set {@link org.springframework.http.HttpStatus}. For not valid data 400.
      * @return {@link com.bioqwer.serverApp.model.User} if fields valid by patterns.<p>
      * {@link java.util.Collection} of {@link com.bioqwer.serverApp.controller.Constraint} if not valid request.
-     * @throws com.bioqwer.serverApp.controller.UserController.BadRequestException
+     * @throws BadRequestException
      */
     @RequestMapping(method = RequestMethod.POST)
     @ResponseBody
@@ -297,25 +299,5 @@ public class UserController {
         }
         logger.info("Call getInCorrectValues " + list);
         return list;
-    }
-
-    /**
-     * Throw when {@link com.bioqwer.serverApp.model.User} Unauthorized or Access denied.
-     */
-    @ResponseStatus(value = HttpStatus.BAD_REQUEST)
-    public class BadRequestException extends RuntimeException {
-        public BadRequestException() {
-            logger.info("Call BadRequestException");
-        }
-    }
-
-    /**
-     * Throw when {@link com.bioqwer.serverApp.model.User} or {@link com.bioqwer.serverApp.model.Note} not found.
-     */
-    @ResponseStatus(value = HttpStatus.NOT_FOUND)
-    public class ResourceNotFoundException extends RuntimeException {
-        public ResourceNotFoundException() {
-            logger.info("Call BadRequestException");
-        }
     }
 }
