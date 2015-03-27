@@ -30,16 +30,16 @@ public class UserServiceImpl implements UserService {
     @Override
     public User addUser(User user) {
         user = userRepository.saveAndFlush(user);
-        logger.info("Success addUser " + user);
+        logger.debug("Success addUser " + user);
         monitoringService.addUserMonitoring(user);
         return user;
     }
 
     @Override
     public void delete(User deleteUser) {
-        logger.info("Prepare to delete " + deleteUser);
+        logger.debug("Prepare to delete " + deleteUser);
         userRepository.delete(deleteUser.getUserId());
-        logger.info("Sucess delete");
+        logger.debug("Sucess delete");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getByLogin(String login) {
         User user = userRepository.findByLogin(login);
-        logger.info("GetByLogin " + user);
+        logger.debug("GetByLogin " + user);
         return user;
     }
 
@@ -62,7 +62,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User editUser(User user) {
         user = userRepository.saveAndFlush(user);
-        logger.info("Success editUser " + user);
+        logger.debug("Success editUser " + user);
         monitoringService.addUserMonitoring(user);
         return user;
     }
@@ -75,7 +75,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public Collection<User> searchByUserLogin(String partOfLogin) {
         Collection<User> result = userRepository.findWhereLogin("%" + partOfLogin + "%");
-        logger.info("Success searchByUserLogin Find by partOfLogin " + partOfLogin + " is " + result);
+        logger.debug("Success searchByUserLogin Find by partOfLogin " + partOfLogin + " is " + result);
         return result;
     }
 }

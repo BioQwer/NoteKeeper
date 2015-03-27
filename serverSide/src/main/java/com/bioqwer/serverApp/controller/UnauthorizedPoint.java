@@ -20,6 +20,6 @@ public class UnauthorizedPoint {
     @RequestMapping("/notLogin")
     @ResponseStatus(value = HttpStatus.UNAUTHORIZED)
     public void notLogin() {
-        logger.debug("notLogin");
+        logger.info("notLogin");
     }
 }

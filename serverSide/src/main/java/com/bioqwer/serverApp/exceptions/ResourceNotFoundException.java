@@ -13,6 +13,6 @@ public class ResourceNotFoundException extends RuntimeException {
     private static final Logger logger = Logger.getLogger(ResourceNotFoundException.class);
 
     public ResourceNotFoundException() {
-        logger.debug("Call ResourceNotFoundException");
+        logger.error("Call ResourceNotFoundException");
     }
 }

@@ -44,7 +44,7 @@ public class MonitoringServiceImpl implements MonitoringService {
     @Override
     public Collection<Monitoring> getUserActionOnNote(Note note) {
         Collection<Monitoring> result = monitoringRepository.getUserActionOnNote(note);
-        logger.info("Get User Action On Note " + result);
+        logger.debug("Get User Action On Note " + result);
         return monitoringRepository.getUserActionOnNote(note);
     }
 
@@ -60,7 +60,7 @@ public class MonitoringServiceImpl implements MonitoringService {
             e.printStackTrace();
             monitoring.setLogData(e.getOriginalMessage());
         }
-        logger.info("Added for User Monitoring " + monitoringRepository.save(monitoring));
+        logger.debug("Added for User Monitoring " + monitoringRepository.save(monitoring));
         return monitoring;
     }
 
@@ -76,7 +76,7 @@ public class MonitoringServiceImpl implements MonitoringService {
             e.printStackTrace();
             monitoring.setLogData(e.getOriginalMessage());
         }
-        logger.info("Added for Note Monitoring " + monitoringRepository.save(monitoring));
+        logger.debug("Added for Note Monitoring " + monitoringRepository.save(monitoring));
         return monitoring;
     }
 
@@ -85,7 +85,7 @@ public class MonitoringServiceImpl implements MonitoringService {
         Note note = null;
         try {
             note = noteService.editNote(new ObjectMapper().readValue(monitoring.getLogData(), Note.class));
-            logger.info("Revert from monitoring " + note);
+            logger.debug("Revert from monitoring " + note);
         } catch (IOException e) {
             e.printStackTrace();
         }

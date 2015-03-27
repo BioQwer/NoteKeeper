@@ -13,6 +13,6 @@ public class BadRequestException extends RuntimeException {
     private static final Logger logger = Logger.getLogger(BadRequestException.class);
 
     public BadRequestException() {
-        logger.debug("Call BadRequestException");
+        logger.error("Call BadRequestException");
     }
 }

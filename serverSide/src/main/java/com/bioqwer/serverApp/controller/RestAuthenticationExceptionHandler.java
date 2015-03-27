@@ -38,12 +38,12 @@ public class RestAuthenticationExceptionHandler extends SimpleUrlAuthenticationF
         if (user == null) {
             String message = "User not Found!";
             response.sendError(404, message);
-            LOGGER.debug("Send error response with status " + response.getStatus() + " and message " + message);
+            LOGGER.error("Send error response with status " + response.getStatus() + " and message " + message);
             return;
         } else {
             String message = "Incorrect password for Login " + user.getLogin();
             response.sendError(403, message);
-            LOGGER.debug("Send error response with status " + response.getStatus() + " and message " + message);
+            LOGGER.error("Send error response with status " + response.getStatus() + " and message " + message);
         }
     }
 }
