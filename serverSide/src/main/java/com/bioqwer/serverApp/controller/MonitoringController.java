@@ -59,9 +59,23 @@ public class MonitoringController {
     public Collection<Monitoring> getMonitoringForUser(Principal principal)
     {
         User user = userController.getCurrentUser(principal);
-        System.out.println("user = " + user);
         Collection<Monitoring> result = monitoringService.getUserAction(user);
         logger.debug("Call getMonitoringForUser = " +result);
         return monitoringService.getUserAction(user);
     }
+
+    @RequestMapping(value = "/revert",method = RequestMethod.POST)
+    @ResponseStatus(HttpStatus.OK)
+    @ResponseBody
+    public Note revert(Principal principal,@RequestBody Monitoring monitoring)
+    {
+        User user = userController.getCurrentUser(principal);
+        if(monitoring.getUserByUserId().getUserId()==user.getUserId()) {
+            Note revertedNote = monitoringService.revertNoteFromMonitoring(monitoring);
+            logger.debug("Call revert from " +monitoring+", res = " + revertedNote);
+            return monitoringService.revertNoteFromMonitoring(monitoring);
+        }
+        else throw new BadRequestException();
+    }
+
 }
