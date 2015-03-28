@@ -53,10 +53,35 @@
             ng-class="{'btn-success' : editAccountForm.$valid&&(editAccountForm.Password.$viewValue===editAccountForm.confirmPassword.$viewValue), 'btn-danger disabled' : !editAccountForm.$valid||(editAccountForm.Password.$viewValue!==editAccountForm.confirmPassword.$viewValue)}">
         Confirm changes
     </button>
+    <br>
+    <a ng-click="showUserVersionTable=true;loginCtrl.doGetUserMonitoring()" class="center">
+        Show versioning of profile
+    </a>
 
 </form>
 
-<div ng-repeat="userMonitoring in loginCtrl.getUserMonitoring()" ng-show="loginCtrl.getUserMonitoring().length">
-    <div class="alert alert-danger" role="alert">{{userMonitoring.logTime|date:'medium'}}</div>
-    <div class="alert alert-danger" role="alert">{{userMonitoring.userByUserId.email}}</div>
+<div id="userVersionTable" class="bs-example" data-example-id="panel-without-body-with-table"
+     ng-show="showUserVersionTable">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Versioning of profile</div>
+
+        <!-- Table -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Changing Time</th>
+                <th>Email</th>
+                <th>Login</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="userMonitoring in loginCtrl.getUserMonitoring()">
+            <tr>
+                <td><span class="label label-success">{{userMonitoring.logTime|date:'medium'}}</span></td>
+                <td>{{userMonitoring.logData.email}}</td>
+                <td>{{userMonitoring.logData.login}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 </div>

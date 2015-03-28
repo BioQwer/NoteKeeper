@@ -17,9 +17,9 @@ import java.util.Collection;
 @Repository
 public interface MonitoringRepository extends JpaRepository<Monitoring, Long> {
 
-    @Query("select a from Monitoring a where a.userByUserId = :user and a.noteByNoteId is null order by a.logData desc")
+    @Query("select a from Monitoring a where a.userByUserId = :user and a.noteByNoteId is null order by a.logTime desc")
     Collection<Monitoring> getUserAction(@Param("user") User user);
 
-    @Query("select a from Monitoring a where a.noteByNoteId = :note order by a.logData desc")
+    @Query("select a from Monitoring a where a.noteByNoteId = :note order by a.logTime desc")
     Collection<Monitoring> getUserActionOnNote(@Param("note") Note note);
 }

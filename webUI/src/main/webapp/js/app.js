@@ -394,6 +394,9 @@
                 url: '/api/monitoring'
             }).success(function (data) {
                 userMonitoring = data;
+                for(var i=0;data.length;i++)
+                    userMonitoring[i].logData = JSON.parse(data[i].logData);
+                console.log(userMonitoring);
             }).error(function (data, status) {
                 console.log("error" + status);
                 console.log(data);
