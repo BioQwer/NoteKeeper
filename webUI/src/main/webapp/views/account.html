@@ -53,4 +53,10 @@
             ng-class="{'btn-success' : editAccountForm.$valid&&(editAccountForm.Password.$viewValue===editAccountForm.confirmPassword.$viewValue), 'btn-danger disabled' : !editAccountForm.$valid||(editAccountForm.Password.$viewValue!==editAccountForm.confirmPassword.$viewValue)}">
         Confirm changes
     </button>
+
 </form>
+
+<div ng-repeat="userMonitoring in loginCtrl.getUserMonitoring()" ng-show="loginCtrl.getUserMonitoring().length">
+    <div class="alert alert-danger" role="alert">{{userMonitoring.logTime|date:'medium'}}</div>
+    <div class="alert alert-danger" role="alert">{{userMonitoring.userByUserId.email}}</div>
+</div>

@@ -379,6 +379,27 @@
             );
             console.log("end do EditUser");
         };
+
+        var userMonitoring = this;
+        userMonitoring = [];
+
+        this.getUserMonitoring = function () {
+            return userMonitoring;
+        };
+
+        this.doGetUserMonitoring = function () {
+            console.log("start do doGetUserMonitoring");
+            $http({
+                method: 'GET',
+                url: '/api/monitoring'
+            }).success(function (data) {
+                userMonitoring = data;
+            }).error(function (data, status) {
+                console.log("error" + status);
+                console.log(data);
+            });
+            console.log("end do doGetUserMonitoring");
+        };
     }]);
 
 })();

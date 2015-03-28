@@ -62,7 +62,6 @@ public class MonitoringTests {
         System.out.println("monitoringService = " + monitoringService.getUserActionOnNote(note).size());
         // 4 changes in note
         assertEquals(4,monitoringService.getUserActionOnNote(note).size());
-
     }
 
     @Test
@@ -83,5 +82,38 @@ public class MonitoringTests {
         note = noteService.editNote(monitoringService.revertNoteFromMonitoring(revert));
         System.out.println("After note = " + note);
         assertEquals("Head ",note.getHead());
+    }
+
+    /**
+     * Change model data with out changes TEST.
+     *
+     * @throws Exception
+     */
+    @Test
+    public void testEditWithOutChanges() throws Exception {
+
+        User user =  new User("Change@qwe.rt","change","asdasdA123");
+        user = userService.addUser(user);
+        assertEquals(1, monitoringService.getUserAction(user).size());
+        //Changed
+        user.setLogin("change1");
+        user = userService.editUser(user);
+        assertEquals(2, monitoringService.getUserAction(user).size());
+        //Nothing Changed
+        user.setLogin("change1");
+        user = userService.editUser(user);
+        assertEquals(2, monitoringService.getUserAction(user).size());
+
+        Note note = new Note(user,"Head","Body");
+        note = noteService.addNote(note);
+        assertEquals(1,monitoringService.getUserActionOnNote(note).size());
+        //Changed
+        note.setHead("Changed Head");
+        note = noteService.editNote(note);
+        assertEquals(2,monitoringService.getUserActionOnNote(note).size());
+        //Nothing Changed
+        note.setHead("Changed Head");
+        note = noteService.editNote(note);
+        assertEquals(2,monitoringService.getUserActionOnNote(note).size());
     }
 }
