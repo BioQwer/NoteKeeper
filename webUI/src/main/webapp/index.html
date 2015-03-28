@@ -69,6 +69,36 @@
                                   id="body"></textarea>
                             </div>
                         </form>
+                        <a ng-click="showNoteVersionTable=!showNoteVersionTable"  class="center">
+                            Show versioning of note
+                        </a>
+                        <!-- Table -->
+                        <div id="NoteVersionTable" class="bs-example" data-example-id="panel-without-body-with-table"
+                              ng-init="loginCtrl.doGetNoteMonitoring()" ng-if="showNoteVersionTable">
+                            <p>
+                            <div class="panel panel-default">
+                                <!-- Default panel contents -->
+                                <div class="panel-heading">Versioning of profile</div>
+
+                                <!-- Table -->
+                                <table class="table">
+                                    <thead>
+                                    <tr>
+                                        <th>Changing Time</th>
+                                        <th>Head</th>
+                                        <th>Body</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody ng-repeat="noteMonitoring in loginCtrl.getNoteMonitoring()">
+                                    <tr>
+                                        <td><span class="label label-success">{{noteMonitoring.logTime|date:'medium'}}</span></td>
+                                        <td>{{noteMonitoring.logData.head}}</td>
+                                        <td>{{noteMonitoring.logData.body}}</td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
