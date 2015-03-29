@@ -379,6 +379,54 @@
             );
             console.log("end do EditUser");
         };
+
+        var userMonitoring = this;
+        noteMonitoring = [];
+
+        this.getUserMonitoring = function () {
+            return noteMonitoring;
+        };
+
+        this.doGetUserMonitoring = function () {
+            console.log("start do doGetUserMonitoring");
+            $http({
+                method: 'GET',
+                url: '/api/monitoring'
+            }).success(function (data) {
+                noteMonitoring = data;
+                for(var i=0;data.length;i++)
+                    noteMonitoring[i].logData = JSON.parse(data[i].logData);
+                console.log(noteMonitoring);
+            }).error(function (data, status) {
+                console.log("error" + status);
+                console.log(data);
+            });
+            console.log("end do doGetUserMonitoring");
+        };
+
+        var noteMonitoring = this;
+        noteMonitoring = [];
+
+        this.getNoteMonitoring = function () {
+            return noteMonitoring;
+        };
+
+        this.doGetNoteMonitoring = function () {
+            console.log("start do doGetNoteMonitoring");
+            $http({
+                method: 'GET',
+                url: '/api/monitoring/'+ editNote.noteId
+            }).success(function (data) {
+                noteMonitoring = data;
+                for(var i=0;data.length;i++)
+                    noteMonitoring[i].logData = JSON.parse(data[i].logData);
+                console.log(noteMonitoring);
+            }).error(function (data, status) {
+                console.log("error" + status);
+                console.log(data);
+            });
+            console.log("end do doGetNoteMonitoring");
+        };
     }]);
 
 })();

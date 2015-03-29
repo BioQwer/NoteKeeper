@@ -13,6 +13,7 @@ import java.util.Collection;
  * Provide data structure of {@link com.bioqwer.serverApp.model.User} for application logic
  */
 @Entity
+@Table(name = "users")
 public class User {
     /**
      * Pattern for {@link com.bioqwer.serverApp.model.User#password}
@@ -156,26 +157,23 @@ public class User {
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (!(o instanceof User)) return false;
 
         User user = (User) o;
 
-        if (userId != user.userId) return false;
-        if (email != null ? !email.equals(user.email) : user.email != null) return false;
-        if (login != null ? !login.equals(user.login) : user.login != null) return false;
-        if (notesByUserId != null ? !notesByUserId.equals(user.notesByUserId) : user.notesByUserId != null)
-            return false;
-        if (password != null ? !password.equals(user.password) : user.password != null) return false;
-        return true;
+        if (getUserId() != user.getUserId()) return false;
+        if (!getEmail().equals(user.getEmail())) return false;
+        if (!getLogin().equals(user.getLogin())) return false;
+        return getPassword().equals(user.getPassword());
+
     }
 
     @Override
     public int hashCode() {
-        int result = (int) (userId ^ (userId >>> 32));
-        result = 31 * result + (email != null ? email.hashCode() : 0);
-        result = 31 * result + (login != null ? login.hashCode() : 0);
-        result = 31 * result + (password != null ? password.hashCode() : 0);
-        result = 31 * result + (notesByUserId != null ? notesByUserId.hashCode() : 0);
+        int result = (int) (getUserId() ^ (getUserId() >>> 32));
+        result = 31 * result + getEmail().hashCode();
+        result = 31 * result + getLogin().hashCode();
+        result = 31 * result + getPassword().hashCode();
         return result;
     }
 

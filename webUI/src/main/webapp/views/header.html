@@ -9,10 +9,10 @@
             <li role="presentation" class="active"><a href="#">Hello, {{loginCtrl.user.login}}</a></li>
             <li role="presentation" ng-show="!page.doShow('account')&&!page.doShow('search')"><a data-toggle="modal"
                                                                                                  data-target="#addModal"
-                                                                         ng-click="loginCtrl.setForEdit({})"><span
+                                                                                                 ng-click="loginCtrl.setForEdit({})"><span
                     class="glyphicon glyphicon-plus"></span> Add
                 Note</a></li>
-            <li role="presentation"><a ng-click="page.setPage('account')" ng-show="!page.doShow('account')">Account
+            <li role="presentation"><a ng-click="page.setPage('account');showUserVersionTable=false" ng-show="!page.doShow('account')">Account
                 settings</a></li>
             <li role="presentation" ng-show="!page.doShow('account')&&!page.doShow('search')"><a
                     ng-click="page.setPage('search');searchCtrl.updateSearchNotes()"><span

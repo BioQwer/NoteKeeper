@@ -53,4 +53,35 @@
             ng-class="{'btn-success' : editAccountForm.$valid&&(editAccountForm.Password.$viewValue===editAccountForm.confirmPassword.$viewValue), 'btn-danger disabled' : !editAccountForm.$valid||(editAccountForm.Password.$viewValue!==editAccountForm.confirmPassword.$viewValue)}">
         Confirm changes
     </button>
+    <br>
+    <a ng-click="showUserVersionTable=!showUserVersionTable"  class="center">
+        Show versioning of profile
+    </a>
+
 </form>
+
+<div id="userVersionTable" class="bs-example" data-example-id="panel-without-body-with-table"
+      ng-if="showUserVersionTable" ng-init="loginCtrl.doGetUserMonitoring()">
+    <div class="panel panel-default">
+        <!-- Default panel contents -->
+        <div class="panel-heading">Versioning of profile</div>
+
+        <!-- Table -->
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Changing Time</th>
+                <th>Email</th>
+                <th>Login</th>
+            </tr>
+            </thead>
+            <tbody ng-repeat="noteMonitoring in loginCtrl.getUserMonitoring()">
+            <tr>
+                <td><span class="label label-success">{{noteMonitoring.logTime|date:'medium'}}</span></td>
+                <td>{{noteMonitoring.logData.email}}</td>
+                <td>{{noteMonitoring.logData.login}}</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>

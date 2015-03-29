@@ -40,8 +40,9 @@ public class DataConfig {
 
     /**
      * Provide load configs for DataBase.
+     *
      * @return {@link javax.sql.DataSource} {@link org.springframework.context.annotation.Bean} config.
-     * @see org.springframework.context.annotation.Bean 
+     * @see org.springframework.context.annotation.Bean
      */
     @Bean
     public DataSource dataSource() {

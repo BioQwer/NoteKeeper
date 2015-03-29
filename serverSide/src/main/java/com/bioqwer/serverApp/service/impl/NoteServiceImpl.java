@@ -29,29 +29,34 @@ public class NoteServiceImpl implements NoteService {
     @Autowired
     private MonitoringService monitoringService;
 
-
     @Override
     public Note addNote(Note note) {
         note.setCreationDate(new Timestamp(System.currentTimeMillis()));
         note.setLastChangeDate(new Timestamp(System.currentTimeMillis()));
         Note result = noteRepository.saveAndFlush(note);
-        logger.info("Success add " + result);
+        logger.debug("Success add " + result);
         monitoringService.addNoteMonitoring(result);
         return result;
     }
 
     @Override
     public Note editNote(Note note) {
-        Note result = noteRepository.saveAndFlush(note);
-        logger.info("Success edit " + result);
-        monitoringService.addNoteMonitoring(result);
-        return result;
+        Note before = noteRepository.findOne(note.getNoteId());
+        if(note.equals(before)) {
+            logger.debug("Don't need persist  editNote " + note);
+            return note;
+        }else {
+            Note result = noteRepository.saveAndFlush(note);
+            logger.debug("Success edit " + result);
+            monitoringService.addNoteMonitoring(result);
+            return result;
+        }
     }
 
     @Override
     public void deleteNote(Note deletedNote) {
         noteRepository.delete(deletedNote);
-        logger.info("Success delete " + deletedNote);
+        logger.debug("Success delete " + deletedNote);
     }
 
     @Override
@@ -62,33 +67,35 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Collection<Note> searchByHead(String partOfHead, long userId) {
         Collection<Note> result = noteRepository.findByHead("%" + partOfHead + "%", userId);
-        logger.info("Success searchByHead Find by partOfHead "+partOfHead+" for userID"+userId+" is "+result);
+        logger.debug("Success searchByHead Find by partOfHead " + partOfHead + " for userID" + userId + " is " + result);
         return result;
     }
 
     @Override
     public Collection<Note> searchByBody(String partOfBody, long userId) {
         Collection<Note> result = noteRepository.findByBody("%" + partOfBody + "%", userId);
-        logger.info("Success searchByHead Find by partOfBody "+partOfBody+" for userID"+userId+" is "+result);
+        logger.debug("Success searchByHead Find by partOfBody " + partOfBody + " for userID" + userId + " is " + result);
         return result;
     }
 
     @Override
     public User getUser(long noteId) {
-        return noteRepository.findOne(noteId).getUserByUserId();
+        User result = noteRepository.findOne(noteId).getUserByUserId();
+        logger.debug("Call getUser " + result);
+        return result;
     }
 
     @Override
     public Collection<Note> getAllUserNotes(long userId) {
         Collection<Note> result = noteRepository.findAll(userId);
-        logger.info("Success getAllUserNotes for userID"+userId+" is "+result);
+        logger.debug("Success getAllUserNotes for userID" + userId + " is " + result);
         return result;
     }
 
     @Override
     public Collection<Note> searchInAllParamsOfNotes(String partOfWord, long userId) {
-        Collection<Note> result =  noteRepository.findWhereParam("%" + partOfWord + "%", userId);
-        logger.info("Success searchInAllParamsOfNotes Find by partOfWord "+partOfWord+" for userID"+userId+" is "+result);
+        Collection<Note> result = noteRepository.findWhereParam("%" + partOfWord + "%", userId);
+        logger.debug("Success searchInAllParamsOfNotes Find by partOfWord " + partOfWord + " for userID" + userId + " is " + result);
         return result;
     }
 }

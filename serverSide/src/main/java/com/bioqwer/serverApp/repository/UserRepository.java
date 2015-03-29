@@ -34,6 +34,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
      * Methods provide SQL Query for searching {@link com.bioqwer.serverApp.model.User}s in Storage by part of {@link com.bioqwer.serverApp.model.User#login}.
+     *
      * @param partOfLogin search parameter
      * @return Collection of found {@link com.bioqwer.serverApp.model.User}s.
      */

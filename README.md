@@ -1,4 +1,4 @@
-#NoteKeeper
+#NoteKeeper [![Build Status](https://travis-ci.org/BioQwer/NoteKeeper.svg?branch=master)](https://travis-ci.org/BioQwer/NoteKeeper)
 Note service for keeping yours notes in the cloud.
 This repository contains two application.
 ##Java Backend
