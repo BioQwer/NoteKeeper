@@ -21,6 +21,7 @@
         <mysql.version>5.1.34</mysql.version>
         <hb.manager>4.2.5.Final</hb.manager>
         <junit.version>4.11</junit.version>
+        <h2.db.driver>1.4.186</h2.db.driver>
     </properties>
 
 </project>
