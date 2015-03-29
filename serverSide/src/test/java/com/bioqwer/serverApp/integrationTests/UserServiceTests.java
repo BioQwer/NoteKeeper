@@ -82,17 +82,17 @@ public class UserServiceTests {
     @Test
     public void testFindByLogin() throws Exception {
         User get = userService.getByLogin("tester");
-        assertEquals(get.getLogin(),"tester");
+        assertEquals(get.getLogin(), "tester");
         get = userService.getByLogin("login1");
-        assertEquals(get.getLogin(),"login1");
+        assertEquals(get.getLogin(), "login1");
     }
 
     @Test
     public void testFindByEmail() throws Exception {
         User get = userService.getByEmail("user1@email.ru");
-        assertEquals(get.getEmail(),"user1@email.ru");
+        assertEquals(get.getEmail(), "user1@email.ru");
         get = userService.getByEmail("create@qwe.er");
-        assertEquals(get.getEmail(),"create@qwe.er");
+        assertEquals(get.getEmail(), "create@qwe.er");
     }
 
     @Test
@@ -103,7 +103,7 @@ public class UserServiceTests {
         userService.addUser(user);
         System.out.println("userService = " + userService.getAll());
         System.out.println("userService.searchByUserLogin(\"login\") = " + userService.searchByUserLogin("log"));
-        assertEquals(3,userService.searchByUserLogin("login").size());   //test have registry dependence
+        assertEquals(3, userService.searchByUserLogin("login").size());   //test have registry dependence
     }
 
     @Test
@@ -113,13 +113,13 @@ public class UserServiceTests {
         user.setEmail("asdfgh@qwe.qw");
         userService.editUser(user);
         long id = user.getUserId();
-        assertEquals("asdfgh@qwe.qw",userService.getById(id).getEmail());
+        assertEquals("asdfgh@qwe.qw", userService.getById(id).getEmail());
         user.setPassword("asdasd213W");
         userService.editUser(user);
         assertEquals("asdasd213W", userService.getById(id).getPassword());
         user.setLogin("asdfgh");
         userService.editUser(user);
-        assertEquals("asdfgh",userService.getById(id).getLogin());
+        assertEquals("asdfgh", userService.getById(id).getLogin());
     }
 
     @After

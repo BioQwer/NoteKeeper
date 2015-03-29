@@ -176,8 +176,7 @@ public class Note {
         if (head != null ? !head.equals(note.head) : note.head != null) return false;
         if (lastChangeDate != null ? !lastChangeDate.equals(note.lastChangeDate) : note.lastChangeDate != null)
             return false;
-        if (userByUserId != null ? !userByUserId.equals(note.userByUserId) : note.userByUserId != null) return false;
-        return true;
+        return !(userByUserId != null ? !userByUserId.equals(note.userByUserId) : note.userByUserId != null);
     }
 
     @Override

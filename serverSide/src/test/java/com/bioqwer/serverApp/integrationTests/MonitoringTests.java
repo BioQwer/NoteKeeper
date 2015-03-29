@@ -51,7 +51,7 @@ public class MonitoringTests {
         User user = new User("user1@email.ru", "login12", "Passsword1");
         user = userService.addUser(user);
 
-        Note note = new Note(user,"Head ","Body ");
+        Note note = new Note(user, "Head ", "Body ");
         // 1 note
         noteService.addNote(note);
         // + 3 note
@@ -61,7 +61,7 @@ public class MonitoringTests {
         }
         System.out.println("monitoringService = " + monitoringService.getUserActionOnNote(note).size());
         // 4 changes in note
-        assertEquals(4,monitoringService.getUserActionOnNote(note).size());
+        assertEquals(4, monitoringService.getUserActionOnNote(note).size());
     }
 
     @Test
@@ -69,19 +69,19 @@ public class MonitoringTests {
         User user = new User("user2@email.ru", "login1", "Passsword1");
         user = userService.addUser(user);
 
-        Note note = new Note(user,"Head ","Body ");
+        Note note = new Note(user, "Head ", "Body ");
         noteService.addNote(note);
         note.setHead("New Head");
         noteService.editNote(note);
         Collection<Monitoring> collection = monitoringService.getUserActionOnNote(note);
         System.out.println("Before note = " + note);
         Monitoring revert = null;
-        for(Monitoring monitoring:collection)
+        for (Monitoring monitoring : collection)
             revert = monitoring;
         System.out.println("revert = " + revert);
         note = noteService.editNote(monitoringService.revertNoteFromMonitoring(revert));
         System.out.println("After note = " + note);
-        assertEquals("Head ",note.getHead());
+        assertEquals("Head ", note.getHead());
     }
 
     /**
@@ -92,7 +92,7 @@ public class MonitoringTests {
     @Test
     public void testEditWithOutChanges() throws Exception {
 
-        User user =  new User("Change@qwe.rt","change","asdasdA123");
+        User user = new User("Change@qwe.rt", "change", "asdasdA123");
         user = userService.addUser(user);
         assertEquals(1, monitoringService.getUserAction(user).size());
         //Changed
@@ -104,16 +104,16 @@ public class MonitoringTests {
         user = userService.editUser(user);
         assertEquals(2, monitoringService.getUserAction(user).size());
 
-        Note note = new Note(user,"Head","Body");
+        Note note = new Note(user, "Head", "Body");
         note = noteService.addNote(note);
-        assertEquals(1,monitoringService.getUserActionOnNote(note).size());
+        assertEquals(1, monitoringService.getUserActionOnNote(note).size());
         //Changed
         note.setHead("Changed Head");
         note = noteService.editNote(note);
-        assertEquals(2,monitoringService.getUserActionOnNote(note).size());
+        assertEquals(2, monitoringService.getUserActionOnNote(note).size());
         //Nothing Changed
         note.setHead("Changed Head");
         note = noteService.editNote(note);
-        assertEquals(2,monitoringService.getUserActionOnNote(note).size());
+        assertEquals(2, monitoringService.getUserActionOnNote(note).size());
     }
 }

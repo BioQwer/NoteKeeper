@@ -59,9 +59,8 @@ public class Monitoring {
         if (logData != null ? !logData.equals(that.logData) : that.logData != null) return false;
         if (logTime != null ? !logTime.equals(that.logTime) : that.logTime != null) return false;
         if (noteByNoteId != null ? !noteByNoteId.equals(that.noteByNoteId) : that.noteByNoteId != null) return false;
-        if (userByUserId != null ? !userByUserId.equals(that.userByUserId) : that.userByUserId != null) return false;
+        return !(userByUserId != null ? !userByUserId.equals(that.userByUserId) : that.userByUserId != null);
 
-        return true;
     }
 
     @Override

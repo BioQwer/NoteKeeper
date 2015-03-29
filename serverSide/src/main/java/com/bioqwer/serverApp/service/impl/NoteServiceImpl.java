@@ -42,10 +42,10 @@ public class NoteServiceImpl implements NoteService {
     @Override
     public Note editNote(Note note) {
         Note before = noteRepository.findOne(note.getNoteId());
-        if(note.equals(before)) {
+        if (note.equals(before)) {
             logger.debug("Don't need persist  editNote " + note);
             return note;
-        }else {
+        } else {
             Note result = noteRepository.saveAndFlush(note);
             logger.debug("Success edit " + result);
             monitoringService.addNoteMonitoring(result);

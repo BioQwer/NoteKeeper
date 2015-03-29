@@ -21,7 +21,7 @@ import java.util.Properties;
  */
 @Configuration
 @ComponentScan({"com.bioqwer.serverApp.model", "com.bioqwer.serverApp.service"})
-@PropertySource("classpath:profiles/dev_mysql/app.properties")
+@PropertySource("classpath:app.properties")
 @EnableJpaRepositories("com.bioqwer.serverApp.repository")
 public class DataConfig {
 

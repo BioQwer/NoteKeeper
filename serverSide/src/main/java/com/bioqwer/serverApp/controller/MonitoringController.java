@@ -39,42 +39,38 @@ public class MonitoringController {
     @RequestMapping(value = "/{searchValue}", method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Collection<Monitoring> getNoteMonitoringById(Principal principal,@PathVariable("searchValue") Long value){
+    public Collection<Monitoring> getNoteMonitoringById(Principal principal, @PathVariable("searchValue") Long value) {
         Note note = noteService.getById(value);
-        if(note==null)
+        if (note == null)
             throw new ResourceNotFoundException();
         Collection<Monitoring> res = null;
-        if(userController.getCurrentUserLogin(principal).equals(note.getUserByUserId().getLogin())) {
+        if (userController.getCurrentUserLogin(principal).equals(note.getUserByUserId().getLogin())) {
             res = monitoringService.getUserActionOnNote(note);
-        }
-        else
+        } else
             throw new BadRequestException();
-        logger.info("Call getNoteMonitoringById = "+ res);
+        logger.info("Call getNoteMonitoringById = " + res);
         return res;
     }
 
     @RequestMapping(method = RequestMethod.GET)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Collection<Monitoring> getMonitoringForUser(Principal principal)
-    {
+    public Collection<Monitoring> getMonitoringForUser(Principal principal) {
         User user = userController.getCurrentUser(principal);
         Collection<Monitoring> result = monitoringService.getUserAction(user);
-        logger.info("Call getMonitoringForUser = " +result);
+        logger.info("Call getMonitoringForUser = " + result);
         return monitoringService.getUserAction(user);
     }
 
-    @RequestMapping(value = "/revert",method = RequestMethod.POST)
+    @RequestMapping(value = "/revert", method = RequestMethod.POST)
     @ResponseStatus(HttpStatus.OK)
     @ResponseBody
-    public Note revert(Principal principal,@RequestBody Monitoring monitoring)
-    {
+    public Note revert(Principal principal, @RequestBody Monitoring monitoring) {
         User user = userController.getCurrentUser(principal);
-        if(monitoring.getUserByUserId().getUserId()==user.getUserId()) {
+        if (monitoring.getUserByUserId().getUserId() == user.getUserId()) {
             Note revertedNote = monitoringService.revertNoteFromMonitoring(monitoring);
-            logger.info("Call revert from " +monitoring+", res = " + revertedNote);
+            logger.info("Call revert from " + monitoring + ", res = " + revertedNote);
             return monitoringService.revertNoteFromMonitoring(monitoring);
-        }
-        else throw new BadRequestException();
+        } else throw new BadRequestException();
     }
 }

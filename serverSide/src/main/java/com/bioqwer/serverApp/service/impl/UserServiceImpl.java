@@ -62,11 +62,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public User editUser(User user) {
         User before = userRepository.findOne(user.getUserId());
-        if(user.equals(before)) {
+        if (user.equals(before)) {
             logger.debug("Don't need persist  editUser " + user);
             return user;
-        }
-        else {
+        } else {
             user = userRepository.saveAndFlush(user);
             logger.debug("Success editUser " + user);
             monitoringService.addUserMonitoring(user);
