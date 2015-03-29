@@ -13,6 +13,7 @@ import java.util.Collection;
  * Provide data structure of {@link com.bioqwer.serverApp.model.User} for application logic
  */
 @Entity
+@Table(name = "users")
 public class User {
     /**
      * Pattern for {@link com.bioqwer.serverApp.model.User#password}
