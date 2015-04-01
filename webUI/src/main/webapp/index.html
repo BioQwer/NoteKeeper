@@ -92,7 +92,7 @@
                                     </thead>
                                     <tbody ng-repeat="noteMonitoring in loginCtrl.getNoteMonitoring()">
                                     <tr>
-                                        <td><span class="glyphicon glyphicon-save btn btn-info btn-xs"></span></td>
+                                        <td><span ng-click="loginCtrl.doRevertFromMonitoring(noteMonitoring)" class="glyphicon glyphicon-save btn btn-info btn-xs"></span></td>
                                         <td><span
                                                 class="label label-success">{{noteMonitoring.logTime|date:'medium'}}</span>
                                         </td>

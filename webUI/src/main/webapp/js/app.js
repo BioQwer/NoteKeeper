@@ -380,7 +380,6 @@
             console.log("end do EditUser");
         };
 
-        var userMonitoring = this;
         noteMonitoring = [];
 
         this.getUserMonitoring = function () {
@@ -394,8 +393,9 @@
                 url: '/api/monitoring'
             }).success(function (data) {
                 noteMonitoring = data;
-                for(var i=0;data.length;i++)
+                for(var i=0;data.length;i++) {
                     noteMonitoring[i].logData = JSON.parse(data[i].logData);
+                }
                 console.log(noteMonitoring);
             }).error(function (data, status) {
                 console.log("error" + status);
@@ -418,14 +418,32 @@
                 url: '/api/monitoring/'+ editNote.noteId
             }).success(function (data) {
                 noteMonitoring = data;
-                for(var i=0;data.length;i++)
+                for(var i=0;data.length;i++) {
                     noteMonitoring[i].logData = JSON.parse(data[i].logData);
+                }
                 console.log(noteMonitoring);
             }).error(function (data, status) {
                 console.log("error" + status);
                 console.log(data);
             });
             console.log("end do doGetNoteMonitoring");
+        };
+
+        this.doRevertFromMonitoring = function (noteMonitoring) {
+            console.log("start do RevertFromMonitoring");
+            noteMonitoring.logData=JSON.stringify(noteMonitoring.logData);
+            $http({
+                method: 'POST',
+                url: '/api/monitoring/revert',
+                data:noteMonitoring
+            }).success(function (data) {
+                editNote = data;
+                console.log("Sucess revert from monitoring");
+            }).error(function (data, status) {
+                console.log("error" + status);
+                console.log(data);
+            });
+            console.log("end do RevertFromMonitoring");
         };
     }]);
 
