@@ -8,6 +8,7 @@ import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +47,15 @@ public class MonitoringTests {
     @Autowired
     private NoteService noteService;
 
+    User user = null;
+
+    @Before
+    public void setUp() throws Exception {
+        user = userService.addUser(new User("user1@email.ru", "login12", "Passsword1"));
+    }
 
     @Test
     public void testBasic() throws Exception {
-        User user = new User("user1@email.ru", "login12", "Passsword1");
-        user = userService.addUser(user);
-
         Note note = new Note(user, "Head ", "Body ");
         // 1 note
         noteService.addNote(note);
@@ -67,9 +71,6 @@ public class MonitoringTests {
 
     @Test
     public void testRevert() throws Exception {
-        User user = new User("user2@email.ru", "login1", "Passsword1");
-        user = userService.addUser(user);
-
         Note note = new Note(user, "Head ", "Body ");
         noteService.addNote(note);
         note.setHead("New Head");
@@ -92,9 +93,6 @@ public class MonitoringTests {
      */
     @Test
     public void testEditWithOutChanges() throws Exception {
-
-        User user = new User("Change@qwe.rt", "change", "asdasdA123");
-        user = userService.addUser(user);
         assertEquals(1, monitoringService.getUserAction(user).size());
         //Changed
         user.setLogin("change1");
@@ -121,7 +119,10 @@ public class MonitoringTests {
     @After
     public void tearDown() throws Exception {
         Collection<User> users =  userService.getAll();
-        for (User element :users)
+        for (User element :users) {
+            for (Note noteElement : noteService.getAllUserNotes(element.getUserId()))
+                noteService.deleteNote(noteElement);
             userService.delete(element);
+        }
     }
 }
