@@ -7,6 +7,7 @@ import com.bioqwer.serverApp.service.MonitoringService;
 import com.bioqwer.serverApp.service.NoteService;
 import com.bioqwer.serverApp.service.UserService;
 import com.github.springtestdbunit.DbUnitTestExecutionListener;
+import org.junit.After;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,5 +116,12 @@ public class MonitoringTests {
         note.setHead("Changed Head");
         note = noteService.editNote(note);
         assertEquals(2, monitoringService.getUserActionOnNote(note).size());
+    }
+
+    @After
+    public void tearDown() throws Exception {
+        Collection<User> users =  userService.getAll();
+        for (User element :users)
+            userService.delete(element);
     }
 }
