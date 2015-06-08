@@ -217,6 +217,19 @@
             </dependencies>
         </profile>
         <profile>
+            <id>dev_openshift</id>
+            <properties>
+                <build.profile.id>dev_openshift</build.profile.id>
+            </properties>
+            <dependencies>
+                <dependency>
+                    <groupId>mysql</groupId>
+                    <artifactId>mysql-connector-java</artifactId>
+                    <version>${mysql.version}</version>
+                </dependency>
+            </dependencies>
+        </profile>
+        <profile>
             <id>in_memory_db</id>
             <properties>
                 <build.profile.id>dev_postgresql</build.profile.id>

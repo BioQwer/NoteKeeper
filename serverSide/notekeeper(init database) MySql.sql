@@ -1,3 +1,4 @@
+CREATE SCHEMA notekeeper;
 CREATE TABLE note
 (
   head           CHAR(255),
