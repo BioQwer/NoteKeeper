@@ -162,9 +162,6 @@
     <profiles>
         <profile>
             <id>dev_mysql</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <build.profile.id>dev_mysql</build.profile.id>
             </properties>
@@ -189,6 +186,9 @@
         </profile>
         <profile>
             <id>in_memory_db</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <build.profile.id>dev_postgresql</build.profile.id>
             </properties>
