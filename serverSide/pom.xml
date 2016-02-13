@@ -190,12 +190,13 @@
                 <activeByDefault>true</activeByDefault>
             </activation>
             <properties>
-                <build.profile.id>dev_postgresql</build.profile.id>
+                <build.profile.id>in_memory_db</build.profile.id>
             </properties>
             <dependencies>
                 <dependency>
                     <groupId>com.h2database</groupId>
                     <artifactId>h2</artifactId>
+                    <scope>runtime</scope>
                 </dependency>
             </dependencies>
         </profile>

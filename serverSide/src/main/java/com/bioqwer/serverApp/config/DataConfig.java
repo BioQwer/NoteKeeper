@@ -1,6 +1,10 @@
 package com.bioqwer.serverApp.config;
 
-import com.jolbox.bonecp.BoneCPDataSource;
+import java.util.Properties;
+import javax.annotation.Resource;
+import javax.persistence.ValidationMode;
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -11,10 +15,7 @@ import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 
-import javax.annotation.Resource;
-import javax.persistence.ValidationMode;
-import javax.sql.DataSource;
-import java.util.Properties;
+import com.jolbox.bonecp.BoneCPDataSource;
 
 /**
  * DataBase JavaConfigs for Persistence
@@ -31,7 +32,9 @@ public class DataConfig {
     protected static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
 
     private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "db.hibernate.dialect";
+    private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "db.hibernate.format_sql";
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
+    private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "db.hibernate.ejb.naming_strategy";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
 
 
@@ -81,8 +84,12 @@ public class DataConfig {
 
         Properties jpaProperties = new Properties();
         jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_FORMAT_SQL, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_FORMAT_SQL));
         jpaProperties.put(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO));
+        jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
         jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
+
+        System.out.println("jpaProperties.stringPropertyNames() = " + jpaProperties.stringPropertyNames());
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 
