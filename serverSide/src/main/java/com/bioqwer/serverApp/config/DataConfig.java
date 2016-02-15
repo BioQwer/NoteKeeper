@@ -37,6 +37,7 @@ public class DataConfig {
     private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "db.hibernate.ejb.naming_strategy";
     private static final String PROPERTY_NAME_HIBERNATE_SHOW_SQL = "db.hibernate.show_sql";
 
+    private static final String PROPERTY_PACKAGES_TO_SCAN = "com.bioqwer.serverApp.model";
 
     @Resource
     private Environment environment;
@@ -80,7 +81,8 @@ public class DataConfig {
 
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());
-        entityManagerFactoryBean.setValidationMode(ValidationMode.AUTO);
+
+        entityManagerFactoryBean.setPackagesToScan(PROPERTY_PACKAGES_TO_SCAN);
 
         Properties jpaProperties = new Properties();
         jpaProperties.put(PROPERTY_NAME_HIBERNATE_DIALECT, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_DIALECT));
@@ -89,7 +91,7 @@ public class DataConfig {
         jpaProperties.put(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY));
         jpaProperties.put(PROPERTY_NAME_HIBERNATE_SHOW_SQL, environment.getRequiredProperty(PROPERTY_NAME_HIBERNATE_SHOW_SQL));
 
-        System.out.println("jpaProperties.stringPropertyNames() = " + jpaProperties.stringPropertyNames());
+        System.out.println("jpaProperties.stringPropertyNames() = " + jpaProperties.entrySet());
 
         entityManagerFactoryBean.setJpaProperties(jpaProperties);
 

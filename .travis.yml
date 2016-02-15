@@ -1,3 +1,13 @@
 language: java
 jdk:
-  - oraclejdk8
+- oraclejdk8
+deploy:
+  provider: openshift
+  user: bioqwer94@gmail.com
+  password:
+    secure: cWiHLM1AOD9Pgn8tFgZSST+fjGN2BeubU4jaNTZ3WIYgV6X14wdci2njuQ4ALXWy8YoQifBAautgSm9rSeHtfLWuVGN4mpmK2mEEokSvEQiz2rvUAPn53hdVo73lbUjY9zJHKue46wq6MdrXGylHhK/gVsHAk+X7RP2lOvykPI8=
+  app: notekeeper
+  domain: bioqwer
+  on:
+    repo: BioQwer/NoteKeeper
+    all_branches: true
