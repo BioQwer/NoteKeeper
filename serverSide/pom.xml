@@ -185,14 +185,14 @@
             </dependencies>
         </profile>
         <profile>
-            <id>dev_openshift</id>
+            <id>openshift</id>
             <properties>
-                <build.profile.id>dev_openshift</build.profile.id>
+                <build.profile.id>openshift</build.profile.id>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>mysql</groupId>
-                    <artifactId>mysql-connector-java</artifactId>
+                    <groupId>postgresql</groupId>
+                    <artifactId>postgresql</artifactId>
                 </dependency>
             </dependencies>
         </profile>
