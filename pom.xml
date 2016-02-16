@@ -30,7 +30,7 @@
                     <artifactId>maven-war-plugin</artifactId>
                     <version>2.6</version>
                     <configuration>
-                        <webappDirectory>../webapps</webappDirectory>
+                        <outputDirectory>webapps</outputDirectory>
                     </configuration>
                 </plugin>
             </plugins>
