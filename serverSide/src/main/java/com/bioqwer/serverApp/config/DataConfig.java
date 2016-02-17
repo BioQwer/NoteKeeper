@@ -31,7 +31,7 @@ public class DataConfig {
     protected static final String PROPERTY_NAME_DATABASE_URL = "db.url";
     protected static final String PROPERTY_NAME_DATABASE_USERNAME = "db.username";
 
-    private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "db.hibernate.dialect";
+    private static final String PROPERTY_NAME_HIBERNATE_DIALECT = "hibernate.dialect";
     private static final String PROPERTY_NAME_HIBERNATE_FORMAT_SQL = "db.hibernate.format_sql";
     private static final String PROPERTY_NAME_HIBERNATE_HBM2DDL_AUTO = "db.hibernate.hbm2ddl.auto";
     private static final String PROPERTY_NAME_HIBERNATE_NAMING_STRATEGY = "db.hibernate.ejb.naming_strategy";

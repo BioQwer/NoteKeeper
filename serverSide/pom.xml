@@ -179,28 +179,28 @@
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>postgresql</groupId>
+                    <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                 </dependency>
             </dependencies>
         </profile>
         <profile>
             <id>openshift</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
             <properties>
                 <build.profile.id>openshift</build.profile.id>
             </properties>
             <dependencies>
                 <dependency>
-                    <groupId>postgresql</groupId>
+                    <groupId>org.postgresql</groupId>
                     <artifactId>postgresql</artifactId>
                 </dependency>
             </dependencies>
         </profile>
         <profile>
             <id>in_memory_db</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
             <properties>
                 <build.profile.id>in_memory_db</build.profile.id>
             </properties>
