@@ -5,8 +5,8 @@ deploy:
   provider: openshift
   user: bioqwer94@gmail.com
   password:
-    secure: cWiHLM1AOD9Pgn8tFgZSST+fjGN2BeubU4jaNTZ3WIYgV6X14wdci2njuQ4ALXWy8YoQifBAautgSm9rSeHtfLWuVGN4mpmK2mEEokSvEQiz2rvUAPn53hdVo73lbUjY9zJHKue46wq6MdrXGylHhK/gVsHAk+X7RP2lOvykPI8=
-  app: notekeeper
+    secure: zNEFBwN0aGRk3Ox/TiaCp9cpSK07dRD6r0iWLYyQusSwHsgWf/dJSFza+ICkWSjZib2fxB4/v0geQOl5jzz5Ut5a/RKUVoCuv6FVug6Eh6iyKD7WMVkai29gAEgTfvcD38yfuy5lnNwbM6v9AZ9mC4RFfCXNBV0Tjt9xF6lHRwU=
+  app: NoteKeeper
   domain: bioqwer
   on:
     repo: BioQwer/NoteKeeper
