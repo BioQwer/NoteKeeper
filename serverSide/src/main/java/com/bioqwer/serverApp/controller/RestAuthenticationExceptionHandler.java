@@ -1,7 +1,10 @@
 package com.bioqwer.serverApp.controller;
 
-import com.bioqwer.serverApp.model.User;
-import com.bioqwer.serverApp.service.UserService;
+import java.io.IOException;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -9,10 +12,8 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.SimpleUrlAuthenticationFailureHandler;
 import org.springframework.stereotype.Component;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
+import com.bioqwer.serverApp.model.User;
+import com.bioqwer.serverApp.service.UserService;
 
 /**
  * Provide Exception Handler for Authentication Failure.
@@ -35,6 +36,7 @@ public class RestAuthenticationExceptionHandler extends SimpleUrlAuthenticationF
     @Override
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException, ServletException {
         User user = userService.getByLogin((String) exception.getAuthentication().getPrincipal());
+        LOGGER.error(exception.getMessage());
         if (user == null) {
             String message = "User not Found!";
             response.sendError(404, message);
