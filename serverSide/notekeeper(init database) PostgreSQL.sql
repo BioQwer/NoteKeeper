@@ -1,4 +1,14 @@
-CREATE TABLE note
+CREATE DATABASE notekeeper;
+CREATE USER note WITH PASSWORD 'keep';
+GRANT ALL PRIVILEGES ON SCHEMA notekeeper TO note;
+
+/*
+DROP TABLE IF EXISTS note CASCADE;
+DROP TABLE IF EXISTS users CASCADE ;
+DROP TABLE IF EXISTS monitoring CASCADE;
+*/
+
+CREATE TABLE IF NOT EXISTS note
 (
   head           VARCHAR(255),
   body           TEXT,
@@ -7,14 +17,14 @@ CREATE TABLE note
   noteId         BIGINT UNIQUE PRIMARY KEY NOT NULL,
   userId         BIGINT                    NOT NULL
 );
-CREATE TABLE users
+CREATE TABLE IF NOT EXISTS users
 (
   userId   BIGINT PRIMARY KEY NOT NULL,
   email    VARCHAR(40) UNIQUE    NOT NULL,
   login    VARCHAR(40) UNIQUE    NOT NULL,
   password VARCHAR(40)           NOT NULL
 );
-CREATE TABLE monitoring
+CREATE TABLE IF NOT EXISTS monitoring
 (
   id BIGINT NOT NULL,
   user_id BIGINT NOT NULL,
@@ -27,6 +37,7 @@ ALTER TABLE note ADD CONSTRAINT note_ibfk_1 FOREIGN KEY (userId)
 REFERENCES users (userId)
 ON DELETE CASCADE;
 CREATE INDEX R_3 ON note (userId);
+CREATE INDEX search_index on note (head, body);
 ALTER TABLE monitoring ADD CONSTRAINT user_FK FOREIGN KEY (user_id)
 REFERENCES users (userId)
 ON DELETE CASCADE;
