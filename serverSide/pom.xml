@@ -205,7 +205,6 @@
                         <artifactId>maven-war-plugin</artifactId>
                         <configuration>
                             <failOnMissingWebXml>false</failOnMissingWebXml>
-                            <webXml>WEB-INF/web.xml</webXml>
                             <warName>api</warName>
                         </configuration>
                     </plugin>
