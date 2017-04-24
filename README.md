@@ -1,10 +1,10 @@
-#NoteKeeper [![Build Status](https://travis-ci.org/BioQwer/NoteKeeper.svg?branch=master)](https://travis-ci.org/BioQwer/NoteKeeper)
+# NoteKeeper [![Build Status](https://travis-ci.org/BioQwer/NoteKeeper.svg?branch=master)](https://travis-ci.org/BioQwer/NoteKeeper)
 Note service for keeping yours notes in the cloud.
 This repository contains two application.
-##Java Backend
-####Goal
+## Java Backend
+#### Goal
 Purpose of this application - provide REST service with security using as storage DataBase(MySql).
-####Used for the development of:
+#### Used for the development of:
 * JavaEE 7 
 * Spring Framework
 * Persistence API
@@ -13,24 +13,24 @@ Purpose of this application - provide REST service with security using as storag
 * Log4j
 * H2 in memory database
 
-##Frontend
+## Frontend
 
-####Goal
+#### Goal
 WebUI support.
 
-####Used for the development of:
+#### Used for the development of:
 
 * Angular.JS
 * BootStrap
 * jQuery
 
-##Installation guide 
-####Requirements
+## Installation guide 
+#### Requirements
 
 1. DataBase, your choice is not critical, tested on [MySql](http://dev.mysql.com/).
 2. Application server, tested on [Tomcat](http://tomcat.apache.org/download-80.cgi) and [GlassFish](https://glassfish.java.net/).
 
-####Steps
+#### Steps
 
 1. Create schema, tables and keys in your DataBase.
 
